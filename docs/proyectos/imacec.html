@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Nowcasting de actividad económica en Chile – Mauricio Ulloa</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="../site_libs/plotly-binding-4.12.0/plotly.js"></script>
+
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Mauricio Ulloa</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../proyectos.html"> 
+<span class="menu-text">Proyectos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contacto.html"> 
+<span class="menu-text">Contacto</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/mulloav3007"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Nowcasting de actividad económica en Chile</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Código</button></div></div>
+<p class="subtitle lead">Modelo mensual en R para seguimiento coyuntural del IMACEC total y no minero</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Estado del proyecto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Proyecto aplicado en desarrollo continuo.</strong> La metodología base está implementada para actualizarse mensualmente con nueva información. La página está pensada como una vitrina técnica: muestra la motivación, la estructura del modelo, los resultados principales y el pipeline reproducible.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Advertencia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>## Página usando datos demo</p>
+<p>Todavía no se han generado los archivos reales <code>data/processed/imacec_nowcast_*.csv</code>. Ejecuta <code>Rscript scripts/01_update_imacec.R</code> desde la raíz del repositorio para reemplazar esta visualización por resultados actualizados. :::</p>
+<section id="pregunta-económica" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-económica">Pregunta económica</h2>
+<p>El IMACEC es una de las señales principales para evaluar la coyuntura económica chilena. Este proyecto busca responder una pregunta práctica:</p>
+<blockquote class="blockquote">
+<p>¿Es posible anticipar la evolución reciente del IMACEC total y no minero usando información mensual disponible antes de la publicación oficial?</p>
+</blockquote>
+<p>El objetivo no es producir una proyección oficial, sino construir una herramienta reproducible de seguimiento coyuntural que combine datos macroeconómicos, variables calendario, indicadores sectoriales y modelos econométricos simples.</p>
+</section>
+<section id="resultado-principal" class="level2">
+<h2 class="anchored" data-anchor-id="resultado-principal">Resultado principal</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Últimas observaciones y nowcast mensual</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Período</th>
+<th style="text-align: right;">IMACEC total</th>
+<th style="text-align: right;">IMACEC no minero</th>
+<th style="text-align: left;">Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2026-01</td>
+<td style="text-align: right;">1.36</td>
+<td style="text-align: right;">1.68</td>
+<td style="text-align: left;">Observado</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2026-02</td>
+<td style="text-align: right;">1.46</td>
+<td style="text-align: right;">1.80</td>
+<td style="text-align: left;">Observado</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2026-03</td>
+<td style="text-align: right;">1.53</td>
+<td style="text-align: right;">1.57</td>
+<td style="text-align: left;">Observado</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2026-04</td>
+<td style="text-align: right;">1.66</td>
+<td style="text-align: right;">2.32</td>
+<td style="text-align: left;">Observado</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2026-05</td>
+<td style="text-align: right;">1.43</td>
+<td style="text-align: right;">2.60</td>
+<td style="text-align: left;">Observado</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2026-06</td>
+<td style="text-align: right;">2.40</td>
+<td style="text-align: right;">2.10</td>
+<td style="text-align: left;">Nowcast</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="imacec-total-observado-versus-ajustenowcast" class="level2">
+<h2 class="anchored" data-anchor-id="imacec-total-observado-versus-ajustenowcast">IMACEC total: observado versus ajuste/nowcast</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-c40410c56bc76169bef7" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-c40410c56bc76169bef7">{"x":{"data":[{"x":[17568.400000000001,20749.599999999999],"y":[0,0],"text":"yintercept: 0","type":"scatter","mode":"lines","line":{"width":0.94488188976377963,"color":"rgba(179,179,179,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692,19723,19754,19783,19814,19844,19875,19905,19936,19967,19997,20028,20058,20089,20120,20148,20179,20209,20240,20270,20301,20332,20362,20393,20423,20454,20485,20513,20544,20574,20605],"y":[3.3925303392390793,2.9541874871611213,2.2824384474599975,2.464237612934344,1.8146329228750151,1.5664945030719393,1.6265567067924351,0.58747430663692279,0.54918765395866409,0.97508498830361079,0.83402233883010757,1.4784853375381517,1.1665621679575369,1.1878649239659254,2.5862595075686214,2.1569030753053435,2.4972394837091478,2.0773143210145748,2.5430921232260495,2.8443690358839464,2.3004477820672018,-8.2025071971617738,-6.7700272741335432,-4.8694639044173531,1.7593173551082415,2.4936976783036173,1.5243729082708479,0.92970203291768205,1.5681727518051529,0.71166254001159102,1.3227002249657791,0.5689183549481317,8.9984973786066487,9.8315308988476904,10.295386631998165,10.315760907975946,10.423968888878679,10.526772117264242,2.1694364168891518,2.5120623166421163,2.5765897046522079,3.070062485987525,2.6076755176613635,1.541997533354865,2.1296335877579184,1.5987534923335172,1.2590029980436384,1.5974569200363886,1.6515545959622575,1.5725120476464791,0.90346777767482145,1.2291014541595566,1.6622771707274466,2.1430044553489842,1.8083303048618833,2.1729500048344317,2.0276942122315669,2.1687309458676882,3.0858555419938019,3.3424960114283291,2.7320411644039897,3.0486267546567691,2.6148826118530328,1.9891656936579072,2.1445582422033667,2.3680010310864317,1.5154413825220414,1.9786438668256441,0.19125674532797943,1.5287610017500894,1.2739736142591451,1.2331834643136954,1.5664761087802217,0.95775883865968281,1.9121312448649943,2.3900586241046571,3.0613858197305843,2.4399055081904977,2.4374477718788476,2.5992971825661852,3.1270060601169529,2.778714039363833,2.2583241203271638,2.4525205687452996,2.038831019739217,2.1402444007132,1.2489505606150813,1.2217215458609345,1.0823115257110141,0.61459402074715253,1.3576028977897072,1.4572085133719981,1.531817180823005,1.6589515511499808,1.4338517031798332,null],"text":["Periodo: 2018-07-01<br />imacec:  3.3925303<br />colour: Observado","Periodo: 2018-08-01<br />imacec:  2.9541875<br />colour: Observado","Periodo: 2018-09-01<br />imacec:  2.2824384<br />colour: Observado","Periodo: 2018-10-01<br />imacec:  2.4642376<br />colour: Observado","Periodo: 2018-11-01<br />imacec:  1.8146329<br />colour: Observado","Periodo: 2018-12-01<br />imacec:  1.5664945<br />colour: Observado","Periodo: 2019-01-01<br />imacec:  1.6265567<br />colour: Observado","Periodo: 2019-02-01<br />imacec:  0.5874743<br />colour: Observado","Periodo: 2019-03-01<br />imacec:  0.5491877<br />colour: Observado","Periodo: 2019-04-01<br />imacec:  0.9750850<br />colour: Observado","Periodo: 2019-05-01<br />imacec:  0.8340223<br />colour: Observado","Periodo: 2019-06-01<br />imacec:  1.4784853<br />colour: Observado","Periodo: 2019-07-01<br />imacec:  1.1665622<br />colour: Observado","Periodo: 2019-08-01<br />imacec:  1.1878649<br />colour: Observado","Periodo: 2019-09-01<br />imacec:  2.5862595<br />colour: Observado","Periodo: 2019-10-01<br />imacec:  2.1569031<br />colour: Observado","Periodo: 2019-11-01<br />imacec:  2.4972395<br />colour: Observado","Periodo: 2019-12-01<br />imacec:  2.0773143<br />colour: Observado","Periodo: 2020-01-01<br />imacec:  2.5430921<br />colour: Observado","Periodo: 2020-02-01<br />imacec:  2.8443690<br />colour: Observado","Periodo: 2020-03-01<br />imacec:  2.3004478<br />colour: Observado","Periodo: 2020-04-01<br />imacec: -8.2025072<br />colour: Observado","Periodo: 2020-05-01<br />imacec: -6.7700273<br />colour: Observado","Periodo: 2020-06-01<br />imacec: -4.8694639<br />colour: Observado","Periodo: 2020-07-01<br />imacec:  1.7593174<br />colour: Observado","Periodo: 2020-08-01<br />imacec:  2.4936977<br />colour: Observado","Periodo: 2020-09-01<br />imacec:  1.5243729<br />colour: Observado","Periodo: 2020-10-01<br />imacec:  0.9297020<br />colour: Observado","Periodo: 2020-11-01<br />imacec:  1.5681728<br />colour: Observado","Periodo: 2020-12-01<br />imacec:  0.7116625<br />colour: Observado","Periodo: 2021-01-01<br />imacec:  1.3227002<br />colour: Observado","Periodo: 2021-02-01<br />imacec:  0.5689184<br />colour: Observado","Periodo: 2021-03-01<br />imacec:  8.9984974<br />colour: Observado","Periodo: 2021-04-01<br />imacec:  9.8315309<br />colour: Observado","Periodo: 2021-05-01<br />imacec: 10.2953866<br />colour: Observado","Periodo: 2021-06-01<br />imacec: 10.3157609<br />colour: Observado","Periodo: 2021-07-01<br />imacec: 10.4239689<br />colour: Observado","Periodo: 2021-08-01<br />imacec: 10.5267721<br />colour: Observado","Periodo: 2021-09-01<br />imacec:  2.1694364<br />colour: Observado","Periodo: 2021-10-01<br />imacec:  2.5120623<br />colour: Observado","Periodo: 2021-11-01<br />imacec:  2.5765897<br />colour: Observado","Periodo: 2021-12-01<br />imacec:  3.0700625<br />colour: Observado","Periodo: 2022-01-01<br />imacec:  2.6076755<br />colour: Observado","Periodo: 2022-02-01<br />imacec:  1.5419975<br />colour: Observado","Periodo: 2022-03-01<br />imacec:  2.1296336<br />colour: Observado","Periodo: 2022-04-01<br />imacec:  1.5987535<br />colour: Observado","Periodo: 2022-05-01<br />imacec:  1.2590030<br />colour: Observado","Periodo: 2022-06-01<br />imacec:  1.5974569<br />colour: Observado","Periodo: 2022-07-01<br />imacec:  1.6515546<br />colour: Observado","Periodo: 2022-08-01<br />imacec:  1.5725120<br />colour: Observado","Periodo: 2022-09-01<br />imacec:  0.9034678<br />colour: Observado","Periodo: 2022-10-01<br />imacec:  1.2291015<br />colour: Observado","Periodo: 2022-11-01<br />imacec:  1.6622772<br />colour: Observado","Periodo: 2022-12-01<br />imacec:  2.1430045<br />colour: Observado","Periodo: 2023-01-01<br />imacec:  1.8083303<br />colour: Observado","Periodo: 2023-02-01<br />imacec:  2.1729500<br />colour: Observado","Periodo: 2023-03-01<br />imacec:  2.0276942<br />colour: Observado","Periodo: 2023-04-01<br />imacec:  2.1687309<br />colour: Observado","Periodo: 2023-05-01<br />imacec:  3.0858555<br />colour: Observado","Periodo: 2023-06-01<br />imacec:  3.3424960<br />colour: Observado","Periodo: 2023-07-01<br />imacec:  2.7320412<br />colour: Observado","Periodo: 2023-08-01<br />imacec:  3.0486268<br />colour: Observado","Periodo: 2023-09-01<br />imacec:  2.6148826<br />colour: Observado","Periodo: 2023-10-01<br />imacec:  1.9891657<br />colour: Observado","Periodo: 2023-11-01<br />imacec:  2.1445582<br />colour: Observado","Periodo: 2023-12-01<br />imacec:  2.3680010<br />colour: Observado","Periodo: 2024-01-01<br />imacec:  1.5154414<br />colour: Observado","Periodo: 2024-02-01<br />imacec:  1.9786439<br />colour: Observado","Periodo: 2024-03-01<br />imacec:  0.1912567<br />colour: Observado","Periodo: 2024-04-01<br />imacec:  1.5287610<br />colour: Observado","Periodo: 2024-05-01<br />imacec:  1.2739736<br />colour: Observado","Periodo: 2024-06-01<br />imacec:  1.2331835<br />colour: Observado","Periodo: 2024-07-01<br />imacec:  1.5664761<br />colour: Observado","Periodo: 2024-08-01<br />imacec:  0.9577588<br />colour: Observado","Periodo: 2024-09-01<br />imacec:  1.9121312<br />colour: Observado","Periodo: 2024-10-01<br />imacec:  2.3900586<br />colour: Observado","Periodo: 2024-11-01<br />imacec:  3.0613858<br />colour: Observado","Periodo: 2024-12-01<br />imacec:  2.4399055<br />colour: Observado","Periodo: 2025-01-01<br />imacec:  2.4374478<br />colour: Observado","Periodo: 2025-02-01<br />imacec:  2.5992972<br />colour: Observado","Periodo: 2025-03-01<br />imacec:  3.1270061<br />colour: Observado","Periodo: 2025-04-01<br />imacec:  2.7787140<br />colour: Observado","Periodo: 2025-05-01<br />imacec:  2.2583241<br />colour: Observado","Periodo: 2025-06-01<br />imacec:  2.4525206<br />colour: Observado","Periodo: 2025-07-01<br />imacec:  2.0388310<br />colour: Observado","Periodo: 2025-08-01<br />imacec:  2.1402444<br />colour: Observado","Periodo: 2025-09-01<br />imacec:  1.2489506<br />colour: Observado","Periodo: 2025-10-01<br />imacec:  1.2217215<br />colour: Observado","Periodo: 2025-11-01<br />imacec:  1.0823115<br />colour: Observado","Periodo: 2025-12-01<br />imacec:  0.6145940<br />colour: Observado","Periodo: 2026-01-01<br />imacec:  1.3576029<br />colour: Observado","Periodo: 2026-02-01<br />imacec:  1.4572085<br />colour: Observado","Periodo: 2026-03-01<br />imacec:  1.5318172<br />colour: Observado","Periodo: 2026-04-01<br />imacec:  1.6589516<br />colour: Observado","Periodo: 2026-05-01<br />imacec:  1.4338517<br />colour: Observado","Periodo: 2026-06-01<br />imacec:         NA<br />colour: Observado"],"type":"scatter","mode":"lines","line":{"width":2.8346456692913389,"color":"rgba(31,78,121,1)","dash":"solid"},"hoveron":"points","name":"Observado","legendgroup":"Observado","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692,19723,19754,19783,19814,19844,19875,19905,19936,19967,19997,20028,20058,20089,20120,20148,20179,20209,20240,20270,20301,20332,20362,20393,20423,20454,20485,20513,20544,20574,20605],"y":[3.0507817281119105,3.9808705538705231,3.0191080522933578,2.8508459258969703,2.4256034352964195,2.1113028257868827,1.5904107330863766,1.449917477290416,0.72786658549494765,0.64471099794806364,0.66475744007351822,1.1163327564038708,1.7383545897769761,0.81082117833926748,1.8184605807576564,1.5738302011492176,2.2954843890803462,2.5160566092515304,2.3886186474237898,2.2188222988925306,2.3838103864107403,-0.8493306891698732,-4.4066205543386561,-6.5598848111753965,-3.2819983145049312,-0.36838304390328558,2.4617820028922339,1.8077372954102189,0.83446358433349277,1.1164593536038323,1.0353985560687442,1.0808687070075569,3.4319084682320113,6.4376314337674323,9.8347184562292824,10.363998278149795,10.044964707853651,10.338541995746054,7.5879894798871197,4.906091308788409,2.8607263727981,2.8208169301675223,2.4362215808499381,2.6360439990982791,2.6236412621778742,2.0149111862865543,1.2826208678898552,1.3640126185879522,1.8193992919774176,1.4302571548103471,1.486799664131077,1.4286856065176208,1.0332161829594213,1.6632463543965459,1.0608871419621702,1.7853313446815275,1.939849469461004,1.8111792588200173,2.8355297260139283,2.5081588219397819,2.9434531176011283,3.0737397878178863,3.1588351659044607,2.1919261489277102,2.5403264539435093,2.1697999209041323,1.7639563891752923,2.0695546287105242,1.2782122554519231,1.0828329853448728,1.0154476416932434,1.2489776275588709,1.3862570654305002,1.4180054725481288,1.8752929348046381,1.443862361169733,2.9877835732308125,2.1424280341279549,2.6083000928410813,2.6392961224996547,2.7914983051210882,2.6793308807271758,2.6693175106799982,2.3732693424807247,2.1025507137011745,2.4229325206544958,1.898595865180428,1.3637447702479089,1.40922784625399,1.0497005776588533,1.2213850111256983,1.300542354450523,1.2416274445977191,1.4092804883990864,1.7283635463317557,2.3999999999999999],"text":["Periodo: 2018-07-01<br />imacec_fit:  3.0507817<br />colour: Ajuste / nowcast","Periodo: 2018-08-01<br />imacec_fit:  3.9808706<br />colour: Ajuste / nowcast","Periodo: 2018-09-01<br />imacec_fit:  3.0191081<br />colour: Ajuste / nowcast","Periodo: 2018-10-01<br />imacec_fit:  2.8508459<br />colour: Ajuste / nowcast","Periodo: 2018-11-01<br />imacec_fit:  2.4256034<br />colour: Ajuste / nowcast","Periodo: 2018-12-01<br />imacec_fit:  2.1113028<br />colour: Ajuste / nowcast","Periodo: 2019-01-01<br />imacec_fit:  1.5904107<br />colour: Ajuste / nowcast","Periodo: 2019-02-01<br />imacec_fit:  1.4499175<br />colour: Ajuste / nowcast","Periodo: 2019-03-01<br />imacec_fit:  0.7278666<br />colour: Ajuste / nowcast","Periodo: 2019-04-01<br />imacec_fit:  0.6447110<br />colour: Ajuste / nowcast","Periodo: 2019-05-01<br />imacec_fit:  0.6647574<br />colour: Ajuste / nowcast","Periodo: 2019-06-01<br />imacec_fit:  1.1163328<br />colour: Ajuste / nowcast","Periodo: 2019-07-01<br />imacec_fit:  1.7383546<br />colour: Ajuste / nowcast","Periodo: 2019-08-01<br />imacec_fit:  0.8108212<br />colour: Ajuste / nowcast","Periodo: 2019-09-01<br />imacec_fit:  1.8184606<br />colour: Ajuste / nowcast","Periodo: 2019-10-01<br />imacec_fit:  1.5738302<br />colour: Ajuste / nowcast","Periodo: 2019-11-01<br />imacec_fit:  2.2954844<br />colour: Ajuste / nowcast","Periodo: 2019-12-01<br />imacec_fit:  2.5160566<br />colour: Ajuste / nowcast","Periodo: 2020-01-01<br />imacec_fit:  2.3886186<br />colour: Ajuste / nowcast","Periodo: 2020-02-01<br />imacec_fit:  2.2188223<br />colour: Ajuste / nowcast","Periodo: 2020-03-01<br />imacec_fit:  2.3838104<br />colour: Ajuste / nowcast","Periodo: 2020-04-01<br />imacec_fit: -0.8493307<br />colour: Ajuste / nowcast","Periodo: 2020-05-01<br />imacec_fit: -4.4066206<br />colour: Ajuste / nowcast","Periodo: 2020-06-01<br />imacec_fit: -6.5598848<br />colour: Ajuste / nowcast","Periodo: 2020-07-01<br />imacec_fit: -3.2819983<br />colour: Ajuste / nowcast","Periodo: 2020-08-01<br />imacec_fit: -0.3683830<br />colour: Ajuste / nowcast","Periodo: 2020-09-01<br />imacec_fit:  2.4617820<br />colour: Ajuste / nowcast","Periodo: 2020-10-01<br />imacec_fit:  1.8077373<br />colour: Ajuste / nowcast","Periodo: 2020-11-01<br />imacec_fit:  0.8344636<br />colour: Ajuste / nowcast","Periodo: 2020-12-01<br />imacec_fit:  1.1164594<br />colour: Ajuste / nowcast","Periodo: 2021-01-01<br />imacec_fit:  1.0353986<br />colour: Ajuste / nowcast","Periodo: 2021-02-01<br />imacec_fit:  1.0808687<br />colour: Ajuste / nowcast","Periodo: 2021-03-01<br />imacec_fit:  3.4319085<br />colour: Ajuste / nowcast","Periodo: 2021-04-01<br />imacec_fit:  6.4376314<br />colour: Ajuste / nowcast","Periodo: 2021-05-01<br />imacec_fit:  9.8347185<br />colour: Ajuste / nowcast","Periodo: 2021-06-01<br />imacec_fit: 10.3639983<br />colour: Ajuste / nowcast","Periodo: 2021-07-01<br />imacec_fit: 10.0449647<br />colour: Ajuste / nowcast","Periodo: 2021-08-01<br />imacec_fit: 10.3385420<br />colour: Ajuste / nowcast","Periodo: 2021-09-01<br />imacec_fit:  7.5879895<br />colour: Ajuste / nowcast","Periodo: 2021-10-01<br />imacec_fit:  4.9060913<br />colour: Ajuste / nowcast","Periodo: 2021-11-01<br />imacec_fit:  2.8607264<br />colour: Ajuste / nowcast","Periodo: 2021-12-01<br />imacec_fit:  2.8208169<br />colour: Ajuste / nowcast","Periodo: 2022-01-01<br />imacec_fit:  2.4362216<br />colour: Ajuste / nowcast","Periodo: 2022-02-01<br />imacec_fit:  2.6360440<br />colour: Ajuste / nowcast","Periodo: 2022-03-01<br />imacec_fit:  2.6236413<br />colour: Ajuste / nowcast","Periodo: 2022-04-01<br />imacec_fit:  2.0149112<br />colour: Ajuste / nowcast","Periodo: 2022-05-01<br />imacec_fit:  1.2826209<br />colour: Ajuste / nowcast","Periodo: 2022-06-01<br />imacec_fit:  1.3640126<br />colour: Ajuste / nowcast","Periodo: 2022-07-01<br />imacec_fit:  1.8193993<br />colour: Ajuste / nowcast","Periodo: 2022-08-01<br />imacec_fit:  1.4302572<br />colour: Ajuste / nowcast","Periodo: 2022-09-01<br />imacec_fit:  1.4867997<br />colour: Ajuste / nowcast","Periodo: 2022-10-01<br />imacec_fit:  1.4286856<br />colour: Ajuste / nowcast","Periodo: 2022-11-01<br />imacec_fit:  1.0332162<br />colour: Ajuste / nowcast","Periodo: 2022-12-01<br />imacec_fit:  1.6632464<br />colour: Ajuste / nowcast","Periodo: 2023-01-01<br />imacec_fit:  1.0608871<br />colour: Ajuste / nowcast","Periodo: 2023-02-01<br />imacec_fit:  1.7853313<br />colour: Ajuste / nowcast","Periodo: 2023-03-01<br />imacec_fit:  1.9398495<br />colour: Ajuste / nowcast","Periodo: 2023-04-01<br />imacec_fit:  1.8111793<br />colour: Ajuste / nowcast","Periodo: 2023-05-01<br />imacec_fit:  2.8355297<br />colour: Ajuste / nowcast","Periodo: 2023-06-01<br />imacec_fit:  2.5081588<br />colour: Ajuste / nowcast","Periodo: 2023-07-01<br />imacec_fit:  2.9434531<br />colour: Ajuste / nowcast","Periodo: 2023-08-01<br />imacec_fit:  3.0737398<br />colour: Ajuste / nowcast","Periodo: 2023-09-01<br />imacec_fit:  3.1588352<br />colour: Ajuste / nowcast","Periodo: 2023-10-01<br />imacec_fit:  2.1919261<br />colour: Ajuste / nowcast","Periodo: 2023-11-01<br />imacec_fit:  2.5403265<br />colour: Ajuste / nowcast","Periodo: 2023-12-01<br />imacec_fit:  2.1697999<br />colour: Ajuste / nowcast","Periodo: 2024-01-01<br />imacec_fit:  1.7639564<br />colour: Ajuste / nowcast","Periodo: 2024-02-01<br />imacec_fit:  2.0695546<br />colour: Ajuste / nowcast","Periodo: 2024-03-01<br />imacec_fit:  1.2782123<br />colour: Ajuste / nowcast","Periodo: 2024-04-01<br />imacec_fit:  1.0828330<br />colour: Ajuste / nowcast","Periodo: 2024-05-01<br />imacec_fit:  1.0154476<br />colour: Ajuste / nowcast","Periodo: 2024-06-01<br />imacec_fit:  1.2489776<br />colour: Ajuste / nowcast","Periodo: 2024-07-01<br />imacec_fit:  1.3862571<br />colour: Ajuste / nowcast","Periodo: 2024-08-01<br />imacec_fit:  1.4180055<br />colour: Ajuste / nowcast","Periodo: 2024-09-01<br />imacec_fit:  1.8752929<br />colour: Ajuste / nowcast","Periodo: 2024-10-01<br />imacec_fit:  1.4438624<br />colour: Ajuste / nowcast","Periodo: 2024-11-01<br />imacec_fit:  2.9877836<br />colour: Ajuste / nowcast","Periodo: 2024-12-01<br />imacec_fit:  2.1424280<br />colour: Ajuste / nowcast","Periodo: 2025-01-01<br />imacec_fit:  2.6083001<br />colour: Ajuste / nowcast","Periodo: 2025-02-01<br />imacec_fit:  2.6392961<br />colour: Ajuste / nowcast","Periodo: 2025-03-01<br />imacec_fit:  2.7914983<br />colour: Ajuste / nowcast","Periodo: 2025-04-01<br />imacec_fit:  2.6793309<br />colour: Ajuste / nowcast","Periodo: 2025-05-01<br />imacec_fit:  2.6693175<br />colour: Ajuste / nowcast","Periodo: 2025-06-01<br />imacec_fit:  2.3732693<br />colour: Ajuste / nowcast","Periodo: 2025-07-01<br />imacec_fit:  2.1025507<br />colour: Ajuste / nowcast","Periodo: 2025-08-01<br />imacec_fit:  2.4229325<br />colour: Ajuste / nowcast","Periodo: 2025-09-01<br />imacec_fit:  1.8985959<br />colour: Ajuste / nowcast","Periodo: 2025-10-01<br />imacec_fit:  1.3637448<br />colour: Ajuste / nowcast","Periodo: 2025-11-01<br />imacec_fit:  1.4092278<br />colour: Ajuste / nowcast","Periodo: 2025-12-01<br />imacec_fit:  1.0497006<br />colour: Ajuste / nowcast","Periodo: 2026-01-01<br />imacec_fit:  1.2213850<br />colour: Ajuste / nowcast","Periodo: 2026-02-01<br />imacec_fit:  1.3005424<br />colour: Ajuste / nowcast","Periodo: 2026-03-01<br />imacec_fit:  1.2416274<br />colour: Ajuste / nowcast","Periodo: 2026-04-01<br />imacec_fit:  1.4092805<br />colour: Ajuste / nowcast","Periodo: 2026-05-01<br />imacec_fit:  1.7283635<br />colour: Ajuste / nowcast","Periodo: 2026-06-01<br />imacec_fit:  2.4000000<br />colour: Ajuste / nowcast"],"type":"scatter","mode":"lines","line":{"width":2.8346456692913389,"color":"rgba(176,58,46,1)","dash":"dash"},"hoveron":"points","name":"Ajuste / nowcast","legendgroup":"Ajuste / nowcast","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[20605],"y":[2.3999999999999999],"text":"Periodo: 2026-06-01<br />imacec_fit: 2.4<br />colour: Nowcast","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(127,29,29,1)","opacity":1,"size":9.4488188976377963,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(127,29,29,1)"}},"hoveron":"points","name":"Nowcast","legendgroup":"Nowcast","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":46.286425902864259,"r":7.9701120797011216,"b":27.895392278953928,"l":40.647571606475722},"font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243},"title":{"text":"IMACEC total: observado versus ajuste/nowcast","font":{"color":"rgba(0,0,0,1)","family":"","size":19.128268991282692},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17568.400000000001,20749.599999999999],"tickmode":"array","ticktext":["2020","2022","2024","2026"],"tickvals":[18262,18993,19723,20454],"categoryorder":"array","categoryarray":["2020","2022","2024","2026"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.9850560398505608,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.72455564360919278,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-9.1389711628830739,11.463236082985542],"tickmode":"array","ticktext":["-5","0","5","10"],"tickvals":[-5,0,5.0000000000000018,10],"categoryorder":"array","categoryarray":["-5","0","5","10"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.9850560398505608,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.72455564360919278,"zeroline":false,"anchor":"x","title":{"text":"Var. 12m (%)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}},"hoverformat":".2f"},"shapes":[],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"orientation":"h","x":0.5,"y":1.02,"xanchor":"center","yanchor":"bottom","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"5874424b284f":{"yintercept":{},"type":"scatter"},"5874b2843a0":{"x":{},"y":{},"colour":{}},"5874581d7e26":{"x":{},"y":{},"colour":{}},"587449fd3353":{"x":{},"y":{},"colour":{}}},"cur_data":"5874424b284f","visdat":{"5874424b284f":["function (y) ","x"],"5874b2843a0":["function (y) ","x"],"5874581d7e26":["function (y) ","x"],"587449fd3353":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="imacec-no-minero-observado-versus-ajustenowcast" class="level2">
+<h2 class="anchored" data-anchor-id="imacec-no-minero-observado-versus-ajustenowcast">IMACEC no minero: observado versus ajuste/nowcast</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-fee2f437c519fc71b9fb" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-fee2f437c519fc71b9fb">{"x":{"data":[{"x":[17568.400000000001,20749.599999999999],"y":[0,0],"text":"yintercept: 0","type":"scatter","mode":"lines","line":{"width":0.94488188976377963,"color":"rgba(179,179,179,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692,19723,19754,19783,19814,19844,19875,19905,19936,19967,19997,20028,20058,20089,20120,20148,20179,20209,20240,20270,20301,20332,20362,20393,20423,20454,20485,20513,20544,20574,20605],"y":[2.8331829935296682,2.7095693618263748,2.3996602104221174,1.5383412292162422,1.9838559989298368,1.8176904333694328,2.5017052413112664,1.4700635503312574,1.6056117383228701,1.5191153382152409,1.2188819277946401,2.1805612600068498,2.2374602805000952,2.46695002689416,2.0885785354847792,3.0943681489375616,2.2697816260812855,3.0680100948254445,3.6665893005273871,2.5220478285921835,2.5738765536775539,-9.3456952971459177,-7.7505001980003954,-6.3328210463022403,2.0171328965191719,1.4248035600859366,1.8053278526637295,1.2155914060228188,2.0425472102622444,1.257125805294393,1.51519771028949,2.0653043010059773,8.5434812083078402,9.2696998225405398,9.8643641086617873,9.0407710080134969,9.8250513485448927,9.9535690899823006,3.1735678366159528,2.4358027935805957,2.3099209444590274,2.8021062730393216,2.5296609165718911,2.297583652191963,2.114392728661004,1.5586012073376023,1.7208592959477671,1.639965253659188,1.2500471721968771,2.18428553651274,1.7937607632806021,1.3636170509056669,2.2040774820815647,1.8489502608495303,2.6823437559727958,3.0088985927625194,2.4731906866354851,3.1997917572308627,3.0444031559216689,3.1564565983859953,3.4359583029674052,2.5335408844724037,2.1619086234151546,1.898581104201972,1.7076022555991592,1.7696242615951381,1.7589736931272415,1.634231667770156,1.789584305668714,1.535815119769343,2.136656167966537,1.6879433832933093,2.926342927366091,2.4090724171468443,2.1068589999172387,2.2285777657885384,2.9292948433936989,2.7843981371313022,3.1498300044261267,3.034368710988665,2.7465906396086188,2.3230489237494671,1.8955197523002232,2.0536309213474482,2.2928754333502779,1.8715426703356459,1.2035619293922206,1.5980032120525631,1.6349312514111989,1.2219143549416791,1.6817230280424107,1.8009463263826939,1.5742441148190061,2.3153144215509913,2.6031387288918197,null],"text":["Periodo: 2018-07-01<br />imacec_nm:  2.833183<br />colour: Observado","Periodo: 2018-08-01<br />imacec_nm:  2.709569<br />colour: Observado","Periodo: 2018-09-01<br />imacec_nm:  2.399660<br />colour: Observado","Periodo: 2018-10-01<br />imacec_nm:  1.538341<br />colour: Observado","Periodo: 2018-11-01<br />imacec_nm:  1.983856<br />colour: Observado","Periodo: 2018-12-01<br />imacec_nm:  1.817690<br />colour: Observado","Periodo: 2019-01-01<br />imacec_nm:  2.501705<br />colour: Observado","Periodo: 2019-02-01<br />imacec_nm:  1.470064<br />colour: Observado","Periodo: 2019-03-01<br />imacec_nm:  1.605612<br />colour: Observado","Periodo: 2019-04-01<br />imacec_nm:  1.519115<br />colour: Observado","Periodo: 2019-05-01<br />imacec_nm:  1.218882<br />colour: Observado","Periodo: 2019-06-01<br />imacec_nm:  2.180561<br />colour: Observado","Periodo: 2019-07-01<br />imacec_nm:  2.237460<br />colour: Observado","Periodo: 2019-08-01<br />imacec_nm:  2.466950<br />colour: Observado","Periodo: 2019-09-01<br />imacec_nm:  2.088579<br />colour: Observado","Periodo: 2019-10-01<br />imacec_nm:  3.094368<br />colour: Observado","Periodo: 2019-11-01<br />imacec_nm:  2.269782<br />colour: Observado","Periodo: 2019-12-01<br />imacec_nm:  3.068010<br />colour: Observado","Periodo: 2020-01-01<br />imacec_nm:  3.666589<br />colour: Observado","Periodo: 2020-02-01<br />imacec_nm:  2.522048<br />colour: Observado","Periodo: 2020-03-01<br />imacec_nm:  2.573877<br />colour: Observado","Periodo: 2020-04-01<br />imacec_nm: -9.345695<br />colour: Observado","Periodo: 2020-05-01<br />imacec_nm: -7.750500<br />colour: Observado","Periodo: 2020-06-01<br />imacec_nm: -6.332821<br />colour: Observado","Periodo: 2020-07-01<br />imacec_nm:  2.017133<br />colour: Observado","Periodo: 2020-08-01<br />imacec_nm:  1.424804<br />colour: Observado","Periodo: 2020-09-01<br />imacec_nm:  1.805328<br />colour: Observado","Periodo: 2020-10-01<br />imacec_nm:  1.215591<br />colour: Observado","Periodo: 2020-11-01<br />imacec_nm:  2.042547<br />colour: Observado","Periodo: 2020-12-01<br />imacec_nm:  1.257126<br />colour: Observado","Periodo: 2021-01-01<br />imacec_nm:  1.515198<br />colour: Observado","Periodo: 2021-02-01<br />imacec_nm:  2.065304<br />colour: Observado","Periodo: 2021-03-01<br />imacec_nm:  8.543481<br />colour: Observado","Periodo: 2021-04-01<br />imacec_nm:  9.269700<br />colour: Observado","Periodo: 2021-05-01<br />imacec_nm:  9.864364<br />colour: Observado","Periodo: 2021-06-01<br />imacec_nm:  9.040771<br />colour: Observado","Periodo: 2021-07-01<br />imacec_nm:  9.825051<br />colour: Observado","Periodo: 2021-08-01<br />imacec_nm:  9.953569<br />colour: Observado","Periodo: 2021-09-01<br />imacec_nm:  3.173568<br />colour: Observado","Periodo: 2021-10-01<br />imacec_nm:  2.435803<br />colour: Observado","Periodo: 2021-11-01<br />imacec_nm:  2.309921<br />colour: Observado","Periodo: 2021-12-01<br />imacec_nm:  2.802106<br />colour: Observado","Periodo: 2022-01-01<br />imacec_nm:  2.529661<br />colour: Observado","Periodo: 2022-02-01<br />imacec_nm:  2.297584<br />colour: Observado","Periodo: 2022-03-01<br />imacec_nm:  2.114393<br />colour: Observado","Periodo: 2022-04-01<br />imacec_nm:  1.558601<br />colour: Observado","Periodo: 2022-05-01<br />imacec_nm:  1.720859<br />colour: Observado","Periodo: 2022-06-01<br />imacec_nm:  1.639965<br />colour: Observado","Periodo: 2022-07-01<br />imacec_nm:  1.250047<br />colour: Observado","Periodo: 2022-08-01<br />imacec_nm:  2.184286<br />colour: Observado","Periodo: 2022-09-01<br />imacec_nm:  1.793761<br />colour: Observado","Periodo: 2022-10-01<br />imacec_nm:  1.363617<br />colour: Observado","Periodo: 2022-11-01<br />imacec_nm:  2.204077<br />colour: Observado","Periodo: 2022-12-01<br />imacec_nm:  1.848950<br />colour: Observado","Periodo: 2023-01-01<br />imacec_nm:  2.682344<br />colour: Observado","Periodo: 2023-02-01<br />imacec_nm:  3.008899<br />colour: Observado","Periodo: 2023-03-01<br />imacec_nm:  2.473191<br />colour: Observado","Periodo: 2023-04-01<br />imacec_nm:  3.199792<br />colour: Observado","Periodo: 2023-05-01<br />imacec_nm:  3.044403<br />colour: Observado","Periodo: 2023-06-01<br />imacec_nm:  3.156457<br />colour: Observado","Periodo: 2023-07-01<br />imacec_nm:  3.435958<br />colour: Observado","Periodo: 2023-08-01<br />imacec_nm:  2.533541<br />colour: Observado","Periodo: 2023-09-01<br />imacec_nm:  2.161909<br />colour: Observado","Periodo: 2023-10-01<br />imacec_nm:  1.898581<br />colour: Observado","Periodo: 2023-11-01<br />imacec_nm:  1.707602<br />colour: Observado","Periodo: 2023-12-01<br />imacec_nm:  1.769624<br />colour: Observado","Periodo: 2024-01-01<br />imacec_nm:  1.758974<br />colour: Observado","Periodo: 2024-02-01<br />imacec_nm:  1.634232<br />colour: Observado","Periodo: 2024-03-01<br />imacec_nm:  1.789584<br />colour: Observado","Periodo: 2024-04-01<br />imacec_nm:  1.535815<br />colour: Observado","Periodo: 2024-05-01<br />imacec_nm:  2.136656<br />colour: Observado","Periodo: 2024-06-01<br />imacec_nm:  1.687943<br />colour: Observado","Periodo: 2024-07-01<br />imacec_nm:  2.926343<br />colour: Observado","Periodo: 2024-08-01<br />imacec_nm:  2.409072<br />colour: Observado","Periodo: 2024-09-01<br />imacec_nm:  2.106859<br />colour: Observado","Periodo: 2024-10-01<br />imacec_nm:  2.228578<br />colour: Observado","Periodo: 2024-11-01<br />imacec_nm:  2.929295<br />colour: Observado","Periodo: 2024-12-01<br />imacec_nm:  2.784398<br />colour: Observado","Periodo: 2025-01-01<br />imacec_nm:  3.149830<br />colour: Observado","Periodo: 2025-02-01<br />imacec_nm:  3.034369<br />colour: Observado","Periodo: 2025-03-01<br />imacec_nm:  2.746591<br />colour: Observado","Periodo: 2025-04-01<br />imacec_nm:  2.323049<br />colour: Observado","Periodo: 2025-05-01<br />imacec_nm:  1.895520<br />colour: Observado","Periodo: 2025-06-01<br />imacec_nm:  2.053631<br />colour: Observado","Periodo: 2025-07-01<br />imacec_nm:  2.292875<br />colour: Observado","Periodo: 2025-08-01<br />imacec_nm:  1.871543<br />colour: Observado","Periodo: 2025-09-01<br />imacec_nm:  1.203562<br />colour: Observado","Periodo: 2025-10-01<br />imacec_nm:  1.598003<br />colour: Observado","Periodo: 2025-11-01<br />imacec_nm:  1.634931<br />colour: Observado","Periodo: 2025-12-01<br />imacec_nm:  1.221914<br />colour: Observado","Periodo: 2026-01-01<br />imacec_nm:  1.681723<br />colour: Observado","Periodo: 2026-02-01<br />imacec_nm:  1.800946<br />colour: Observado","Periodo: 2026-03-01<br />imacec_nm:  1.574244<br />colour: Observado","Periodo: 2026-04-01<br />imacec_nm:  2.315314<br />colour: Observado","Periodo: 2026-05-01<br />imacec_nm:  2.603139<br />colour: Observado","Periodo: 2026-06-01<br />imacec_nm:        NA<br />colour: Observado"],"type":"scatter","mode":"lines","line":{"width":2.8346456692913389,"color":"rgba(31,78,121,1)","dash":"solid"},"hoveron":"points","name":"Observado","legendgroup":"Observado","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[17713,17744,17775,17805,17836,17866,17897,17928,17956,17987,18017,18048,18078,18109,18140,18170,18201,18231,18262,18293,18322,18353,18383,18414,18444,18475,18506,18536,18567,18597,18628,18659,18687,18718,18748,18779,18809,18840,18871,18901,18932,18962,18993,19024,19052,19083,19113,19144,19174,19205,19236,19266,19297,19327,19358,19389,19417,19448,19478,19509,19539,19570,19601,19631,19662,19692,19723,19754,19783,19814,19844,19875,19905,19936,19967,19997,20028,20058,20089,20120,20148,20179,20209,20240,20270,20301,20332,20362,20393,20423,20454,20485,20513,20544,20574,20605],"y":[3.0839289144649471,2.9694640202490796,2.9221650682561844,2.4222110210685854,2.1773298885228916,2.1063322556270863,2.1063348516117015,2.100307984494393,1.7815601541734341,1.6126384637452331,1.4153339045189957,1.6637684999204232,2.027757079126423,2.0904353516586669,2.7874264332143768,2.2984612250639085,2.1806956169709428,3.1002476749897805,3.1993760139687728,3.2415790289113779,3.0779242715817778,-1.4196519981704554,-5.065086573361044,-7.7907210409344181,-4.1913532104725162,-0.71984826321127249,1.7123237577140784,1.2755333070593675,1.6074756959030161,1.6083210040953917,1.4640257704143824,1.4069875066383459,4.1022495427407479,6.6874034200619663,9.0991125859939448,9.2738520700006966,9.6347413060794693,9.244442730139232,7.2988634814535764,5.0080355180798408,2.5864020702905641,2.5936702284258168,2.9160684322608015,2.7575318530682305,2.2738944666507632,1.9854384774211848,1.5473187361560063,1.635180301650089,1.4647925808712434,1.7721122942074581,1.5358900881086597,1.9103910787932965,2.1703364936732563,1.7783582274980401,2.3455517634926997,2.6859335344560606,2.621172560485475,2.9499834659955604,2.9089433001247884,3.1579695284833842,3.0190202397944907,3.0481128055066709,2.8349688430963509,2.5607961059786044,2.1625150342600645,2.3302314881766462,1.5535631793851676,1.9390233666776819,1.7734320569566255,2.2006610977071563,1.618610626462744,1.5768744297978701,2.1004659981809741,1.8101456448579636,2.3493193593898685,2.0583865622291162,2.4591756496522112,2.7328625760488037,3.4235503714543483,3.2271382437285445,2.8327038710922037,2.476732423611828,2.4446995647627303,1.7606748973772195,2.5385400604629056,2.3675430385247793,1.6720327646665392,1.1294189716540912,1.817300224493348,1.4563146448219932,1.822310289458462,1.1695876550903366,1.5357940673429271,1.8981458791804435,2.1759775701951254,2.1000000000000001],"text":["Periodo: 2018-07-01<br />imacec_nm_fit:  3.0839289<br />colour: Ajuste / nowcast","Periodo: 2018-08-01<br />imacec_nm_fit:  2.9694640<br />colour: Ajuste / nowcast","Periodo: 2018-09-01<br />imacec_nm_fit:  2.9221651<br />colour: Ajuste / nowcast","Periodo: 2018-10-01<br />imacec_nm_fit:  2.4222110<br />colour: Ajuste / nowcast","Periodo: 2018-11-01<br />imacec_nm_fit:  2.1773299<br />colour: Ajuste / nowcast","Periodo: 2018-12-01<br />imacec_nm_fit:  2.1063323<br />colour: Ajuste / nowcast","Periodo: 2019-01-01<br />imacec_nm_fit:  2.1063349<br />colour: Ajuste / nowcast","Periodo: 2019-02-01<br />imacec_nm_fit:  2.1003080<br />colour: Ajuste / nowcast","Periodo: 2019-03-01<br />imacec_nm_fit:  1.7815602<br />colour: Ajuste / nowcast","Periodo: 2019-04-01<br />imacec_nm_fit:  1.6126385<br />colour: Ajuste / nowcast","Periodo: 2019-05-01<br />imacec_nm_fit:  1.4153339<br />colour: Ajuste / nowcast","Periodo: 2019-06-01<br />imacec_nm_fit:  1.6637685<br />colour: Ajuste / nowcast","Periodo: 2019-07-01<br />imacec_nm_fit:  2.0277571<br />colour: Ajuste / nowcast","Periodo: 2019-08-01<br />imacec_nm_fit:  2.0904354<br />colour: Ajuste / nowcast","Periodo: 2019-09-01<br />imacec_nm_fit:  2.7874264<br />colour: Ajuste / nowcast","Periodo: 2019-10-01<br />imacec_nm_fit:  2.2984612<br />colour: Ajuste / nowcast","Periodo: 2019-11-01<br />imacec_nm_fit:  2.1806956<br />colour: Ajuste / nowcast","Periodo: 2019-12-01<br />imacec_nm_fit:  3.1002477<br />colour: Ajuste / nowcast","Periodo: 2020-01-01<br />imacec_nm_fit:  3.1993760<br />colour: Ajuste / nowcast","Periodo: 2020-02-01<br />imacec_nm_fit:  3.2415790<br />colour: Ajuste / nowcast","Periodo: 2020-03-01<br />imacec_nm_fit:  3.0779243<br />colour: Ajuste / nowcast","Periodo: 2020-04-01<br />imacec_nm_fit: -1.4196520<br />colour: Ajuste / nowcast","Periodo: 2020-05-01<br />imacec_nm_fit: -5.0650866<br />colour: Ajuste / nowcast","Periodo: 2020-06-01<br />imacec_nm_fit: -7.7907210<br />colour: Ajuste / nowcast","Periodo: 2020-07-01<br />imacec_nm_fit: -4.1913532<br />colour: Ajuste / nowcast","Periodo: 2020-08-01<br />imacec_nm_fit: -0.7198483<br />colour: Ajuste / nowcast","Periodo: 2020-09-01<br />imacec_nm_fit:  1.7123238<br />colour: Ajuste / nowcast","Periodo: 2020-10-01<br />imacec_nm_fit:  1.2755333<br />colour: Ajuste / nowcast","Periodo: 2020-11-01<br />imacec_nm_fit:  1.6074757<br />colour: Ajuste / nowcast","Periodo: 2020-12-01<br />imacec_nm_fit:  1.6083210<br />colour: Ajuste / nowcast","Periodo: 2021-01-01<br />imacec_nm_fit:  1.4640258<br />colour: Ajuste / nowcast","Periodo: 2021-02-01<br />imacec_nm_fit:  1.4069875<br />colour: Ajuste / nowcast","Periodo: 2021-03-01<br />imacec_nm_fit:  4.1022495<br />colour: Ajuste / nowcast","Periodo: 2021-04-01<br />imacec_nm_fit:  6.6874034<br />colour: Ajuste / nowcast","Periodo: 2021-05-01<br />imacec_nm_fit:  9.0991126<br />colour: Ajuste / nowcast","Periodo: 2021-06-01<br />imacec_nm_fit:  9.2738521<br />colour: Ajuste / nowcast","Periodo: 2021-07-01<br />imacec_nm_fit:  9.6347413<br />colour: Ajuste / nowcast","Periodo: 2021-08-01<br />imacec_nm_fit:  9.2444427<br />colour: Ajuste / nowcast","Periodo: 2021-09-01<br />imacec_nm_fit:  7.2988635<br />colour: Ajuste / nowcast","Periodo: 2021-10-01<br />imacec_nm_fit:  5.0080355<br />colour: Ajuste / nowcast","Periodo: 2021-11-01<br />imacec_nm_fit:  2.5864021<br />colour: Ajuste / nowcast","Periodo: 2021-12-01<br />imacec_nm_fit:  2.5936702<br />colour: Ajuste / nowcast","Periodo: 2022-01-01<br />imacec_nm_fit:  2.9160684<br />colour: Ajuste / nowcast","Periodo: 2022-02-01<br />imacec_nm_fit:  2.7575319<br />colour: Ajuste / nowcast","Periodo: 2022-03-01<br />imacec_nm_fit:  2.2738945<br />colour: Ajuste / nowcast","Periodo: 2022-04-01<br />imacec_nm_fit:  1.9854385<br />colour: Ajuste / nowcast","Periodo: 2022-05-01<br />imacec_nm_fit:  1.5473187<br />colour: Ajuste / nowcast","Periodo: 2022-06-01<br />imacec_nm_fit:  1.6351803<br />colour: Ajuste / nowcast","Periodo: 2022-07-01<br />imacec_nm_fit:  1.4647926<br />colour: Ajuste / nowcast","Periodo: 2022-08-01<br />imacec_nm_fit:  1.7721123<br />colour: Ajuste / nowcast","Periodo: 2022-09-01<br />imacec_nm_fit:  1.5358901<br />colour: Ajuste / nowcast","Periodo: 2022-10-01<br />imacec_nm_fit:  1.9103911<br />colour: Ajuste / nowcast","Periodo: 2022-11-01<br />imacec_nm_fit:  2.1703365<br />colour: Ajuste / nowcast","Periodo: 2022-12-01<br />imacec_nm_fit:  1.7783582<br />colour: Ajuste / nowcast","Periodo: 2023-01-01<br />imacec_nm_fit:  2.3455518<br />colour: Ajuste / nowcast","Periodo: 2023-02-01<br />imacec_nm_fit:  2.6859335<br />colour: Ajuste / nowcast","Periodo: 2023-03-01<br />imacec_nm_fit:  2.6211726<br />colour: Ajuste / nowcast","Periodo: 2023-04-01<br />imacec_nm_fit:  2.9499835<br />colour: Ajuste / nowcast","Periodo: 2023-05-01<br />imacec_nm_fit:  2.9089433<br />colour: Ajuste / nowcast","Periodo: 2023-06-01<br />imacec_nm_fit:  3.1579695<br />colour: Ajuste / nowcast","Periodo: 2023-07-01<br />imacec_nm_fit:  3.0190202<br />colour: Ajuste / nowcast","Periodo: 2023-08-01<br />imacec_nm_fit:  3.0481128<br />colour: Ajuste / nowcast","Periodo: 2023-09-01<br />imacec_nm_fit:  2.8349688<br />colour: Ajuste / nowcast","Periodo: 2023-10-01<br />imacec_nm_fit:  2.5607961<br />colour: Ajuste / nowcast","Periodo: 2023-11-01<br />imacec_nm_fit:  2.1625150<br />colour: Ajuste / nowcast","Periodo: 2023-12-01<br />imacec_nm_fit:  2.3302315<br />colour: Ajuste / nowcast","Periodo: 2024-01-01<br />imacec_nm_fit:  1.5535632<br />colour: Ajuste / nowcast","Periodo: 2024-02-01<br />imacec_nm_fit:  1.9390234<br />colour: Ajuste / nowcast","Periodo: 2024-03-01<br />imacec_nm_fit:  1.7734321<br />colour: Ajuste / nowcast","Periodo: 2024-04-01<br />imacec_nm_fit:  2.2006611<br />colour: Ajuste / nowcast","Periodo: 2024-05-01<br />imacec_nm_fit:  1.6186106<br />colour: Ajuste / nowcast","Periodo: 2024-06-01<br />imacec_nm_fit:  1.5768744<br />colour: Ajuste / nowcast","Periodo: 2024-07-01<br />imacec_nm_fit:  2.1004660<br />colour: Ajuste / nowcast","Periodo: 2024-08-01<br />imacec_nm_fit:  1.8101456<br />colour: Ajuste / nowcast","Periodo: 2024-09-01<br />imacec_nm_fit:  2.3493194<br />colour: Ajuste / nowcast","Periodo: 2024-10-01<br />imacec_nm_fit:  2.0583866<br />colour: Ajuste / nowcast","Periodo: 2024-11-01<br />imacec_nm_fit:  2.4591756<br />colour: Ajuste / nowcast","Periodo: 2024-12-01<br />imacec_nm_fit:  2.7328626<br />colour: Ajuste / nowcast","Periodo: 2025-01-01<br />imacec_nm_fit:  3.4235504<br />colour: Ajuste / nowcast","Periodo: 2025-02-01<br />imacec_nm_fit:  3.2271382<br />colour: Ajuste / nowcast","Periodo: 2025-03-01<br />imacec_nm_fit:  2.8327039<br />colour: Ajuste / nowcast","Periodo: 2025-04-01<br />imacec_nm_fit:  2.4767324<br />colour: Ajuste / nowcast","Periodo: 2025-05-01<br />imacec_nm_fit:  2.4446996<br />colour: Ajuste / nowcast","Periodo: 2025-06-01<br />imacec_nm_fit:  1.7606749<br />colour: Ajuste / nowcast","Periodo: 2025-07-01<br />imacec_nm_fit:  2.5385401<br />colour: Ajuste / nowcast","Periodo: 2025-08-01<br />imacec_nm_fit:  2.3675430<br />colour: Ajuste / nowcast","Periodo: 2025-09-01<br />imacec_nm_fit:  1.6720328<br />colour: Ajuste / nowcast","Periodo: 2025-10-01<br />imacec_nm_fit:  1.1294190<br />colour: Ajuste / nowcast","Periodo: 2025-11-01<br />imacec_nm_fit:  1.8173002<br />colour: Ajuste / nowcast","Periodo: 2025-12-01<br />imacec_nm_fit:  1.4563146<br />colour: Ajuste / nowcast","Periodo: 2026-01-01<br />imacec_nm_fit:  1.8223103<br />colour: Ajuste / nowcast","Periodo: 2026-02-01<br />imacec_nm_fit:  1.1695877<br />colour: Ajuste / nowcast","Periodo: 2026-03-01<br />imacec_nm_fit:  1.5357941<br />colour: Ajuste / nowcast","Periodo: 2026-04-01<br />imacec_nm_fit:  1.8981459<br />colour: Ajuste / nowcast","Periodo: 2026-05-01<br />imacec_nm_fit:  2.1759776<br />colour: Ajuste / nowcast","Periodo: 2026-06-01<br />imacec_nm_fit:  2.1000000<br />colour: Ajuste / nowcast"],"type":"scatter","mode":"lines","line":{"width":2.8346456692913389,"color":"rgba(176,58,46,1)","dash":"dash"},"hoveron":"points","name":"Ajuste / nowcast","legendgroup":"Ajuste / nowcast","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[20605],"y":[2.1000000000000001],"text":"Periodo: 2026-06-01<br />imacec_nm_fit: 2.1<br />colour: Nowcast","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(127,29,29,1)","opacity":1,"size":9.4488188976377963,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(127,29,29,1)"}},"hoveron":"points","name":"Nowcast","legendgroup":"Nowcast","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":46.286425902864259,"r":7.9701120797011216,"b":27.895392278953928,"l":47.023661270236623},"font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243},"title":{"text":"IMACEC no minero: observado versus ajuste/nowcast","font":{"color":"rgba(0,0,0,1)","family":"","size":19.128268991282692},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17568.400000000001,20749.599999999999],"tickmode":"array","ticktext":["2020","2022","2024","2026"],"tickvals":[18262,18993,19723,20454],"categoryorder":"array","categoryarray":["2020","2022","2024","2026"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.9850560398505608,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.72455564360919278,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-10.310658516502329,10.918532309338712],"tickmode":"array","ticktext":["-10","-5","0","5","10"],"tickvals":[-10,-5.0000000000000009,0,5,10],"categoryorder":"array","categoryarray":["-10","-5","0","5","10"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.9850560398505608,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.72455564360919278,"zeroline":false,"anchor":"x","title":{"text":"Var. 12m (%)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}},"hoverformat":".2f"},"shapes":[],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"orientation":"h","x":0.5,"y":1.02,"xanchor":"center","yanchor":"bottom","title":{"text":"","font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"587424445b32":{"yintercept":{},"type":"scatter"},"587449f15b4c":{"x":{},"y":{},"colour":{}},"58745e743c5":{"x":{},"y":{},"colour":{}},"587440b7cc9":{"x":{},"y":{},"colour":{}}},"cur_data":"587424445b32","visdat":{"587424445b32":["function (y) ","x"],"587449f15b4c":["function (y) ","x"],"58745e743c5":["function (y) ","x"],"587440b7cc9":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="datos-utilizados" class="level2">
+<h2 class="anchored" data-anchor-id="datos-utilizados">Datos utilizados</h2>
+<p>El pipeline integra información mensual de actividad, comercio, crédito, precios, mercado laboral e indicadores sectoriales. La versión actual considera:</p>
+<ul>
+<li>IMACEC total e IMACEC no minero.</li>
+<li>Ventas minoristas.</li>
+<li>Flujo y número de operaciones de crédito.</li>
+<li>UF e inflación implícita asociada.</li>
+<li>Desempleo.</li>
+<li>Cobre y petróleo.</li>
+<li>Días hábiles y variables calendario.</li>
+<li>Indicadores sectoriales INE: minería, manufactura, comercio y electricidad.</li>
+</ul>
+</section>
+<section id="enfoque-metodológico" class="level2">
+<h2 class="anchored" data-anchor-id="enfoque-metodológico">Enfoque metodológico</h2>
+<p>La versión actual implementa modelos lineales de nowcasting con rezagos de actividad, indicadores contemporáneos, dummies mensuales, efectos calendario y controles puntuales para episodios atípicos. También incluye una especificación alternativa con indicadores sectoriales INE.</p>
+<p>El flujo de trabajo está organizado en módulos:</p>
+<ol type="1">
+<li>Descarga de series desde la API del Banco Central.</li>
+<li>Transformación mensual y construcción de variaciones interanuales.</li>
+<li>Integración de calendario de días hábiles.</li>
+<li>Estimación de modelos para IMACEC total y no minero.</li>
+<li>Construcción del mes objetivo.</li>
+<li>Exportación de tablas, gráficos y archivos procesados.</li>
+</ol>
+</section>
+<section id="métricas-de-ajuste" class="level2">
+<h2 class="anchored" data-anchor-id="métricas-de-ajuste">Métricas de ajuste</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Métricas de ajuste del modelo</caption>
+<colgroup>
+<col style="width: 18%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">RMSE</th>
+<th style="text-align: right;">MAE</th>
+<th style="text-align: left;">Nota</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">IMACEC total</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: left;">Datos demo; reemplazar ejecutando scripts/01_update_imacec.R</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IMACEC no minero</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.36</td>
+<td style="text-align: left;">Datos demo; reemplazar ejecutando scripts/01_update_imacec.R</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Lectura prudente
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Las métricas anteriores corresponden a ajuste interno del modelo. Para evaluar capacidad predictiva real, el siguiente paso es agregar una evaluación pseudo out-of-sample con ventanas móviles y comparación contra benchmarks autoregresivos.</p>
+</div>
+</div>
+</section>
+<section id="cómo-actualizar-el-proyecto" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-actualizar-el-proyecto">Cómo actualizar el proyecto</h2>
+<p>Desde la raíz del repositorio <code>Economics</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/01_update_imacec.R</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Luego se suben los cambios a GitHub:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Actualiza proyecto IMACEC"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="próximos-pasos" class="level2">
+<h2 class="anchored" data-anchor-id="próximos-pasos">Próximos pasos</h2>
+<ul>
+<li>Agregar evaluación fuera de muestra.</li>
+<li>Comparar contra modelos benchmark AR y random walk con drift.</li>
+<li>Incorporar intervalos de predicción calibrados con errores históricos.</li>
+<li>Separar una versión “coyuntural” y una versión “research note”.</li>
+<li>Automatizar actualización mensual con GitHub Actions.</li>
+</ul>
+</section>
+<section id="código" class="level2">
+<h2 class="anchored" data-anchor-id="código">Código</h2>
+<p>El código fuente del proyecto queda organizado en módulos dentro del repositorio:</p>
+<ul>
+<li><code>R/imacec_config.R</code></li>
+<li><code>R/imacec_utils.R</code></li>
+<li><code>R/imacec_calendar.R</code></li>
+<li><code>R/imacec_data.R</code></li>
+<li><code>R/imacec_models.R</code></li>
+<li><code>R/imacec_outputs.R</code></li>
+<li><code>scripts/01_update_imacec.R</code></li>
+</ul>
+
+
+<!-- -->
+
+</section>
+</div>
+</div>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mulloav3007\.github\.io\/Economics\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Nowcasting de actividad económica en Chile"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Modelo mensual en R para seguimiento coyuntural del IMACEC total y no minero"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">    page-layout: full</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------------------------------------------</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Detectar automáticamente la raíz del repositorio Economics</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------------------------------------------</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>find_project_root <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">path =</span> <span class="fu">getwd</span>()) {</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  path <span class="ot">&lt;-</span> <span class="fu">normalizePath</span>(path, <span class="at">winslash =</span> <span class="st">"/"</span>, <span class="at">mustWork =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="dv">10</span>)) {</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="fu">file.path</span>(path, <span class="st">"_quarto.yml"</span>))) {</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(path)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    parent <span class="ot">&lt;-</span> <span class="fu">dirname</span>(path)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">identical</span>(parent, path)) {</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    path <span class="ot">&lt;-</span> parent</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"No pude encontrar la raíz del proyecto. Revisa que exista _quarto.yml."</span>)</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>project_root <span class="ot">&lt;-</span> <span class="fu">find_project_root</span>()</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Hace que los chunks siguientes trabajen desde la raíz del proyecto</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_knit<span class="sc">$</span><span class="fu">set</span>(<span class="at">root.dir =</span> project_root)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Helper para construir rutas robustas</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>path_project <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(project_root, ...)</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------------------------------------------</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegir archivos reales si existen; si no, usar archivos demo</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------------------------------------------</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>choose_file <span class="ot">&lt;-</span> <span class="cf">function</span>(real_path, demo_path) {</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>  real_full <span class="ot">&lt;-</span> <span class="fu">path_project</span>(real_path)</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  demo_full <span class="ot">&lt;-</span> <span class="fu">path_project</span>(demo_path)</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(real_full)) {</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">path =</span> real_full, <span class="at">status =</span> <span class="st">"real"</span>)</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">file.exists</span>(demo_full)) {</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">path =</span> demo_full, <span class="at">status =</span> <span class="st">"demo"</span>)</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>      <span class="st">"No existe ni el archivo real ni el archivo demo:</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>      <span class="st">"- Real: "</span>, real_full, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>      <span class="st">"- Demo: "</span>, demo_full</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>history_file <span class="ot">&lt;-</span> <span class="fu">choose_file</span>(</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_nowcast_history.csv"</span>,</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_nowcast_history_demo.csv"</span></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>summary_file <span class="ot">&lt;-</span> <span class="fu">choose_file</span>(</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_nowcast_summary.csv"</span>,</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_nowcast_summary_demo.csv"</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>metrics_file <span class="ot">&lt;-</span> <span class="fu">choose_file</span>(</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_model_metrics.csv"</span>,</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_model_metrics_demo.csv"</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>projection_file <span class="ot">&lt;-</span> <span class="fu">choose_file</span>(</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_projection.csv"</span>,</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/processed/imacec_projection_demo.csv"</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>data_status <span class="ot">&lt;-</span> history_file<span class="sc">$</span>status</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------------------------------------------</span></span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Leer datos</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------------------------------------------</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>hist <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(history_file<span class="sc">$</span>path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Periodo =</span> <span class="fu">as.Date</span>(Periodo))</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>resumen <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(summary_file<span class="sc">$</span>path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Periodo =</span> <span class="fu">as.Date</span>(Periodo))</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>metricas <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(metrics_file<span class="sc">$</span>path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>proyeccion <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(projection_file<span class="sc">$</span>path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Periodo =</span> <span class="fu">as.Date</span>(Periodo))</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estado del proyecto</span></span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>**Proyecto aplicado en desarrollo continuo.** La metodología base está implementada para actualizarse mensualmente con nueva información. La página está pensada como una vitrina técnica: muestra la motivación, la estructura del modelo, los resultados principales y el pipeline reproducible.</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r data-status, results='asis'}</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">identical</span>(data_status, <span class="st">"demo"</span>)) {</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(</span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>    <span class="st">"::: {.callout-warning}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>    <span class="st">"## Página usando datos demo</span><span class="sc">\n\n</span><span class="st">"</span>,</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Todavía no se han generado los archivos reales `data/processed/imacec_nowcast_*.csv`. "</span>,</span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ejecuta `Rscript scripts/01_update_imacec.R` desde la raíz del repositorio para reemplazar esta visualización por resultados actualizados.</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>    <span class="st">":::"</span></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pregunta económica</span></span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>El IMACEC es una de las señales principales para evaluar la coyuntura económica chilena. Este proyecto busca responder una pregunta práctica:</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ¿Es posible anticipar la evolución reciente del IMACEC total y no minero usando información mensual disponible antes de la publicación oficial?</span></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>El objetivo no es producir una proyección oficial, sino construir una herramienta reproducible de seguimiento coyuntural que combine datos macroeconómicos, variables calendario, indicadores sectoriales y modelos econométricos simples.</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resultado principal</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r summary-table}</span></span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>resumen <span class="sc">|&gt;</span></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Periodo =</span> <span class="fu">format</span>(Periodo, <span class="st">"%Y-%m"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Período"</span>, <span class="st">"IMACEC total"</span>, <span class="st">"IMACEC no minero"</span>, <span class="st">"Tipo"</span>),</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Últimas observaciones y nowcast mensual"</span></span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## IMACEC total: observado versus ajuste/nowcast</span></span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r plot-total}</span></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a>hist_plot <span class="ot">&lt;-</span> hist <span class="sc">|&gt;</span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Periodo <span class="sc">&gt;=</span> <span class="fu">max</span>(Periodo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%m-%</span> <span class="fu">months</span>(<span class="dv">95</span>))</span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a>g_total <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hist_plot, <span class="fu">aes</span>(<span class="at">x =</span> Periodo)) <span class="sc">+</span></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>, <span class="at">color =</span> <span class="st">"grey70"</span>) <span class="sc">+</span></span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> imacec, <span class="at">color =</span> <span class="st">"Observado"</span>), <span class="at">linewidth =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> imacec_fit, <span class="at">color =</span> <span class="st">"Ajuste / nowcast"</span>), <span class="at">linewidth =</span> <span class="fl">0.75</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(hist_plot, tipo <span class="sc">==</span> <span class="st">"Nowcast"</span>),</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> imacec_fit, <span class="at">color =</span> <span class="st">"Nowcast"</span>),</span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Observado"</span> <span class="ot">=</span> <span class="st">"#1f4e79"</span>, <span class="st">"Ajuste / nowcast"</span> <span class="ot">=</span> <span class="st">"#b03a2e"</span>, <span class="st">"Nowcast"</span> <span class="ot">=</span> <span class="st">"#7f1d1d"</span>)) <span class="sc">+</span></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Var. 12m (%)"</span>,</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"IMACEC total: observado versus ajuste/nowcast"</span></span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(g_total)</span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="fu">## IMACEC no minero: observado versus ajuste/nowcast</span></span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r plot-nm}</span></span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>g_nm <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hist_plot, <span class="fu">aes</span>(<span class="at">x =</span> Periodo)) <span class="sc">+</span></span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>, <span class="at">color =</span> <span class="st">"grey70"</span>) <span class="sc">+</span></span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> imacec_nm, <span class="at">color =</span> <span class="st">"Observado"</span>), <span class="at">linewidth =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> imacec_nm_fit, <span class="at">color =</span> <span class="st">"Ajuste / nowcast"</span>), <span class="at">linewidth =</span> <span class="fl">0.75</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(hist_plot, tipo <span class="sc">==</span> <span class="st">"Nowcast"</span>),</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> imacec_nm_fit, <span class="at">color =</span> <span class="st">"Nowcast"</span>),</span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.5</span>,</span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Observado"</span> <span class="ot">=</span> <span class="st">"#1f4e79"</span>, <span class="st">"Ajuste / nowcast"</span> <span class="ot">=</span> <span class="st">"#b03a2e"</span>, <span class="st">"Nowcast"</span> <span class="ot">=</span> <span class="st">"#7f1d1d"</span>)) <span class="sc">+</span></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Var. 12m (%)"</span>,</span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"IMACEC no minero: observado versus ajuste/nowcast"</span></span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(g_nm)</span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Datos utilizados</span></span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>El pipeline integra información mensual de actividad, comercio, crédito, precios, mercado laboral e indicadores sectoriales. La versión actual considera:</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>IMACEC total e IMACEC no minero.</span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ventas minoristas.</span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Flujo y número de operaciones de crédito.</span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>UF e inflación implícita asociada.</span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Desempleo.</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cobre y petróleo.</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Días hábiles y variables calendario.</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Indicadores sectoriales INE: minería, manufactura, comercio y electricidad.</span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## Enfoque metodológico</span></span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>La versión actual implementa modelos lineales de nowcasting con rezagos de actividad, indicadores contemporáneos, dummies mensuales, efectos calendario y controles puntuales para episodios atípicos. También incluye una especificación alternativa con indicadores sectoriales INE.</span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>El flujo de trabajo está organizado en módulos:</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Descarga de series desde la API del Banco Central.</span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Transformación mensual y construcción de variaciones interanuales.</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Integración de calendario de días hábiles.</span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Estimación de modelos para IMACEC total y no minero.</span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Construcción del mes objetivo.</span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>Exportación de tablas, gráficos y archivos procesados.</span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a><span class="fu">## Métricas de ajuste</span></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r metrics-table}</span></span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>metricas <span class="sc">|&gt;</span></span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Variable"</span>, <span class="st">"N"</span>, <span class="st">"RMSE"</span>, <span class="st">"MAE"</span>, <span class="st">"Nota"</span>),</span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Métricas de ajuste del modelo"</span></span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lectura prudente</span></span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a>Las métricas anteriores corresponden a ajuste interno del modelo. Para evaluar capacidad predictiva real, el siguiente paso es agregar una evaluación pseudo out-of-sample con ventanas móviles y comparación contra benchmarks autoregresivos.</span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cómo actualizar el proyecto</span></span>
+<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a>Desde la raíz del repositorio <span class="in">`Economics`</span>:</span>
+<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/01_update_imacec.R</span>
+<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
+<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a>Luego se suben los cambios a GitHub:</span>
+<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Actualiza proyecto IMACEC"</span></span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## Próximos pasos</span></span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Agregar evaluación fuera de muestra.</span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comparar contra modelos benchmark AR y random walk con drift.</span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Incorporar intervalos de predicción calibrados con errores históricos.</span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Separar una versión “coyuntural” y una versión “research note”.</span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Automatizar actualización mensual con GitHub Actions.</span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a><span class="fu">## Código</span></span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a>El código fuente del proyecto queda organizado en módulos dentro del repositorio:</span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`R/imacec_config.R`</span></span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`R/imacec_utils.R`</span></span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`R/imacec_calendar.R`</span></span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`R/imacec_data.R`</span></span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`R/imacec_models.R`</span></span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`R/imacec_outputs.R`</span></span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`scripts/01_update_imacec.R`</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Mauricio Ulloa</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Sitio construido con Quarto y publicado en GitHub Pages</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

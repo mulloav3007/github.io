@@ -12,8 +12,9 @@ format:
 ---
 
 ```{r setup}
-# Ejecutar chunks desde la raíz del repositorio Economics.
-knitr::opts_knit$set(root.dir = normalizePath(".."))
+#| include: false
+#| message: false
+#| warning: false
 
 library(dplyr)
 library(readr)
@@ -23,11 +24,58 @@ library(scales)
 library(lubridate)
 library(knitr)
 
+# -------------------------------------------------------------------
+# Detectar automáticamente la raíz del repositorio Economics
+# -------------------------------------------------------------------
+
+find_project_root <- function(path = getwd()) {
+  path <- normalizePath(path, winslash = "/", mustWork = TRUE)
+  
+  for (i in seq_len(10)) {
+    if (file.exists(file.path(path, "_quarto.yml"))) {
+      return(path)
+    }
+    
+    parent <- dirname(path)
+    
+    if (identical(parent, path)) {
+      break
+    }
+    
+    path <- parent
+  }
+  
+  stop("No pude encontrar la raíz del proyecto. Revisa que exista _quarto.yml.")
+}
+
+project_root <- find_project_root()
+
+# Hace que los chunks siguientes trabajen desde la raíz del proyecto
+knitr::opts_knit$set(root.dir = project_root)
+
+# Helper para construir rutas robustas
+path_project <- function(...) {
+  file.path(project_root, ...)
+}
+
+# -------------------------------------------------------------------
+# Elegir archivos reales si existen; si no, usar archivos demo
+# -------------------------------------------------------------------
+
 choose_file <- function(real_path, demo_path) {
-  if (file.exists(real_path)) {
-    list(path = real_path, status = "real")
+  real_full <- path_project(real_path)
+  demo_full <- path_project(demo_path)
+  
+  if (file.exists(real_full)) {
+    list(path = real_full, status = "real")
+  } else if (file.exists(demo_full)) {
+    list(path = demo_full, status = "demo")
   } else {
-    list(path = demo_path, status = "demo")
+    stop(
+      "No existe ni el archivo real ni el archivo demo:\n",
+      "- Real: ", real_full, "\n",
+      "- Demo: ", demo_full
+    )
   }
 }
 
@@ -35,20 +83,27 @@ history_file <- choose_file(
   "data/processed/imacec_nowcast_history.csv",
   "data/processed/imacec_nowcast_history_demo.csv"
 )
+
 summary_file <- choose_file(
   "data/processed/imacec_nowcast_summary.csv",
   "data/processed/imacec_nowcast_summary_demo.csv"
 )
+
 metrics_file <- choose_file(
   "data/processed/imacec_model_metrics.csv",
   "data/processed/imacec_model_metrics_demo.csv"
 )
+
 projection_file <- choose_file(
   "data/processed/imacec_projection.csv",
   "data/processed/imacec_projection_demo.csv"
 )
 
 data_status <- history_file$status
+
+# -------------------------------------------------------------------
+# Leer datos
+# -------------------------------------------------------------------
 
 hist <- readr::read_csv(history_file$path, show_col_types = FALSE) |>
   mutate(Periodo = as.Date(Periodo))
@@ -57,6 +112,7 @@ resumen <- readr::read_csv(summary_file$path, show_col_types = FALSE) |>
   mutate(Periodo = as.Date(Periodo))
 
 metricas <- readr::read_csv(metrics_file$path, show_col_types = FALSE)
+
 proyeccion <- readr::read_csv(projection_file$path, show_col_types = FALSE) |>
   mutate(Periodo = as.Date(Periodo))
 ```

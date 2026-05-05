@@ -1,0 +1,303 @@
+[
+  {
+    "objectID": "proyectos.html",
+    "href": "proyectos.html",
+    "title": "Proyectos",
+    "section": "",
+    "text": "Esta sección reúne proyectos aplicados, notas técnicas y líneas de investigación en macroeconomía, política monetaria, econometría de series de tiempo y visualización de datos."
+  },
+  {
+    "objectID": "proyectos.html#proyectos-aplicados",
+    "href": "proyectos.html#proyectos-aplicados",
+    "title": "Proyectos",
+    "section": "Proyectos aplicados",
+    "text": "Proyectos aplicados\nEstos proyectos corresponden a herramientas o análisis con estructura metodológica más desarrollada, orientados a seguimiento macroeconómico, proyecciones y simulación de escenarios.\n\n\nNowcasting de actividad económica en Chile\nModelo mensual en R para anticipar la evolución del IMACEC total y no minero usando indicadores sectoriales, variables calendario, rezagos macroeconómicos y evaluación de ajuste.\nEstado: proyecto aplicado en desarrollo continuo.\nHerramientas: R, tidyverse, ggplot2, plotly, series de tiempo.\n\n\nEscenarios macroeconómicos inspirados en IPoM\nConstrucción de escenarios base y alternativos usando supuestos externos, inflación, brecha de actividad, tipo de cambio real y tasa de política monetaria.\nEstado: proyecto aplicado avanzado.\nHerramientas: Matlab, IRIS Toolbox, R."
+  },
+  {
+    "objectID": "proyectos.html#agenda-de-investigación",
+    "href": "proyectos.html#agenda-de-investigación",
+    "title": "Proyectos",
+    "section": "Agenda de investigación",
+    "text": "Agenda de investigación\nEstas notas corresponden a líneas de trabajo en desarrollo, pensadas como base para futuros artículos, notas técnicas o documentos de investigación aplicada.\n\n\nTransmisión de la TPM a tasas de mercado\nAnálisis visual y econométrico del traspaso de movimientos de la Tasa de Política Monetaria a distintas tasas de mercado en Chile.\nEstado: research note en desarrollo.\nSalida esperada: series comparadas, heatmap de pass-through por horizonte, modelos de rezagos distribuidos y lectura macroeconómica prudente.\n\n\nCurva de rendimiento chilena interactiva\nVisualización interactiva de la curva nominal y real, pendiente de la curva y episodios macrofinancieros.\nEstado: prototipo visual-financiero en desarrollo.\nSalida esperada: slider temporal, comparación por fechas, pendiente 10y-2y y señales de condiciones financieras.\n\n\nÍndice de estrés externo para Chile\nIndicador sintético para monitorear condiciones externas relevantes para una economía pequeña y abierta.\nEstado: nota técnica preliminar.\nSalida esperada: índice agregado, contribuciones por componente y comparación entre agregación simple y PCA."
+  },
+  {
+    "objectID": "proyectos/imacec.html",
+    "href": "proyectos/imacec.html",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "",
+    "text": "NotaEstado del proyecto\n\n\n\nProyecto aplicado en desarrollo continuo. La metodología base está implementada para actualizarse mensualmente con nueva información. La página está pensada como una vitrina técnica: muestra la motivación, la estructura del modelo, los resultados principales y el pipeline reproducible."
+  },
+  {
+    "objectID": "proyectos/imacec.html#pregunta-económica",
+    "href": "proyectos/imacec.html#pregunta-económica",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Pregunta económica",
+    "text": "Pregunta económica\nEl IMACEC es una de las señales principales para evaluar la coyuntura económica chilena. Este proyecto busca responder una pregunta práctica:\n\n¿Es posible anticipar la evolución reciente del IMACEC total y no minero usando información mensual disponible antes de la publicación oficial?\n\nEl objetivo no es producir una proyección oficial, sino construir una herramienta reproducible de seguimiento coyuntural que combine datos macroeconómicos, variables calendario, indicadores sectoriales y modelos econométricos simples."
+  },
+  {
+    "objectID": "proyectos/imacec.html#resultado-principal",
+    "href": "proyectos/imacec.html#resultado-principal",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Resultado principal",
+    "text": "Resultado principal\n\n\n\nÚltimas observaciones y nowcast mensual\n\n\nPeríodo\nIMACEC total\nIMACEC no minero\nTipo\n\n\n\n\n2026-01\n1.36\n1.68\nObservado\n\n\n2026-02\n1.46\n1.80\nObservado\n\n\n2026-03\n1.53\n1.57\nObservado\n\n\n2026-04\n1.66\n2.32\nObservado\n\n\n2026-05\n1.43\n2.60\nObservado\n\n\n2026-06\n2.40\n2.10\nNowcast"
+  },
+  {
+    "objectID": "proyectos/imacec.html#imacec-total-observado-versus-ajustenowcast",
+    "href": "proyectos/imacec.html#imacec-total-observado-versus-ajustenowcast",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "IMACEC total: observado versus ajuste/nowcast",
+    "text": "IMACEC total: observado versus ajuste/nowcast"
+  },
+  {
+    "objectID": "proyectos/imacec.html#imacec-no-minero-observado-versus-ajustenowcast",
+    "href": "proyectos/imacec.html#imacec-no-minero-observado-versus-ajustenowcast",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "IMACEC no minero: observado versus ajuste/nowcast",
+    "text": "IMACEC no minero: observado versus ajuste/nowcast"
+  },
+  {
+    "objectID": "proyectos/imacec.html#datos-utilizados",
+    "href": "proyectos/imacec.html#datos-utilizados",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Datos utilizados",
+    "text": "Datos utilizados\nEl pipeline integra información mensual de actividad, comercio, crédito, precios, mercado laboral e indicadores sectoriales. La versión actual considera:\n\nIMACEC total e IMACEC no minero.\nVentas minoristas.\nFlujo y número de operaciones de crédito.\nUF e inflación implícita asociada.\nDesempleo.\nCobre y petróleo.\nDías hábiles y variables calendario.\nIndicadores sectoriales INE: minería, manufactura, comercio y electricidad."
+  },
+  {
+    "objectID": "proyectos/imacec.html#enfoque-metodológico",
+    "href": "proyectos/imacec.html#enfoque-metodológico",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Enfoque metodológico",
+    "text": "Enfoque metodológico\nLa versión actual implementa modelos lineales de nowcasting con rezagos de actividad, indicadores contemporáneos, dummies mensuales, efectos calendario y controles puntuales para episodios atípicos. También incluye una especificación alternativa con indicadores sectoriales INE.\nEl flujo de trabajo está organizado en módulos:\n\nDescarga de series desde la API del Banco Central.\nTransformación mensual y construcción de variaciones interanuales.\nIntegración de calendario de días hábiles.\nEstimación de modelos para IMACEC total y no minero.\nConstrucción del mes objetivo.\nExportación de tablas, gráficos y archivos procesados."
+  },
+  {
+    "objectID": "proyectos/imacec.html#métricas-de-ajuste",
+    "href": "proyectos/imacec.html#métricas-de-ajuste",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Métricas de ajuste",
+    "text": "Métricas de ajuste\n\n\n\nMétricas de ajuste del modelo\n\n\n\n\n\n\n\n\n\nVariable\nN\nRMSE\nMAE\nNota\n\n\n\n\nIMACEC total\n101\n0.52\n0.39\nDatos demo; reemplazar ejecutando scripts/01_update_imacec.R\n\n\nIMACEC no minero\n101\n0.49\n0.36\nDatos demo; reemplazar ejecutando scripts/01_update_imacec.R\n\n\n\n\n\n\n\n\n\n\n\nImportanteLectura prudente\n\n\n\nLas métricas anteriores corresponden a ajuste interno del modelo. Para evaluar capacidad predictiva real, el siguiente paso es agregar una evaluación pseudo out-of-sample con ventanas móviles y comparación contra benchmarks autoregresivos."
+  },
+  {
+    "objectID": "proyectos/imacec.html#cómo-actualizar-el-proyecto",
+    "href": "proyectos/imacec.html#cómo-actualizar-el-proyecto",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Cómo actualizar el proyecto",
+    "text": "Cómo actualizar el proyecto\nDesde la raíz del repositorio Economics:\nRscript scripts/01_update_imacec.R\nquarto render\nLuego se suben los cambios a GitHub:\ngit add .\ngit commit -m \"Actualiza proyecto IMACEC\"\ngit push"
+  },
+  {
+    "objectID": "proyectos/imacec.html#próximos-pasos",
+    "href": "proyectos/imacec.html#próximos-pasos",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Próximos pasos",
+    "text": "Próximos pasos\n\nAgregar evaluación fuera de muestra.\nComparar contra modelos benchmark AR y random walk con drift.\nIncorporar intervalos de predicción calibrados con errores históricos.\nSeparar una versión “coyuntural” y una versión “research note”.\nAutomatizar actualización mensual con GitHub Actions."
+  },
+  {
+    "objectID": "proyectos/imacec.html#código",
+    "href": "proyectos/imacec.html#código",
+    "title": "Nowcasting de actividad económica en Chile",
+    "section": "Código",
+    "text": "Código\nEl código fuente del proyecto queda organizado en módulos dentro del repositorio:\n\nR/imacec_config.R\nR/imacec_utils.R\nR/imacec_calendar.R\nR/imacec_data.R\nR/imacec_models.R\nR/imacec_outputs.R\nscripts/01_update_imacec.R"
+  },
+  {
+    "objectID": "proyectos/curva-rendimiento.html",
+    "href": "proyectos/curva-rendimiento.html",
+    "title": "Curva de rendimiento chilena interactiva",
+    "section": "",
+    "text": "Este proyecto busca visualizar la evolución de la estructura temporal de tasas en Chile y extraer señales macrofinancieras relevantes.\nLa curva de rendimiento permite observar cambios en condiciones financieras, expectativas de tasas, pendiente de curva y episodios de aplanamiento o empinamiento.\n\nEsta página contiene una demo visual con datos simulados. La versión final debe usar tasas nominales y reales chilenas publicadas en fuentes oficiales o de mercado."
+  },
+  {
+    "objectID": "proyectos/curva-rendimiento.html#motivación",
+    "href": "proyectos/curva-rendimiento.html#motivación",
+    "title": "Curva de rendimiento chilena interactiva",
+    "section": "",
+    "text": "Este proyecto busca visualizar la evolución de la estructura temporal de tasas en Chile y extraer señales macrofinancieras relevantes.\nLa curva de rendimiento permite observar cambios en condiciones financieras, expectativas de tasas, pendiente de curva y episodios de aplanamiento o empinamiento.\n\nEsta página contiene una demo visual con datos simulados. La versión final debe usar tasas nominales y reales chilenas publicadas en fuentes oficiales o de mercado."
+  },
+  {
+    "objectID": "proyectos/curva-rendimiento.html#demo-visual-curva-por-fecha",
+    "href": "proyectos/curva-rendimiento.html#demo-visual-curva-por-fecha",
+    "title": "Curva de rendimiento chilena interactiva",
+    "section": "Demo visual: curva por fecha",
+    "text": "Demo visual: curva por fecha"
+  },
+  {
+    "objectID": "proyectos/curva-rendimiento.html#próximas-mejoras",
+    "href": "proyectos/curva-rendimiento.html#próximas-mejoras",
+    "title": "Curva de rendimiento chilena interactiva",
+    "section": "Próximas mejoras",
+    "text": "Próximas mejoras\n\nIncorporar curva nominal y curva real/UF.\nCalcular pendiente 10y-2y.\nMostrar breakeven inflation aproximado, con advertencia sobre primas de riesgo y liquidez.\nMarcar fechas de episodios macrofinancieros relevantes."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Mauricio Ulloa",
+    "section": "",
+    "text": "Portafolio técnico\n\n\n\nSoy economista con formación de Magíster en Análisis Económico, interesado en macroeconomía aplicada, política monetaria, proyecciones, econometría de series de tiempo y análisis de datos.\nTrabajo principalmente con R, Matlab/IRIS y Python, desarrollando herramientas reproducibles para análisis macroeconómico, visualización de datos y simulación de escenarios."
+  },
+  {
+    "objectID": "index.html#proyectos-destacados",
+    "href": "index.html#proyectos-destacados",
+    "title": "Mauricio Ulloa",
+    "section": "Proyectos destacados",
+    "text": "Proyectos destacados\n\n\nTransmisión de la TPM a tasas de mercado\nMonitor del traspaso dinámico de la Tasa de Política Monetaria hacia tasas bancarias y financieras en Chile.\nR Series de tiempo Política monetaria\nVer proyecto\n\n\nCurva de rendimiento chilena interactiva\nVisualizador de la estructura temporal de tasas nominales y reales, pendiente de curva y señales macrofinancieras.\nR Plotly Tasas\nVer proyecto\n\n\nÍndice de estrés externo para Chile\nIndicador compuesto de condiciones externas usando VIX, cobre, petróleo, tasas de Estados Unidos y dólar global.\nR Macro internacional Visualización\nVer proyecto"
+  },
+  {
+    "objectID": "index.html#enfoque",
+    "href": "index.html#enfoque",
+    "title": "Mauricio Ulloa",
+    "section": "Enfoque",
+    "text": "Enfoque\nLa página está pensada como un portafolio sobrio y técnico: cada proyecto parte desde una pregunta económica clara, construye una base reproducible, presenta una metodología defendible y termina en visualizaciones comprensibles."
+  },
+  {
+    "objectID": "contacto.html",
+    "href": "contacto.html",
+    "title": "Contacto",
+    "section": "",
+    "text": "Puedes contactarme en:\n\nEmail: mulloav@fen.uchile.cl\nGitHub: https://github.com/mulloav3007\nLinkedIn: www.linkedin.com/in/mauricio-andrés-ulloa-valdivia\n\n\nAntes de publicar definitivamente, reemplaza el correo y el enlace de LinkedIn."
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "CV",
+    "section": "",
+    "text": "Magíster en Análisis Económico\nUniversidad de Chile\nIngeniería Comercial, mención Economía\nUniversidad de Chile"
+  },
+  {
+    "objectID": "cv.html#formación",
+    "href": "cv.html#formación",
+    "title": "CV",
+    "section": "",
+    "text": "Magíster en Análisis Económico\nUniversidad de Chile\nIngeniería Comercial, mención Economía\nUniversidad de Chile"
+  },
+  {
+    "objectID": "cv.html#herramientas",
+    "href": "cv.html#herramientas",
+    "title": "CV",
+    "section": "Herramientas",
+    "text": "Herramientas\n\nR: tidyverse, ggplot2, lubridate, modelsummary, Quarto/RMarkdown.\nMatlab / IRIS Toolbox: simulación macroeconómica y modelos semiestructurales.\nPython: automatización, manejo de datos y extracción de información.\nStata: econometría aplicada.\nExcel, LaTeX y GitHub."
+  },
+  {
+    "objectID": "cv.html#áreas-de-interés",
+    "href": "cv.html#áreas-de-interés",
+    "title": "CV",
+    "section": "Áreas de interés",
+    "text": "Áreas de interés\n\nMacroeconomía aplicada.\nPolítica monetaria.\nProyecciones y nowcasting.\nEconometría de series de tiempo.\nAnálisis de datos para política pública.\n\n\nCuando tengas tu CV final en PDF, guárdalo en la carpeta principal con el nombre cv_mauricio_ulloa.pdf y agrega aquí el enlace de descarga.\n\nDescargar CV"
+  },
+  {
+    "objectID": "INSTRUCCIONES.html",
+    "href": "INSTRUCCIONES.html",
+    "title": "",
+    "section": "",
+    "text": "Código"
+  },
+  {
+    "objectID": "INSTRUCCIONES.html#cómo-copiarla-en-windows",
+    "href": "INSTRUCCIONES.html#cómo-copiarla-en-windows",
+    "title": "",
+    "section": "1. Cómo copiarla en Windows",
+    "text": "1. Cómo copiarla en Windows\nTienes dos opciones:\n\nOpción recomendada\n\nDescomprime el ZIP.\nAbre la carpeta Economics del ZIP.\nCopia todo su contenido dentro de:\n\nD:\\Users\\mullo\\Documents\\GitHub\\Economics\nNo copies la carpeta completa dentro de otra carpeta Economics, porque podrías quedar con:\nD:\\Users\\mullo\\Documents\\GitHub\\Economics\\Economics\nEso no conviene.\n\n\nSi tu carpeta Economics está vacía\nPuedes reemplazarla completa por la carpeta descomprimida."
+  },
+  {
+    "objectID": "INSTRUCCIONES.html#renderizar-con-quarto",
+    "href": "INSTRUCCIONES.html#renderizar-con-quarto",
+    "title": "",
+    "section": "2. Renderizar con Quarto",
+    "text": "2. Renderizar con Quarto\nAbre PowerShell y ejecuta:\ncd \"D:\\Users\\mullo\\Documents\\GitHub\\Economics\"\nquarto render\nEso genera o actualiza la carpeta docs/."
+  },
+  {
+    "objectID": "INSTRUCCIONES.html#configurar-github-pages",
+    "href": "INSTRUCCIONES.html#configurar-github-pages",
+    "title": "",
+    "section": "3. Configurar GitHub Pages",
+    "text": "3. Configurar GitHub Pages\nEn GitHub:\nSettings → Pages → Build and deployment\nUsa:\nSource: Deploy from a branch\nBranch: main\nFolder: /docs"
+  },
+  {
+    "objectID": "INSTRUCCIONES.html#subir-cambios",
+    "href": "INSTRUCCIONES.html#subir-cambios",
+    "title": "",
+    "section": "4. Subir cambios",
+    "text": "4. Subir cambios\nCon PowerShell:\ngit add .\ngit commit -m \"Configura sitio Quarto Economics\"\ngit push\nO con GitHub Desktop:\nCommit to main → Push origin"
+  },
+  {
+    "objectID": "INSTRUCCIONES.html#importante",
+    "href": "INSTRUCCIONES.html#importante",
+    "title": "",
+    "section": "5. Importante",
+    "text": "5. Importante\nLas páginas de proyectos traen gráficos demo con datos simulados. Sirven para comprobar que la arquitectura funciona. Antes de usar la página como portafolio definitivo, reemplaza esos bloques por datos reales."
+  },
+  {
+    "objectID": "proyectos/estres-externo.html",
+    "href": "proyectos/estres-externo.html",
+    "title": "Índice de estrés externo para Chile",
+    "section": "",
+    "text": "Chile es una economía pequeña y abierta, expuesta a cambios en condiciones financieras globales, precios de commodities y apetito por riesgo internacional.\nEste proyecto construye un índice sintético de estrés externo a partir de variables como VIX, precio del cobre, petróleo, tasas de Estados Unidos y dólar global.\n\nEsta versión inicial usa datos simulados solo para validar la arquitectura visual del sitio. La siguiente etapa es reemplazar el bloque de simulación por datos reales desde FRED, BCCh u otra fuente pública."
+  },
+  {
+    "objectID": "proyectos/estres-externo.html#motivación",
+    "href": "proyectos/estres-externo.html#motivación",
+    "title": "Índice de estrés externo para Chile",
+    "section": "",
+    "text": "Chile es una economía pequeña y abierta, expuesta a cambios en condiciones financieras globales, precios de commodities y apetito por riesgo internacional.\nEste proyecto construye un índice sintético de estrés externo a partir de variables como VIX, precio del cobre, petróleo, tasas de Estados Unidos y dólar global.\n\nEsta versión inicial usa datos simulados solo para validar la arquitectura visual del sitio. La siguiente etapa es reemplazar el bloque de simulación por datos reales desde FRED, BCCh u otra fuente pública."
+  },
+  {
+    "objectID": "proyectos/estres-externo.html#metodología",
+    "href": "proyectos/estres-externo.html#metodología",
+    "title": "Índice de estrés externo para Chile",
+    "section": "Metodología",
+    "text": "Metodología\nEl índice se construye en cuatro pasos:\n\nTransformación de series a frecuencia mensual.\nEstandarización mediante z-scores.\nAjuste de signos según interpretación económica.\nAgregación mediante promedio simple o componentes principales."
+  },
+  {
+    "objectID": "proyectos/estres-externo.html#visualización-interactiva-inicial",
+    "href": "proyectos/estres-externo.html#visualización-interactiva-inicial",
+    "title": "Índice de estrés externo para Chile",
+    "section": "Visualización interactiva inicial",
+    "text": "Visualización interactiva inicial"
+  },
+  {
+    "objectID": "proyectos/estres-externo.html#interpretación",
+    "href": "proyectos/estres-externo.html#interpretación",
+    "title": "Índice de estrés externo para Chile",
+    "section": "Interpretación",
+    "text": "Interpretación\nValores positivos indican un entorno externo más restrictivo o adverso para Chile. Valores negativos indican condiciones externas más favorables."
+  },
+  {
+    "objectID": "proyectos/estres-externo.html#próximas-mejoras",
+    "href": "proyectos/estres-externo.html#próximas-mejoras",
+    "title": "Índice de estrés externo para Chile",
+    "section": "Próximas mejoras",
+    "text": "Próximas mejoras\n\nReemplazar datos simulados por series reales.\nAgregar gráfico de contribuciones por componente.\nComparar índice simple versus índice por componentes principales.\nMarcar episodios históricos: crisis financiera global, pandemia, ciclo de alzas de la Fed y episodios geopolíticos."
+  },
+  {
+    "objectID": "proyectos/transmision-tpm.html",
+    "href": "proyectos/transmision-tpm.html",
+    "title": "Transmisión de la TPM a tasas de mercado",
+    "section": "",
+    "text": "Este proyecto analiza el traspaso dinámico de movimientos de la Tasa de Política Monetaria hacia distintas tasas de mercado en Chile.\nLa pregunta central es simple: cuando cambia la TPM, ¿qué tasas reaccionan más rápido y con mayor intensidad?\n\nEl objetivo no es afirmar causalidad estructural sin identificación de shocks monetarios. La primera versión se presenta como un monitor descriptivo y econométrico de traspaso dinámico."
+  },
+  {
+    "objectID": "proyectos/transmision-tpm.html#motivación",
+    "href": "proyectos/transmision-tpm.html#motivación",
+    "title": "Transmisión de la TPM a tasas de mercado",
+    "section": "",
+    "text": "Este proyecto analiza el traspaso dinámico de movimientos de la Tasa de Política Monetaria hacia distintas tasas de mercado en Chile.\nLa pregunta central es simple: cuando cambia la TPM, ¿qué tasas reaccionan más rápido y con mayor intensidad?\n\nEl objetivo no es afirmar causalidad estructural sin identificación de shocks monetarios. La primera versión se presenta como un monitor descriptivo y econométrico de traspaso dinámico."
+  },
+  {
+    "objectID": "proyectos/transmision-tpm.html#diseño-inicial",
+    "href": "proyectos/transmision-tpm.html#diseño-inicial",
+    "title": "Transmisión de la TPM a tasas de mercado",
+    "section": "Diseño inicial",
+    "text": "Diseño inicial\n\nTPM y tasas de mercado en frecuencia mensual.\nTasas comerciales, consumo, hipotecarias, depósitos y bonos.\nModelos de rezagos distribuidos o ARDL.\nHeatmap de coeficientes acumulados por horizonte."
+  },
+  {
+    "objectID": "proyectos/transmision-tpm.html#demo-visual-heatmap-de-pass-through",
+    "href": "proyectos/transmision-tpm.html#demo-visual-heatmap-de-pass-through",
+    "title": "Transmisión de la TPM a tasas de mercado",
+    "section": "Demo visual: heatmap de pass-through",
+    "text": "Demo visual: heatmap de pass-through"
+  },
+  {
+    "objectID": "proyectos/transmision-tpm.html#próximas-mejoras",
+    "href": "proyectos/transmision-tpm.html#próximas-mejoras",
+    "title": "Transmisión de la TPM a tasas de mercado",
+    "section": "Próximas mejoras",
+    "text": "Próximas mejoras\n\nConectar con datos reales del BCCh.\nEstimar traspaso acumulado con modelos de rezagos distribuidos.\nComparar subperíodos, por ejemplo pre y post ciclo inflacionario reciente.\nAgregar sección de discusión metodológica sobre endogeneidad e identificación."
+  }
+]
