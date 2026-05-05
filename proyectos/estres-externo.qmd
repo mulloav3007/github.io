@@ -1,0 +1,74 @@
+---
+title: "Índice de estrés externo para Chile"
+subtitle: "Indicador compuesto de condiciones externas relevantes para una economía pequeña y abierta"
+---
+
+## Motivación
+
+Chile es una economía pequeña y abierta, expuesta a cambios en condiciones financieras globales, precios de commodities y apetito por riesgo internacional.
+
+Este proyecto construye un índice sintético de estrés externo a partir de variables como VIX, precio del cobre, petróleo, tasas de Estados Unidos y dólar global.
+
+::: {.mu-note}
+Esta versión inicial usa datos simulados solo para validar la arquitectura visual del sitio. La siguiente etapa es reemplazar el bloque de simulación por datos reales desde FRED, BCCh u otra fuente pública.
+:::
+
+## Metodología
+
+El índice se construye en cuatro pasos:
+
+1. Transformación de series a frecuencia mensual.
+2. Estandarización mediante z-scores.
+3. Ajuste de signos según interpretación económica.
+4. Agregación mediante promedio simple o componentes principales.
+
+## Visualización interactiva inicial
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(lubridate)
+library(plotly)
+
+set.seed(123)
+
+fechas <- seq.Date(as.Date("2010-01-01"), as.Date("2026-05-01"), by = "month")
+n <- length(fechas)
+
+datos <- tibble(
+  fecha = fechas,
+  VIX = as.numeric(scale(arima.sim(list(ar = 0.75), n = n, sd = 0.7))),
+  Dolar_global = as.numeric(scale(arima.sim(list(ar = 0.65), n = n, sd = 0.5))),
+  UST10 = as.numeric(scale(arima.sim(list(ar = 0.80), n = n, sd = 0.45))),
+  Cobre = -as.numeric(scale(arima.sim(list(ar = 0.55), n = n, sd = 0.6))),
+  Petroleo = as.numeric(scale(arima.sim(list(ar = 0.50), n = n, sd = 0.6)))
+) |> 
+  mutate(indice = rowMeans(across(-fecha)))
+
+p <- ggplot(datos, aes(x = fecha, y = indice)) +
+  geom_line(linewidth = 0.9) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(
+    title = "Índice de estrés externo para Chile",
+    subtitle = "Versión demo con datos simulados",
+    x = NULL,
+    y = "Índice estandarizado"
+  ) +
+  theme_minimal()
+
+ggplotly(p)
+```
+
+## Interpretación
+
+Valores positivos indican un entorno externo más restrictivo o adverso para Chile. Valores negativos indican condiciones externas más favorables.
+
+## Próximas mejoras
+
+- Reemplazar datos simulados por series reales.
+- Agregar gráfico de contribuciones por componente.
+- Comparar índice simple versus índice por componentes principales.
+- Marcar episodios históricos: crisis financiera global, pandemia, ciclo de alzas de la Fed y episodios geopolíticos.

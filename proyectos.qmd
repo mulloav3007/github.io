@@ -1,0 +1,34 @@
+---
+title: "Proyectos"
+subtitle: "Macroeconomía aplicada, política monetaria, finanzas y visualización de datos"
+---
+
+Esta sección reúne proyectos aplicados orientados a análisis macroeconómico, seguimiento coyuntural y herramientas reproducibles.
+
+::: {.mu-grid}
+
+::: {.mu-card}
+### [Transmisión de la TPM a tasas de mercado](proyectos/transmision-tpm.qmd)
+
+Análisis visual y econométrico del traspaso de movimientos de la Tasa de Política Monetaria a distintas tasas de mercado en Chile.
+
+**Salida esperada:** series comparadas, heatmap de pass-through por horizonte, modelos de rezagos distribuidos y lectura macroeconómica prudente.
+:::
+
+::: {.mu-card}
+### [Curva de rendimiento chilena interactiva](proyectos/curva-rendimiento.qmd)
+
+Visualización interactiva de la curva nominal y real, pendiente de la curva y episodios macrofinancieros.
+
+**Salida esperada:** slider temporal, comparación por fechas, pendiente 10y-2y y señales de condiciones financieras.
+:::
+
+::: {.mu-card}
+### [Índice de estrés externo para Chile](proyectos/estres-externo.qmd)
+
+Indicador sintético para monitorear condiciones externas relevantes para una economía pequeña y abierta.
+
+**Salida esperada:** índice agregado, contribuciones por componente y comparación entre agregación simple y PCA.
+:::
+
+:::

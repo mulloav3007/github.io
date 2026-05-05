@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Renviron
+.DS_Store
+Thumbs.db
+*.log
+*.aux
+*.out
+*.toc
+__pycache__/
+.ipynb_checkpoints/
+data/raw/private/

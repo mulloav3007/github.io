@@ -1,0 +1,58 @@
+---
+title: "Mauricio Ulloa"
+subtitle: "Economista | Macroeconomía aplicada | Proyecciones | Econometría"
+---
+
+::: {.mu-hero}
+
+::: {.mu-eyebrow}
+Portafolio técnico
+:::
+
+# Macroeconomía aplicada, política monetaria y datos
+
+Soy economista con formación de Magíster en Análisis Económico, interesado en macroeconomía aplicada, política monetaria, proyecciones, econometría de series de tiempo y análisis de datos.
+
+Trabajo principalmente con **R**, **Matlab/IRIS** y **Python**, desarrollando herramientas reproducibles para análisis macroeconómico, visualización de datos y simulación de escenarios.
+
+:::
+
+## Proyectos destacados
+
+::: {.mu-grid}
+
+::: {.mu-card}
+### Transmisión de la TPM a tasas de mercado
+
+Monitor del traspaso dinámico de la Tasa de Política Monetaria hacia tasas bancarias y financieras en Chile.
+
+<span class="mu-tag">R</span> <span class="mu-tag">Series de tiempo</span> <span class="mu-tag">Política monetaria</span>
+
+[Ver proyecto](proyectos/transmision-tpm.qmd){.mu-button}
+:::
+
+::: {.mu-card}
+### Curva de rendimiento chilena interactiva
+
+Visualizador de la estructura temporal de tasas nominales y reales, pendiente de curva y señales macrofinancieras.
+
+<span class="mu-tag">R</span> <span class="mu-tag">Plotly</span> <span class="mu-tag">Tasas</span>
+
+[Ver proyecto](proyectos/curva-rendimiento.qmd){.mu-button}
+:::
+
+::: {.mu-card}
+### Índice de estrés externo para Chile
+
+Indicador compuesto de condiciones externas usando VIX, cobre, petróleo, tasas de Estados Unidos y dólar global.
+
+<span class="mu-tag">R</span> <span class="mu-tag">Macro internacional</span> <span class="mu-tag">Visualización</span>
+
+[Ver proyecto](proyectos/estres-externo.qmd){.mu-button}
+:::
+
+:::
+
+## Enfoque
+
+La página está pensada como un portafolio sobrio y técnico: cada proyecto parte desde una pregunta económica clara, construye una base reproducible, presenta una metodología defendible y termina en visualizaciones comprensibles.

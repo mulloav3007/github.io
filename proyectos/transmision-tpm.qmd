@@ -1,0 +1,74 @@
+---
+title: "Transmisión de la TPM a tasas de mercado"
+subtitle: "Monitor de pass-through de política monetaria en Chile"
+---
+
+## Motivación
+
+Este proyecto analiza el traspaso dinámico de movimientos de la Tasa de Política Monetaria hacia distintas tasas de mercado en Chile.
+
+La pregunta central es simple: cuando cambia la TPM, ¿qué tasas reaccionan más rápido y con mayor intensidad?
+
+::: {.mu-note}
+El objetivo no es afirmar causalidad estructural sin identificación de shocks monetarios. La primera versión se presenta como un monitor descriptivo y econométrico de traspaso dinámico.
+:::
+
+## Diseño inicial
+
+- TPM y tasas de mercado en frecuencia mensual.
+- Tasas comerciales, consumo, hipotecarias, depósitos y bonos.
+- Modelos de rezagos distribuidos o ARDL.
+- Heatmap de coeficientes acumulados por horizonte.
+
+## Demo visual: heatmap de pass-through
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(plotly)
+
+set.seed(42)
+
+tasas <- c("Interbancaria", "Depósitos", "Comercial", "Consumo", "Hipotecaria", "Bonos 2y", "Bonos 5y")
+horizontes <- c("1 mes", "3 meses", "6 meses", "12 meses")
+
+demo <- expand_grid(tasa = tasas, horizonte = horizontes) |> 
+  mutate(
+    h = match(horizonte, horizontes),
+    base = case_when(
+      tasa == "Interbancaria" ~ 0.95,
+      tasa == "Depósitos" ~ 0.75,
+      tasa == "Comercial" ~ 0.70,
+      tasa == "Consumo" ~ 0.45,
+      tasa == "Hipotecaria" ~ 0.25,
+      tasa == "Bonos 2y" ~ 0.65,
+      tasa == "Bonos 5y" ~ 0.45,
+      TRUE ~ 0.5
+    ),
+    pass_through = pmin(1.1, base * (1 - exp(-0.55 * h)) + runif(n(), -0.05, 0.05))
+  )
+
+plot_ly(
+  demo,
+  x = ~horizonte,
+  y = ~tasa,
+  z = ~pass_through,
+  type = "heatmap",
+  hovertemplate = "Tasa: %{y}<br>Horizonte: %{x}<br>Pass-through demo: %{z:.2f}<extra></extra>"
+) |> 
+  layout(
+    title = "Pass-through acumulado por horizonte: demo visual",
+    xaxis = list(title = "Horizonte"),
+    yaxis = list(title = "Tipo de tasa")
+  )
+```
+
+## Próximas mejoras
+
+- Conectar con datos reales del BCCh.
+- Estimar traspaso acumulado con modelos de rezagos distribuidos.
+- Comparar subperíodos, por ejemplo pre y post ciclo inflacionario reciente.
+- Agregar sección de discusión metodológica sobre endogeneidad e identificación.

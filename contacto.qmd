@@ -1,0 +1,13 @@
+---
+title: "Contacto"
+---
+
+Puedes contactarme en:
+
+- Email: `tu_correo@correo.com`
+- GitHub: <https://github.com/mulloav3007>
+- LinkedIn: agregar enlace
+
+::: {.mu-note}
+Antes de publicar definitivamente, reemplaza el correo y el enlace de LinkedIn.
+:::

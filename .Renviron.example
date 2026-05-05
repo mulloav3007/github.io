@@ -1,0 +1,3 @@
+# Ejemplo. No pongas credenciales reales en GitHub.
+BCCH_USER=tu_usuario
+BCCH_PASS=tu_password

@@ -1,0 +1,59 @@
+---
+title: "Curva de rendimiento chilena interactiva"
+subtitle: "Visualizador de tasas nominales y reales por plazo"
+---
+
+## Motivación
+
+Este proyecto busca visualizar la evolución de la estructura temporal de tasas en Chile y extraer señales macrofinancieras relevantes.
+
+La curva de rendimiento permite observar cambios en condiciones financieras, expectativas de tasas, pendiente de curva y episodios de aplanamiento o empinamiento.
+
+::: {.mu-note}
+Esta página contiene una demo visual con datos simulados. La versión final debe usar tasas nominales y reales chilenas publicadas en fuentes oficiales o de mercado.
+:::
+
+## Demo visual: curva por fecha
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(plotly)
+
+set.seed(7)
+fechas <- seq.Date(as.Date("2021-01-01"), as.Date("2026-05-01"), by = "quarter")
+plazos <- c(1, 2, 5, 10)
+
+curvas <- expand_grid(fecha = fechas, plazo = plazos) |> 
+  mutate(
+    ciclo = as.numeric(scale(as.numeric(fecha))),
+    tasa = 3.5 + 0.25 * plazo + 1.2 * sin(as.numeric(fecha) / 260) - 0.06 * plazo * sin(as.numeric(fecha) / 400) + rnorm(n(), 0, .08),
+    fecha_lab = format(fecha, "%Y-%m")
+  )
+
+plot_ly(
+  curvas,
+  x = ~plazo,
+  y = ~tasa,
+  split = ~fecha_lab,
+  frame = ~fecha_lab,
+  type = "scatter",
+  mode = "lines+markers",
+  hovertemplate = "Plazo: %{x} años<br>Tasa demo: %{y:.2f}%<extra></extra>"
+) |> 
+  layout(
+    title = "Curva de rendimiento chilena: demo interactiva",
+    xaxis = list(title = "Plazo, años"),
+    yaxis = list(title = "Tasa, %")
+  )
+```
+
+## Próximas mejoras
+
+- Incorporar curva nominal y curva real/UF.
+- Calcular pendiente 10y-2y.
+- Mostrar breakeven inflation aproximado, con advertencia sobre primas de riesgo y liquidez.
+- Marcar fechas de episodios macrofinancieros relevantes.

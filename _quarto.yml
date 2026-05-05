@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Mauricio Ulloa"
+  site-url: "https://mulloav3007.github.io/Economics/"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+      - href: proyectos.qmd
+        text: Proyectos
+      - href: cv.qmd
+        text: CV
+      - href: contacto.qmd
+        text: Contacto
+    right:
+      - icon: github
+        href: https://github.com/mulloav3007
+        aria-label: GitHub
+  page-footer:
+    left: "© 2026 Mauricio Ulloa"
+    right: "Sitio construido con Quarto y publicado en GitHub Pages"
+
+format:
+  html:
+    theme: cosmo
+    lang: es
+    toc: true
+    page-layout: full
+    css: assets/css/styles.css
+    code-fold: true
+    code-tools: true
+execute:
+  freeze: auto

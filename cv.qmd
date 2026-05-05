@@ -1,0 +1,33 @@
+---
+title: "CV"
+---
+
+## Formación
+
+**Magíster en Análisis Económico**  
+Universidad de Chile
+
+**Ingeniería Comercial, mención Economía**  
+Universidad de Chile
+
+## Herramientas
+
+- R: tidyverse, ggplot2, lubridate, modelsummary, Quarto/RMarkdown.
+- Matlab / IRIS Toolbox: simulación macroeconómica y modelos semiestructurales.
+- Python: automatización, manejo de datos y extracción de información.
+- Stata: econometría aplicada.
+- Excel, LaTeX y GitHub.
+
+## Áreas de interés
+
+- Macroeconomía aplicada.
+- Política monetaria.
+- Proyecciones y nowcasting.
+- Econometría de series de tiempo.
+- Análisis de datos para política pública.
+
+::: {.mu-note}
+Cuando tengas tu CV final en PDF, guárdalo en la carpeta principal con el nombre `cv_mauricio_ulloa.pdf` y agrega aquí el enlace de descarga.
+:::
+
+[Descargar CV](cv_mauricio_ulloa.pdf){.mu-button}
