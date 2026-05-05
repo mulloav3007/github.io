@@ -1,0 +1,307 @@
+---
+title: "Escenarios macroeconómicos inspirados en IPoM"
+subtitle: "Modelo semi-estructural en IRIS/Matlab para simulación condicional de inflación, TPM y brecha de actividad"
+execute:
+  echo: false
+  message: false
+  warning: false
+format:
+  html:
+    toc: true
+    page-layout: full
+---
+
+```{r setup}
+#| include: false
+#| message: false
+#| warning: false
+
+required <- c("dplyr", "tidyr", "readr", "ggplot2", "plotly", "knitr", "tibble")
+missing <- required[!vapply(required, requireNamespace, quietly = TRUE, FUN.VALUE = logical(1))]
+if (length(missing) > 0) {
+  stop(
+    "Faltan paquetes para renderizar esta página: ",
+    paste(missing, collapse = ", "),
+    ". Instálalos con install.packages()."
+  )
+}
+
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(plotly)
+library(knitr)
+library(tibble)
+
+find_project_root_local <- function(path = getwd()) {
+  path <- normalizePath(path, winslash = "/", mustWork = TRUE)
+  for (i in seq_len(12)) {
+    if (file.exists(file.path(path, "_quarto.yml"))) return(path)
+    parent <- dirname(path)
+    if (identical(parent, path)) break
+    path <- parent
+  }
+  stop("No pude encontrar la raíz del proyecto. Revisa que exista _quarto.yml.")
+}
+
+project_root <- find_project_root_local()
+knitr::opts_knit$set(root.dir = project_root)
+
+source(file.path(project_root, "R", "ipom_config.R"))
+source(file.path(project_root, "R", "ipom_utils.R"))
+source(file.path(project_root, "R", "ipom_plots.R"))
+
+path_project <- function(...) file.path(project_root, ...)
+
+long_file <- path_project("data", "processed", "ipom", "ipom_scenarios_long.csv")
+diff_file <- path_project("data", "processed", "ipom", "ipom_scenario_differences_long.csv")
+diff_summary_file <- path_project("data", "processed", "ipom", "ipom_scenario_differences_summary.csv")
+external_file <- path_project("data", "processed", "ipom", "ipom_external_assumptions.csv")
+scenario_meta_file <- path_project("data", "processed", "ipom", "ipom_scenario_metadata.csv")
+
+if (!file.exists(long_file)) {
+  stop(
+    "No existe data/processed/ipom/ipom_scenarios_long.csv. ",
+    "Ejecuta: Rscript scripts/03_build_ipom_outputs.R"
+  )
+}
+
+ipom_long <- read_csv(long_file, show_col_types = FALSE) |>
+  mutate(date = as.Date(date))
+
+ipom_diff <- read_csv(diff_file, show_col_types = FALSE) |>
+  mutate(date = as.Date(date))
+
+ipom_diff_summary <- read_csv(diff_summary_file, show_col_types = FALSE)
+ipom_external <- read_csv(external_file, show_col_types = FALSE) |>
+  mutate(date = as.Date(date))
+ipom_scenario_meta <- read_csv(scenario_meta_file, show_col_types = FALSE)
+
+main_scenarios <- c(
+  "baseline_ipom",
+  "iran_fin_anticipado",
+  "riskoff_global",
+  "escenario_alternativo"
+)
+
+forecast_start <- "2025Q1"
+plot_start <- "2018Q1"
+```
+
+::: {.callout-note}
+## Estado del proyecto
+
+Proyecto aplicado avanzado. Esta página está pensada como vitrina técnica del flujo de simulación: el modelo y los escenarios se ejecutan en **Matlab/IRIS**, mientras que **Quarto** presenta resultados procesados en formato limpio. La versión pública no pretende replicar el modelo oficial del Banco Central de Chile; es un ejercicio académico/aplicado de escenarios macroeconómicos.
+:::
+
+## Pregunta económica
+
+El objetivo es evaluar cómo cambian las trayectorias de inflación, tasa de política monetaria y brecha de actividad cuando se reemplazan algunos supuestos externos del escenario base por trayectorias alternativas.
+
+En términos prácticos, el ejercicio responde:
+
+> ¿Qué pasa con inflación, TPM y actividad si el escenario externo cambia respecto de un baseline tipo IPoM, manteniendo el juicio doméstico del escenario base?
+
+## Arquitectura del proyecto
+
+::: {.mu-grid}
+
+::: {.mu-card}
+### 1. Motor macroeconómico
+
+Modelo semi-estructural en IRIS/Matlab con bloque de demanda, curva de Phillips, regla de política monetaria, bloque externo y shocks estructurales.
+:::
+
+::: {.mu-card}
+### 2. Identificación del baseline
+
+Se identifica un conjunto de shocks que permite reproducir una trayectoria base tipo IPoM. Ese baseline funciona como punto de comparación.
+:::
+
+::: {.mu-card}
+### 3. Publicación Quarto
+
+Matlab exporta bases `fcast_*.csv`; R las convierte a formato largo y Quarto genera gráficos, tablas y diagnóstico comparado.
+:::
+
+:::
+
+## Escenarios incluidos
+
+```{r escenarios}
+ipom_scenario_meta |>
+  select(
+    Escenario = scenario,
+    `ID interno` = scenario_id,
+    `Archivo fuente` = source_file
+  ) |>
+  ipom_kable(caption = "Escenarios disponibles en la base procesada.")
+```
+
+## Resultado principal
+
+El gráfico compara el baseline identificado con escenarios alternativos. Para evitar sobrecargar la visualización, se muestran tres alternativas principales junto al baseline.
+
+### Inflación total
+
+```{r plot-inflacion-total}
+ipom_plot_var(
+  ipom_long,
+  "D4L_CPI",
+  title = "Inflación total: baseline IPoM vs escenarios alternativos",
+  subtitle = "Variación anual del IPC",
+  start_period = plot_start,
+  scenarios = main_scenarios
+)
+```
+
+### Inflación subyacente
+
+```{r plot-inflacion-core}
+ipom_plot_var(
+  ipom_long,
+  "D4L_CPIXFE",
+  title = "Inflación subyacente sin volátiles",
+  subtitle = "Variación anual del IPC sin volátiles",
+  start_period = plot_start,
+  scenarios = main_scenarios
+)
+```
+
+### Tasa de Política Monetaria
+
+```{r plot-tpm}
+ipom_plot_var(
+  ipom_long,
+  "TPM",
+  title = "Tasa de Política Monetaria",
+  subtitle = "Trayectoria de política bajo cada escenario",
+  start_period = plot_start,
+  scenarios = main_scenarios
+)
+```
+
+### Brecha de actividad
+
+```{r plot-gap}
+ipom_plot_var(
+  ipom_long,
+  "L_GDP_GAP",
+  title = "Brecha de actividad",
+  subtitle = "Desvío porcentual respecto del producto tendencial",
+  start_period = plot_start,
+  scenarios = main_scenarios
+)
+```
+
+## Supuestos externos
+
+La tabla resume los supuestos externos procesados para el período 2025-2027. Las diferencias se calculan contra el baseline IPoM identificado.
+
+```{r external-table}
+ipom_external |>
+  filter(
+    scenario_id %in% main_scenarios,
+    scenario_id != "baseline_ipom",
+    variable %in% c("L_WTI_NOM", "L_PCU_NOM", "VIX", "FFR", "UST10", "CRECSC", "L_Z_INDEX")
+  ) |>
+  group_by(scenario, label, unit) |>
+  summarise(
+    `Promedio escenario` = mean(value, na.rm = TRUE),
+    `Diferencia promedio vs baseline` = mean(difference_vs_baseline, na.rm = TRUE),
+    `Diferencia máxima vs baseline` = max(difference_vs_baseline, na.rm = TRUE),
+    `Diferencia mínima vs baseline` = min(difference_vs_baseline, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(scenario, label) |>
+  rename(Escenario = scenario, Variable = label, Unidad = unit) |>
+  ipom_kable(caption = "Supuestos externos: promedio 2025-2027 y desvíos frente al baseline.")
+```
+
+## Desvíos frente al baseline
+
+### Inflación total: diferencia respecto del baseline
+
+```{r diff-inflacion-total}
+ipom_plot_diff(
+  ipom_diff,
+  "D4L_CPI",
+  title = "Inflación total: diferencia respecto del baseline IPoM",
+  start_period = forecast_start,
+  scenarios = setdiff(main_scenarios, "baseline_ipom")
+)
+```
+
+### TPM: diferencia respecto del baseline
+
+```{r diff-tpm}
+ipom_plot_diff(
+  ipom_diff,
+  "TPM",
+  title = "TPM: diferencia respecto del baseline IPoM",
+  start_period = forecast_start,
+  scenarios = setdiff(main_scenarios, "baseline_ipom")
+)
+```
+
+### Brecha de actividad: diferencia respecto del baseline
+
+```{r diff-gap}
+ipom_plot_diff(
+  ipom_diff,
+  "L_GDP_GAP",
+  title = "Brecha de actividad: diferencia respecto del baseline IPoM",
+  start_period = forecast_start,
+  scenarios = setdiff(main_scenarios, "baseline_ipom")
+)
+```
+
+## Tabla resumen de impactos
+
+```{r diff-summary}
+ipom_diff_summary |>
+  filter(
+    scenario_id %in% setdiff(main_scenarios, "baseline_ipom"),
+    variable %in% c("D4L_CPI", "D4L_CPIXFE", "TPM", "L_GDP_GAP", "VIX", "FFR", "UST10", "CRECSC")
+  ) |>
+  select(
+    Escenario = scenario,
+    Variable = label,
+    Unidad = unit,
+    Promedio = promedio,
+    Mínimo = minimo,
+    Máximo = maximo,
+    Último = ultimo
+  ) |>
+  arrange(Escenario, Variable) |>
+  ipom_kable(caption = "Desvíos frente al baseline IPoM en 2025-2027.")
+```
+
+## Lectura metodológica
+
+El flujo está separado en dos niveles:
+
+1. **Matlab/IRIS** resuelve el modelo, impone trayectorias exógenas y endogeniza los shocks necesarios para cumplir los supuestos del escenario.
+2. **R/Quarto** lee los outputs, estandariza nombres, calcula diferencias contra el baseline y genera la visualización web.
+
+Esta separación evita que el sitio dependa de una instalación de Matlab al momento de publicarse. Para actualizar el proyecto, se reemplazan los CSV de `matlab/ipom/outputs/` y luego se ejecuta:
+
+```bash
+Rscript scripts/03_build_ipom_outputs.R
+quarto render
+```
+
+## Limitaciones
+
+::: {.callout-warning}
+Este ejercicio no es una réplica del modelo oficial del Banco Central de Chile. La interpretación debe hacerse como simulación condicional de escenarios bajo una estructura semi-estructural propia, calibrada y adaptada para análisis aplicado.
+:::
+
+## Próximos pasos
+
+- Consolidar una nomenclatura única para escenarios.
+- Documentar formalmente qué variables se exogenizan y qué shocks se endogenizan en cada escenario.
+- Agregar descomposición de shocks y contribuciones por bloque.
+- Construir una tabla de supuestos externos editable desde CSV o YAML.
+- Agregar una nota técnica descargable cuando la metodología esté cerrada.

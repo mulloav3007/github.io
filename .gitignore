@@ -15,3 +15,9 @@ data/raw/private/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Matlab / IRIS temporales
+*.asv
+matlab/ipom/**/tp*/
+matlab/ipom/**/*.pdf
+matlab/ipom/**/*.log
