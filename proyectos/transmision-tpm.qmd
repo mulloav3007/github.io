@@ -1,6 +1,6 @@
 ---
 title: "Transmisión de la TPM a tasas de mercado"
-subtitle: "Research note en desarrollo sobre pass-through de política monetaria en Chile"
+subtitle: "Monitor econométrico del pass-through de política monetaria en Chile"
 format:
   html:
     toc: true
@@ -34,24 +34,21 @@ data_dir <- p("data", "processed", "transmision_tpm")
 meta_dir <- p("data", "metadata", "transmision_tpm")
 table_dir <- p("outputs", "tables", "transmision_tpm")
 
+product_labels <- c(
+  consumo_total = "Consumo total",
+  consumo_cuotas = "Consumo: cuotas",
+  consumo_tarj_rot = "Tarjeta: rotativo",
+  consumo_tarj_cuota = "Tarjeta: cuota",
+  comercial_total = "Comercial total",
+  comercial_cuotas = "Comercial: cuotas",
+  comercial_sobregiro = "Comercial: sobregiro",
+  vivienda_uf = "Vivienda UF >3 años",
+  cap_30_89 = "Captación 30-89d",
+  cap_90_1y = "Captación 90d-1a"
+)
+
 label_product <- function(x) {
-  dplyr::recode(
-    x,
-    consumo_total = "Consumo total",
-    consumo_cuotas = "Consumo: cuotas",
-    consumo_tarj_rot = "Tarjeta: rotativo",
-    consumo_tarj_cuota = "Tarjeta: cuota",
-    comercial_total = "Comercial total",
-    comercial_cuotas = "Comercial: cuotas",
-    comercial_sobregiro = "Comercial: sobregiro",
-    vivienda_uf = "Vivienda UF >3 años",
-    cap_30_89 = "Captación 30-89d",
-    cap_90_1y = "Captación 90d-1a",
-    bcp_2y = "BCP 2 años",
-    bcp_5y = "BCP 5 años",
-    bcp_10y = "BCP 10 años",
-    .default = x
-  )
+  dplyr::recode(x, !!!product_labels, .default = x)
 }
 
 read_csv_if_exists <- function(path) {
@@ -62,15 +59,16 @@ read_csv_if_exists <- function(path) {
 monthly_panel <- read_csv_if_exists(file.path(data_dir, "monthly_panel_rates.csv"))
 pt_summary <- read_csv_if_exists(file.path(table_dir, "pass_through_summary.csv"))
 pt_cum <- read_csv_if_exists(file.path(table_dir, "pass_through_cumulative.csv"))
-pt_asym <- read_csv_if_exists(file.path(table_dir, "pass_through_asymmetric.csv"))
-lp_tbl <- read_csv_if_exists(file.path(table_dir, "local_projections.csv"))
-rob_tbl <- read_csv_if_exists(file.path(table_dir, "robustness_samples.csv"))
-series_dict <- read_csv_if_exists(file.path(meta_dir, "series_dictionary.csv"))
 pt_cum_base <- read_csv_if_exists(file.path(table_dir, "pass_through_cumulative_base.csv"))
 pt_cum_curve <- read_csv_if_exists(file.path(table_dir, "pass_through_cumulative_curve_robustness.csv"))
+pt_asym <- read_csv_if_exists(file.path(table_dir, "pass_through_asymmetric.csv"))
+lp_tbl <- read_csv_if_exists(file.path(table_dir, "local_projections.csv"))
 lp_tbl_base <- read_csv_if_exists(file.path(table_dir, "local_projections_base.csv"))
+rob_tbl <- read_csv_if_exists(file.path(table_dir, "robustness_samples.csv"))
+series_dict <- read_csv_if_exists(file.path(meta_dir, "series_dictionary.csv"))
 
 has_outputs <- !is.null(monthly_panel) && !is.null(pt_summary) && !is.null(pt_cum) && !is.null(lp_tbl)
+has_spec_compare <- !is.null(pt_cum_base) && !is.null(pt_cum_curve)
 
 if (has_outputs) {
   monthly_panel <- monthly_panel |> mutate(date = as.Date(date))
@@ -85,9 +83,10 @@ if (has_outputs) {
 
 mu_palette <- c(
   "TPM" = "#243B53",
+  "Tasa del producto" = "#B44434",
   "Consumo total" = "#B44434",
   "Comercial total" = "#2F7D7E",
-  "Vivienda UF" = "#7A5195",
+  "Vivienda UF >3 años" = "#7A5195",
   "Captación 90d-1a" = "#C17C24",
   "BCP 2 años" = "#5377A3",
   "BCP 5 años" = "#6E6E6E",
@@ -95,62 +94,49 @@ mu_palette <- c(
   "Bajas de TPM" = "#1F5A7A"
 )
 
-plotly_autorange_y_js <- "
-function(el, x) {
-  var gd = document.getElementById(el.id);
-  function asDate(v) { return new Date(v); }
-  function updateY(ev) {
-    if (!ev) return;
-    var r0 = ev['xaxis.range[0]'];
-    var r1 = ev['xaxis.range[1]'];
-    if (!r0 && ev['xaxis.range'] && ev['xaxis.range'].length === 2) {
-      r0 = ev['xaxis.range'][0]; r1 = ev['xaxis.range'][1];
-    }
-    if (ev['xaxis.autorange']) {
-      Plotly.relayout(gd, {'yaxis.autorange': true});
-      return;
-    }
-    if (!r0 || !r1) return;
-    var start = asDate(r0), end = asDate(r1);
-    var ymin = Infinity, ymax = -Infinity;
-    gd.data.forEach(function(tr) {
-      if (tr.visible === 'legendonly') return;
-      var xs = tr.x || [];
-      var ys = tr.y || [];
-      for (var i = 0; i < xs.length; i++) {
-        var xi = asDate(xs[i]);
-        var yi = Number(ys[i]);
-        if (xi >= start && xi <= end && isFinite(yi)) {
-          if (yi < ymin) ymin = yi;
-          if (yi > ymax) ymax = yi;
-        }
-      }
-    });
-    if (isFinite(ymin) && isFinite(ymax)) {
-      var pad = Math.max((ymax - ymin) * 0.08, 0.25);
-      Plotly.relayout(gd, {'yaxis.range': [ymin - pad, ymax + pad]});
-    }
-  }
-  gd.on('plotly_relayout', updateY);
+theme_mu <- function() {
+  theme_minimal(base_size = 12) +
+    theme(
+      plot.title.position = "plot",
+      plot.title = element_text(face = "bold", size = 14, margin = margin(b = 6)),
+      plot.subtitle = element_text(size = 10, margin = margin(b = 10)),
+      panel.grid.minor = element_blank(),
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      legend.direction = "horizontal",
+      strip.text = element_text(face = "bold")
+    )
 }
-"
 
-plotly_common_config <- function(x) {
-  plotly::config(x, responsive = TRUE, scrollZoom = TRUE, displaylogo = FALSE)
+plotly_common_config <- function(x, zoom = FALSE) {
+  plotly::config(
+    x,
+    responsive = TRUE,
+    scrollZoom = zoom,
+    displaylogo = FALSE,
+    displayModeBar = FALSE,
+    modeBarButtonsToRemove = c("zoom2d", "pan2d", "select2d", "lasso2d", "zoomIn2d", "zoomOut2d", "autoScale2d", "resetScale2d")
+  )
+}
+
+preferred_order <- function(x) {
+  pref <- c("comercial_total", "consumo_total", "vivienda_uf", "cap_90_1y", "comercial_cuotas", "comercial_sobregiro", "consumo_cuotas", "consumo_tarj_rot", "consumo_tarj_cuota", "cap_30_89")
+  pref <- intersect(pref, x)
+  c(pref, setdiff(x, pref))
 }
 ```
 
 ::: {.mu-note}
-**Estado:** research note en desarrollo. Esta página no busca afirmar una identificación causal definitiva de shocks monetarios. Su objetivo inicial es construir un monitor reproducible del **traspaso dinámico** entre movimientos observados de la TPM y distintas tasas bancarias/financieras en Chile.
+**Objetivo.** Esta nota construye un monitor reproducible del **traspaso dinámico** desde la Tasa de Política Monetaria (TPM) hacia tasas bancarias y financieras en Chile. La lectura es deliberadamente prudente: se trata de un ejercicio de **pass-through condicional** con datos agregados, no de una identificación causal definitiva de shocks monetarios.
 :::
 
 ## Pregunta de investigación
 
-La pregunta central es simple:
+La pregunta central es:
 
-> Cuando cambia la Tasa de Política Monetaria, ¿qué tasas de mercado reaccionan más rápido, con qué intensidad y con qué grado de heterogeneidad entre productos?
+> ¿Qué tan rápido, qué tan intensamente y con qué heterogeneidad por producto se transmite la TPM hacia el costo de fondeo bancario y hacia distintas tasas de colocación?
 
-El proyecto parte como una herramienta visual y econométrica de portafolio, pero está organizado para transformarse en una futura nota técnica o artículo aplicado. La primera versión trabaja con datos agregados públicos; una versión más académica debería incorporar sorpresas monetarias, expectativas de TPM o microdatos bancarios.
+La estructura del proyecto está pensada como una pieza de portafolio que, con extensiones posteriores, podría transformarse en una nota técnica o paper aplicado.
 
 ```{r data-status, results='asis'}
 if (!has_outputs) {
@@ -170,168 +156,156 @@ if (has_outputs) {
 }
 ```
 
-## Lectura rápida
+## Qué muestra la nota
 
-El monitor se organiza en cuatro salidas:
+La lectura del monitor se organiza en cuatro bloques:
 
-1. **Series comparadas:** TPM y tasas bancarias/financieras seleccionadas.
-2. **Pass-through acumulado:** suma de coeficientes de rezagos distribuidos a distintos horizontes.
-3. **Asimetría:** comparación preliminar entre alzas y bajas de TPM.
-4. **Local projections:** respuesta dinámica de tasas ante movimientos observados de la TPM.
-
-La interpretación recomendada es **condicional y descriptiva**: los coeficientes resumen comovimientos dinámicos controlados, pero la TPM es endógena al escenario macroeconómico.
-
-
-## Qué modelo se estima actualmente
-
-La página trabaja con una base mensual. Para cada producto financiero \(j\), se observa una tasa \(r_{j,t}\). El objeto de interés no es el nivel de la tasa, sino su variación mensual:
-
-$$
-\Delta r_{j,t}=r_{j,t}-r_{j,t-1}
-$$
-
-y el cambio mensual de la TPM:
-
-$$
-\Delta TPM_t=TPM_t-TPM_{t-1}
-$$
-
-La especificación principal de la página es ahora la versión **macro** del modelo de rezagos distribuidos:
-
-$$
-\Delta r_{j,t} = \alpha_j
-+ \sum_{k=0}^{6}\beta_{j,k}\Delta TPM_{t-k}
-+ \rho_j\Delta r_{j,t-1}
-+ \gamma_1\pi^{12m}_t
-+ \gamma_2\Delta^{12m}\log(TC)_t
-+ \gamma_3\Delta^{12m}\log(IMACEC)_t
-+ \mu_m
-+ \varepsilon_{j,t}
-$$
-
-donde \(\mu_m\) son efectos fijos de mes. En la práctica, los controles macro se incorporan solo si la serie fue descargada correctamente desde la BDE:
-
-- \(\pi^{12m}_t\): inflación anual del IPC.
-- \(\Delta^{12m}\log(TC)_t\): depreciación anual del dólar observado.
-- \(\Delta^{12m}\log(IMACEC)_t\): crecimiento anual del IMACEC.
-
-La decisión importante es que **BCP/BCU ya no se usan en el modelo principal**. La curva soberana se deja como robustez, porque también puede ser parte del canal de transmisión de la TPM. Controlar por ella en la especificación principal podría bloquear parte del efecto que justamente se quiere medir.
-
-El script exporta tres versiones:
-
-| Archivo | Especificación | Interpretación |
-|---|---|---|
-| `pass_through_cumulative.csv` | Macro | Modelo principal: TPM + inercia + controles macro mínimos |
-| `pass_through_cumulative_base.csv` | Base | TPM + inercia, sin controles macro ni curva |
-| `pass_through_cumulative_curve_robustness.csv` | Curva | Robustez agregando BCP/BCU cuando corresponde |
-
-:::{.mu-note}
-La palabra “principal” no significa “causal”. Esta especificación mejora el control por entorno macro, pero sigue midiendo pass-through condicional ante cambios observados de TPM, no shocks monetarios exógenos.
-:::
+1. **Canales principales:** TPM comparada con cuatro tasas bancarias representativas.
+2. **Pass-through acumulado:** traspaso estimado a distintos horizontes bajo una especificación base del proyecto.
+3. **Asimetría:** contraste entre alzas y bajas de TPM para cada producto.
+4. **Local projections:** trayectoria de la respuesta dinámica horizonte por horizonte.
 
 ## Datos usados
 
-El monitor combina tasas de colocación, tasas de captación, TPM, curva de mercado y controles macro. Las colocaciones son el lado activo del banco —tasas cobradas por créditos—; las captaciones son el lado pasivo —tasas pagadas por obtener fondos—.
+El proyecto trabaja con tasas promedio oficiales del Banco Central de Chile. Como bloque central, utiliza:
 
-```{r series-table}
+- **TPM** como tasa de política.
+- **Captación 90 días a 1 año** como referencia del costo de fondeo bancario.
+- **Comercial total** y **Consumo total** como tasas activas representativas para empresas y hogares.
+- **Vivienda UF a más de 3 años** como referencia del canal hipotecario de largo plazo.
+
+```{r core-series-table}
 if (!is.null(series_dict)) {
+  keep_series <- c("tpm", "cap_90_1y", "comercial_total", "consumo_total", "vivienda_uf", "ipc", "tc_obs", "imacec", "bcp_2y", "bcp_5y", "bcu_5y", "bcu_10y")
   series_dict |>
-    filter(block %in% c("policy", "lending", "funding", "market", "macro")) |>
+    filter(name %in% keep_series) |>
+    select(name, description, frequency) |>
     mutate(
-      Bloque = recode(block,
-        policy = "Política monetaria",
-        lending = "Colocaciones",
-        funding = "Captaciones",
-        market = "Curva/mercado",
-        macro = "Macro",
-        .default = block
-      ),
-      Uso = case_when(
-        block %in% c("policy", "lending", "funding") ~ "Modelo principal",
-        block == "macro" ~ "Control macro si descarga",
-        block == "market" ~ "Robustez / gráficos",
-        TRUE ~ "Complementario"
+      Serie = recode(name,
+        tpm = "TPM",
+        cap_90_1y = "Captación 90d-1a",
+        comercial_total = "Comercial total",
+        consumo_total = "Consumo total",
+        vivienda_uf = "Vivienda UF >3 años",
+        ipc = "IPC",
+        tc_obs = "Dólar observado",
+        imacec = "IMACEC",
+        bcp_2y = "BCP 2 años",
+        bcp_5y = "BCP 5 años",
+        bcu_5y = "BCU 5 años",
+        bcu_10y = "BCU 10 años",
+        .default = name
       )
     ) |>
-    select(Bloque, name, series_id, frequency, description, Uso) |>
-    knitr::kable(
-      col.names = c("Bloque", "Variable", "Código BDE", "Frecuencia", "Descripción", "Uso"),
-      caption = "Diccionario de series usadas por el proyecto."
-    )
+    select(Serie, description, frequency) |>
+    rename(`Descripción` = description, `Frecuencia` = frequency) |>
+    knitr::kable(caption = "Series principales del monitor.")
 }
 ```
 
-## TPM y tasas seleccionadas
+## Especificación empírica
 
-Arrastra una zona del gráfico para hacer zoom. En esta figura, el eje vertical se reajusta automáticamente al rango temporal seleccionado.
+La especificación principal de rezagos distribuidos para cada producto $j$ es:
 
-```{r plot-rates}
+$$
+\Delta r_{j,t}=\alpha_j + \sum_{k=0}^{K}\beta_{j,k}\Delta TPM_{t-k}+\rho_j\Delta r_{j,t-1}+\Gamma_j X_t+\mu_m+\varepsilon_{j,t}
+$$
+
+donde:
+
+- $\Delta r_{j,t}$ es el cambio mensual de la tasa del producto.
+- $\Delta TPM_{t-k}$ son cambios contemporáneos y rezagados de la TPM.
+- $X_t$ resume controles macro básicos del ejercicio principal: inflación anual, variación anual del tipo de cambio e IMACEC anual cuando la serie está disponible.
+- $\mu_m$ corresponde a efectos fijos de mes.
+
+Como contraste, la nota también reporta una especificación más parsimoniosa y otra que incorpora referencias de curva soberana/real como robustez adicional.
+
+## Canales principales: TPM y tasas clave
+
+En vez de superponer todas las tasas en un solo eje, el gráfico siguiente muestra cuatro segmentos centrales del mecanismo de transmisión. Cada panel usa su propia escala vertical, de modo que la comparación relevante es la **dinámica temporal** dentro de cada segmento.
+
+```{r plot-rates-key}
 if (has_outputs) {
-  keep <- c("tpm", "consumo_total", "comercial_total", "vivienda_uf", "cap_90_1y", "bcp_2y", "bcp_5y")
-  keep <- intersect(keep, names(monthly_panel))
+  key_map <- c(
+    cap_90_1y = "Captación 90d-1a",
+    comercial_total = "Comercial total",
+    consumo_total = "Consumo total",
+    vivienda_uf = "Vivienda UF >3 años"
+  )
 
-  rates_long <- monthly_panel |>
+  key_series <- intersect(names(key_map), names(monthly_panel))
+
+  tpm_dat <- monthly_panel |>
     filter(date >= as.Date("2015-01-01")) |>
-    select(date, all_of(keep)) |>
-    pivot_longer(-date, names_to = "serie", values_to = "value") |>
-    filter(!is.na(value)) |>
-    mutate(
-      serie_lab = recode(
-        serie,
-        tpm = "TPM",
-        consumo_total = "Consumo total",
-        comercial_total = "Comercial total",
-        vivienda_uf = "Vivienda UF",
-        cap_90_1y = "Captación 90d-1a",
-        bcp_2y = "BCP 2 años",
-        bcp_5y = "BCP 5 años",
-        .default = serie
-      ),
-      tooltip = paste0(
-        "Serie: ", serie_lab,
-        "<br>Fecha: ", format(date, "%Y-%m"),
-        "<br>Tasa: ", number(value, accuracy = 0.01), "%"
-      )
-    )
+    select(date, tpm)
 
-  g_rates <- ggplot(rates_long, aes(date, value, color = serie_lab, group = serie_lab, text = tooltip)) +
+  plot_dat <- monthly_panel |>
+    filter(date >= as.Date("2015-01-01")) |>
+    select(date, all_of(key_series)) |>
+    pivot_longer(-date, names_to = "product", values_to = "rate") |>
+    left_join(tpm_dat, by = "date") |>
+    filter(!is.na(rate), !is.na(tpm)) |>
+    mutate(panel = factor(unname(key_map[product]), levels = unname(key_map))) |>
+    pivot_longer(cols = c(rate, tpm), names_to = "serie", values_to = "value") |>
+    mutate(serie = recode(serie, rate = "Tasa del producto", tpm = "TPM"))
+
+  ggplot(plot_dat, aes(date, value, colour = serie)) +
     geom_line(linewidth = 0.9) +
-    scale_color_manual(values = mu_palette[names(mu_palette) %in% unique(rates_long$serie_lab)]) +
+    facet_wrap(~ panel, scales = "free_y", ncol = 2) +
+    scale_color_manual(values = mu_palette[c("TPM", "Tasa del producto")]) +
     labs(
-      title = "TPM y tasas seleccionadas",
-      subtitle = "Tasas anuales, porcentaje. Serie mensual desde 2015 para legibilidad visual.",
+      title = "TPM y tasas bancarias clave por segmento",
+      subtitle = "Escalas verticales libres para mejorar lectura. La comparación entre paneles debe interpretarse como diferencia de dinámica y velocidad de ajuste.",
       x = NULL,
       y = "Porcentaje",
-      color = NULL
+      colour = NULL
     ) +
-    theme_minimal(base_size = 12) +
-    theme(
-      legend.position = "bottom",
-      legend.direction = "horizontal",
-      panel.grid.minor = element_blank(),
-      plot.title = element_text(face = "bold", margin = margin(b = 6)),
-      plot.subtitle = element_text(margin = margin(b = 10))
+    theme_mu()
+}
+```
+
+### Spreads respecto a la TPM
+
+Como complemento, el siguiente gráfico resume la diferencia en niveles entre cada producto clave y la TPM. Es útil para seguir márgenes y el grado de transmisión acumulada en cada segmento.
+
+```{r plot-spreads-key}
+if (has_outputs) {
+  key_map <- c(
+    cap_90_1y = "Captación 90d-1a",
+    comercial_total = "Comercial total",
+    consumo_total = "Consumo total",
+    vivienda_uf = "Vivienda UF >3 años"
+  )
+
+  key_series <- intersect(names(key_map), names(monthly_panel))
+
+  spread_dat <- monthly_panel |>
+    filter(date >= as.Date("2015-01-01")) |>
+    select(date, tpm, all_of(key_series)) |>
+    pivot_longer(cols = all_of(key_series), names_to = "product", values_to = "rate") |>
+    filter(!is.na(rate), !is.na(tpm)) |>
+    mutate(
+      spread = rate - tpm,
+      panel = factor(unname(key_map[product]), levels = unname(key_map))
     )
 
-  plotly::ggplotly(g_rates, tooltip = "text") |>
-    plotly::layout(
-      legend = list(orientation = "h", x = 0.5, xanchor = "center", y = -0.25),
-      margin = list(t = 70, b = 95),
-      dragmode = "zoom",
-      hovermode = "x unified",
-      xaxis = list(title = "", rangeslider = list(visible = TRUE, thickness = 0.08)),
-      yaxis = list(title = "Porcentaje", autorange = TRUE)
-    ) |>
-    htmlwidgets::onRender(plotly_autorange_y_js) |>
-    plotly_common_config()
+  ggplot(spread_dat, aes(date, spread)) +
+    geom_hline(yintercept = 0, linewidth = 0.35, colour = "grey55") +
+    geom_line(linewidth = 0.9, colour = "#2F7D7E") +
+    facet_wrap(~ panel, scales = "free_y", ncol = 2) +
+    labs(
+      title = "Spread respecto a la TPM",
+      subtitle = "Diferencia entre la tasa del producto y la TPM. Ayuda a seguir el nivel del margen o la prima asociada a cada segmento.",
+      x = NULL,
+      y = "Puntos porcentuales"
+    ) +
+    theme_mu()
 }
 ```
 
 ## Pass-through acumulado
 
-El primer ejercicio estima, para cada producto financiero, una especificación de rezagos distribuidos. En la versión actual, la especificación principal es la **macro** descrita arriba: incluye rezagos de la TPM, inercia de la tasa bancaria y controles macro mínimos, pero no controla por BCP/BCU en la versión central.
-
-El pass-through acumulado a horizonte \(h\) se define como:
+El pass-through acumulado a horizonte $h$ se define como:
 
 $$
 PT_{j,h}=\sum_{k=0}^{h}\beta_{j,k}
@@ -354,34 +328,28 @@ if (has_outputs) {
 }
 ```
 
-### Comparación de especificaciones
+### Comparación de especificaciones a 6 meses
 
-La siguiente tabla compara el pass-through acumulado a seis meses entre tres especificaciones. La columna **Macro** es la que se usa como resultado principal en esta página. La columna **Curva** agrega tasas BCP/BCU como robustez; si cambia mucho respecto de Macro, eso sugiere que la curva soberana está absorbiendo parte del mecanismo de transmisión.
+```{r spec-compare-table}
+if (has_spec_compare) {
+  get_h6 <- function(df, label) {
+    df |>
+      filter(type == "total", horizon == 6) |>
+      transmute(product = product, !!label := cumulative)
+  }
 
-```{r spec-comparison-table}
-if (has_outputs && !is.null(pt_cum_base) && !is.null(pt_cum_curve)) {
-  spec_compare <- bind_rows(
-    pt_cum |>
-      filter(type == "total", horizon == 6) |>
-      transmute(product, spec = "Macro", cumulative),
-    pt_cum_base |>
-      filter(type == "total", horizon == 6) |>
-      transmute(product, spec = "Base", cumulative),
-    pt_cum_curve |>
-      filter(type == "total", horizon == 6) |>
-      transmute(product, spec = "Curva", cumulative)
-  ) |>
-    mutate(product_label = label_product(product)) |>
-    select(product_label, spec, cumulative) |>
-    mutate(cumulative = round(cumulative, 2)) |>
-    pivot_wider(names_from = spec, values_from = cumulative) |>
-    arrange(product_label)
+  spec_tbl <- get_h6(pt_cum_base, "Base") |>
+    left_join(get_h6(pt_cum, "Principal"), by = "product") |>
+    left_join(get_h6(pt_cum_curve, "Robustez curva"), by = "product") |>
+    mutate(Producto = label_product(product)) |>
+    select(Producto, `Base`, `Principal`, `Robustez curva`) |>
+    mutate(across(-Producto, ~ round(.x, 2))) |>
+    arrange(desc(Principal))
 
-  spec_compare |>
-    knitr::kable(
-      col.names = c("Producto", "Base", "Curva", "Macro"),
-      caption = "Pass-through acumulado a seis meses según especificación."
-    )
+  knitr::kable(
+    spec_tbl,
+    caption = "Pass-through acumulado a 6 meses bajo tres especificaciones: base parsimoniosa, principal del proyecto y robustez con referencias de curva."
+  )
 }
 ```
 
@@ -391,32 +359,25 @@ if (has_outputs && !is.null(pt_cum_base) && !is.null(pt_cum_curve)) {
 if (has_outputs) {
   heat <- pt_cum |>
     filter(type == "total", horizon %in% 0:6) |>
-    mutate(product_label = label_product(product)) |>
-    select(product_label, horizon, cumulative)
+    mutate(product_label = label_product(product))
 
-  plot_ly(
-    data = heat,
-    x = ~horizon,
-    y = ~product_label,
-    z = ~cumulative,
-    type = "heatmap",
-    colors = c("#F7FBFF", "#6BAED6", "#08306B"),
-    colorbar = list(title = "Pass-through"),
-    hovertemplate = "Producto: %{y}<br>Horizonte: %{x} meses<br>Pass-through: %{z:.2f}<extra></extra>"
-  ) |>
-    layout(
+  ggplot(heat, aes(x = factor(horizon), y = reorder(product_label, cumulative, FUN = max), fill = cumulative)) +
+    geom_tile() +
+    scale_fill_gradientn(colours = c("#F7FBFF", "#6BAED6", "#08306B")) +
+    labs(
       title = "Pass-through acumulado por producto y horizonte",
-      xaxis = list(title = "Horizonte mensual", dtick = 1),
-      yaxis = list(title = "Producto", automargin = TRUE),
-      margin = list(l = 140, r = 20, t = 70, b = 60)
-    ) |>
-    plotly_common_config()
+      subtitle = "La intensidad del color resume el traspaso acumulado estimado en la especificación principal.",
+      x = "Horizonte mensual",
+      y = NULL,
+      fill = "Pass-through"
+    ) +
+    theme_mu()
 }
 ```
 
 ## Asimetría: alzas versus bajas de TPM
 
-La comparación de alzas y bajas se reporta como **magnitud de traspaso en la dirección esperada**. Para las alzas se usa \(\max(\Delta TPM_t,0)\). Para las bajas se usa \(\max(-\Delta TPM_t,0)\) y el coeficiente se multiplica por \(-1\) al reportarlo. Así, un valor positivo en “Bajas de TPM” significa que la tasa de mercado cae en una magnitud comparable cuando la TPM baja. No debe leerse como valor absoluto mecánico, sino como una normalización de signo para comparar intensidad de traspaso.
+La comparación de alzas y bajas se reporta como **magnitud de traspaso en la dirección esperada**. Para las alzas se usa $\max(\Delta TPM_t,0)$. Para las bajas se usa $\max(-\Delta TPM_t,0)$ y el coeficiente se reporta con el signo normalizado para facilitar la comparación de magnitudes.
 
 ```{r plot-asym}
 if (has_outputs && !is.null(pt_asym)) {
@@ -425,27 +386,18 @@ if (has_outputs && !is.null(pt_asym)) {
     filter(horizon <= 6) |>
     mutate(
       product_label = label_product(product),
-      tipo = recode(
-        type,
-        alza_tpm = "Alzas de TPM",
-        baja_tpm = "Bajas de TPM",
-        .default = type
-      )
-    ) |>
-    arrange(product_label, tipo, horizon)
+      tipo = recode(type, alza_tpm = "Alzas de TPM", baja_tpm = "Bajas de TPM", .default = type)
+    )
 
-  productos_asym <- unique(asym_plot$product_label)
+  products_raw <- preferred_order(unique(asym_plot$product))
+  productos_asym <- label_product(products_raw)
+  asym_plot$product_label <- factor(asym_plot$product_label, levels = productos_asym)
 
   p_asym <- plotly::plot_ly()
 
   for (i in seq_along(productos_asym)) {
-
     prod_i <- productos_asym[i]
-
-    dat_i <- asym_plot |>
-      filter(product_label == prod_i) |>
-      arrange(tipo, horizon)
-
+    dat_i <- asym_plot |> filter(product_label == prod_i) |> arrange(tipo, horizon)
     visible_i <- i == 1
 
     dat_alza <- dat_i |> filter(tipo == "Alzas de TPM")
@@ -464,12 +416,10 @@ if (has_outputs && !is.null(pt_asym)) {
           showlegend = TRUE,
           line = list(color = "#8B1E1E", width = 3),
           marker = list(color = "#8B1E1E", size = 7),
-          text = ~paste0(
-            "Producto: ", product_label,
-            "<br>Tipo: ", tipo,
-            "<br>Horizonte: ", horizon, " meses",
-            "<br>Pass-through: ", scales::number(cumulative, accuracy = 0.01)
-          ),
+          text = ~paste0("Producto: ", product_label,
+                         "<br>Tipo: ", tipo,
+                         "<br>Horizonte: ", horizon, " meses",
+                         "<br>Pass-through: ", scales::number(cumulative, accuracy = 0.01)),
           hovertemplate = "%{text}<extra></extra>"
         )
     }
@@ -487,40 +437,27 @@ if (has_outputs && !is.null(pt_asym)) {
           showlegend = TRUE,
           line = list(color = "#1F5A7A", width = 3, dash = "dash"),
           marker = list(color = "#1F5A7A", size = 7),
-          text = ~paste0(
-            "Producto: ", product_label,
-            "<br>Tipo: ", tipo,
-            "<br>Horizonte: ", horizon, " meses",
-            "<br>Pass-through: ", scales::number(cumulative, accuracy = 0.01)
-          ),
+          text = ~paste0("Producto: ", product_label,
+                         "<br>Tipo: ", tipo,
+                         "<br>Horizonte: ", horizon, " meses",
+                         "<br>Pass-through: ", scales::number(cumulative, accuracy = 0.01)),
           hovertemplate = "%{text}<extra></extra>"
         )
     }
   }
 
   n_traces_por_producto <- 2
-
   botones_asym <- lapply(seq_along(productos_asym), function(i) {
-
     visible_vec <- rep(FALSE, length(productos_asym) * n_traces_por_producto)
-
     idx_ini <- (i - 1) * n_traces_por_producto + 1
     idx_fin <- idx_ini + n_traces_por_producto - 1
-
     visible_vec[idx_ini:idx_fin] <- TRUE
-
     list(
       method = "update",
-      label = productos_asym[i],
+      label = as.character(productos_asym[i]),
       args = list(
         list(visible = visible_vec),
-        list(
-          title = paste0(
-            "Pass-through acumulado: alzas versus bajas de TPM — ",
-            productos_asym[i]
-          ),
-          yaxis = list(autorange = TRUE)
-        )
+        list(title = paste0("Pass-through acumulado: alzas versus bajas de TPM — ", productos_asym[i]))
       )
     )
   })
@@ -529,102 +466,48 @@ if (has_outputs && !is.null(pt_asym)) {
 
   p_asym |>
     plotly::layout(
-      title = paste0(
-        "Pass-through acumulado: alzas versus bajas de TPM — ",
-        productos_asym[1]
-      ),
-      xaxis = list(
-        title = "Horizonte mensual",
-        dtick = 1,
-        zeroline = FALSE
-      ),
-      yaxis = list(
-        title = "Pass-through acumulado",
-        autorange = TRUE,
-        zeroline = FALSE
-      ),
+      title = paste0("Pass-through acumulado: alzas versus bajas de TPM — ", productos_asym[1]),
+      xaxis = list(title = "Horizonte mensual", dtick = 1, zeroline = FALSE, fixedrange = TRUE),
+      yaxis = list(title = "Pass-through acumulado", zeroline = FALSE, fixedrange = TRUE),
       shapes = list(
-        list(
-          type = "line",
-          x0 = 0,
-          x1 = max_h,
-          y0 = 0,
-          y1 = 0,
-          line = list(color = "rgba(80,80,80,0.55)", width = 1)
-        ),
-        list(
-          type = "line",
-          x0 = 0,
-          x1 = max_h,
-          y0 = 1,
-          y1 = 1,
-          line = list(color = "rgba(80,80,80,0.45)", width = 1, dash = "dot")
-        )
+        list(type = "line", x0 = 0, x1 = max_h, y0 = 0, y1 = 0, line = list(color = "rgba(80,80,80,0.55)", width = 1)),
+        list(type = "line", x0 = 0, x1 = max_h, y0 = 1, y1 = 1, line = list(color = "rgba(80,80,80,0.45)", width = 1, dash = "dot"))
       ),
-      updatemenus = list(
-        list(
-          type = "dropdown",
-          active = 0,
-          x = 0,
-          y = 1.18,
-          xanchor = "left",
-          yanchor = "top",
-          buttons = botones_asym
-        )
-      ),
-      legend = list(
-        orientation = "h",
-        x = 0.5,
-        xanchor = "center",
-        y = -0.22
-      ),
-      margin = list(t = 115, b = 95, l = 75, r = 35),
-      hovermode = "x unified",
-      dragmode = "zoom"
+      updatemenus = list(list(type = "dropdown", active = 0, x = 0, y = 1.16, xanchor = "left", yanchor = "top", buttons = botones_asym)),
+      legend = list(orientation = "h", x = 0.5, xanchor = "center", y = -0.22),
+      margin = list(t = 110, b = 90, l = 75, r = 35),
+      hovermode = "x unified"
     ) |>
-    plotly_common_config()
+    plotly_common_config(zoom = FALSE)
 }
 ```
 
 ## Local projections
 
-Como contraste, se estiman local projections para cada horizonte \(h\). A diferencia del modelo de rezagos distribuidos, aquí se corre una regresión distinta para cada horizonte mensual:
+Como contraste, se estiman local projections para cada horizonte $h$:
 
 $$
-r_{j,t+h}-r_{j,t-1} =
-\alpha_{j,h}
-+\beta_{j,h}\Delta TPM_t
-+\delta_{1,h}\Delta r_{j,t-1}
-+\delta_{2,h}\Delta TPM_{t-1}
-+\delta_{3,h}\Delta TPM_{t-2}
-+\Gamma_{j,h}X_t
-+u_{j,t+h}
+r_{j,t+h}-r_{j,t-1} = \alpha_{j,h}+\beta_{j,h}\Delta TPM_t+\Gamma_{j,h}X_t+u_{j,t+h}
 $$
 
-La variable dependiente \(r_{j,t+h}-r_{j,t-1}\) es el cambio acumulado de la tasa bancaria desde el mes anterior al movimiento de TPM hasta \(h\) meses después. Por eso la línea se interpreta como una respuesta dinámica acumulada. Las bandas muestran intervalos de confianza con errores tipo Newey-West.
+donde el coeficiente $\beta_{j,h}$ resume la respuesta acumulada de la tasa del producto $j$ entre $t-1$ y $t+h$ ante un cambio observado en la TPM en $t$.
 
 ```{r plot-lp}
 if (has_outputs) {
 
   lp_plot <- lp_tbl |>
     filter(horizon <= 12) |>
-    mutate(
-      product_label = label_product(product)
-    ) |>
-    arrange(product_label, horizon)
+    mutate(product_label = label_product(product))
 
-  productos_lp <- unique(lp_plot$product_label)
+  products_raw <- preferred_order(unique(lp_plot$product))
+  productos_lp <- label_product(products_raw)
+  lp_plot$product_label <- factor(lp_plot$product_label, levels = productos_lp)
 
   p_lp <- plotly::plot_ly()
 
   for (i in seq_along(productos_lp)) {
-
     prod_i <- productos_lp[i]
-
-    dat_i <- lp_plot |>
-      filter(product_label == prod_i) |>
-      arrange(horizon)
-
+    dat_i <- lp_plot |> filter(product_label == prod_i) |> arrange(horizon)
     visible_i <- i == 1
 
     ribbon_x <- c(dat_i$horizon, rev(dat_i$horizon))
@@ -659,84 +542,38 @@ if (has_outputs) {
           "<br>Horizonte: ", dat_i$horizon, " meses",
           "<br>Respuesta: ", scales::number(dat_i$estimate, accuracy = 0.01),
           "<br>IC 95%: [",
-          scales::number(dat_i$conf_low, accuracy = 0.01),
-          ", ",
-          scales::number(dat_i$conf_high, accuracy = 0.01),
-          "]"
+          scales::number(dat_i$conf_low, accuracy = 0.01), ", ",
+          scales::number(dat_i$conf_high, accuracy = 0.01), "]"
         ),
         hovertemplate = "%{text}<extra></extra>"
       )
   }
 
   botones_lp <- lapply(seq_along(productos_lp), function(i) {
-
     visible_vec <- rep(FALSE, length(productos_lp) * 2)
     visible_vec[(2 * i - 1):(2 * i)] <- TRUE
-
     list(
       method = "update",
-      label = productos_lp[i],
+      label = as.character(productos_lp[i]),
       args = list(
         list(visible = visible_vec),
-        list(
-          title = paste0(
-            "Respuesta dinámica a cambios de TPM: ",
-            productos_lp[i]
-          ),
-          yaxis = list(autorange = TRUE)
-        )
+        list(title = paste0("Respuesta dinámica a cambios de TPM: ", productos_lp[i]))
       )
     )
   })
 
   p_lp |>
     plotly::layout(
-      title = paste0(
-        "Respuesta dinámica a cambios de TPM: ",
-        productos_lp[1]
-      ),
-      xaxis = list(
-        title = "Horizonte mensual",
-        dtick = 1,
-        zeroline = FALSE
-      ),
-      yaxis = list(
-        title = "Respuesta acumulada",
-        autorange = TRUE,
-        zeroline = FALSE
-      ),
-      shapes = list(
-        list(
-          type = "line",
-          x0 = 0,
-          x1 = 12,
-          y0 = 0,
-          y1 = 0,
-          line = list(color = "rgba(80,80,80,0.55)", width = 1)
-        )
-      ),
-      updatemenus = list(
-        list(
-          type = "dropdown",
-          active = 0,
-          x = 0,
-          y = 1.18,
-          xanchor = "left",
-          yanchor = "top",
-          buttons = botones_lp
-        )
-      ),
-      legend = list(
-        orientation = "h",
-        x = 0.5,
-        xanchor = "center",
-        y = -0.2
-      ),
-      margin = list(t = 115, b = 90, l = 70, r = 30),
-      hovermode = "x unified",
-      dragmode = "zoom"
+      title = paste0("Respuesta dinámica a cambios de TPM: ", productos_lp[1]),
+      xaxis = list(title = "Horizonte mensual", dtick = 1, zeroline = FALSE, fixedrange = TRUE),
+      yaxis = list(title = "Respuesta acumulada", zeroline = FALSE, fixedrange = TRUE),
+      shapes = list(list(type = "line", x0 = 0, x1 = 12, y0 = 0, y1 = 0, line = list(color = "rgba(80,80,80,0.55)", width = 1))),
+      updatemenus = list(list(type = "dropdown", active = 0, x = 0, y = 1.16, xanchor = "left", yanchor = "top", buttons = botones_lp)),
+      legend = list(orientation = "h", x = 0.5, xanchor = "center", y = -0.2),
+      margin = list(t = 110, b = 90, l = 70, r = 30),
+      hovermode = "x unified"
     ) |>
-    plotly_common_config()
+    plotly_common_config(zoom = FALSE)
 }
 ```
 
@@ -762,24 +599,18 @@ if (has_outputs && !is.null(rob_tbl)) {
 }
 ```
 
-## Limitaciones metodológicas
-
-::: {.mu-note}
-La TPM no es un shock exógeno. Reacciona a inflación, actividad, expectativas y condiciones externas. Por eso, los resultados deben leerse como **pass-through condicional** y no como una identificación causal plena.
-:::
-
-Principales cautelas:
+## Principales cautelas metodológicas
 
 - Las tasas promedio bancarias agregadas mezclan precio puro con composición de operaciones.
-- Las tasas de vivienda y tasas largas incorporan expectativas, inflación esperada, premios por plazo y condiciones de fondeo.
-- Las asimetrías entre alzas y bajas pueden reflejar fricciones bancarias, pero también contextos macroeconómicos diferentes.
-- El ciclo 2021-2023 puede dominar parte de la estimación reciente.
-- Una versión de paper debería incorporar sorpresas monetarias, expectativas de TPM o una estrategia externa de identificación.
+- La TPM es endógena al escenario macroeconómico; por eso los coeficientes deben leerse como pass-through condicional.
+- Las tasas de vivienda y otras tasas largas incorporan expectativas, inflación esperada, premios por plazo y condiciones de fondeo.
+- Las asimetrías entre alzas y bajas pueden reflejar fricciones bancarias, pero también diferencias de contexto macro entre ciclos.
+- El episodio 2021-2023 probablemente concentra una parte importante de la variación útil para identificación.
 
 ## Próximos pasos
 
-1. Agregar sorpresas de política monetaria alrededor de RPM para mejorar identificación.
-2. Separar tasas por plazo, moneda, tipo de crédito y subperíodos.
-3. Incorporar condiciones de crédito de la Encuesta de Crédito Bancario.
-4. Explorar modelos time-varying o ventanas móviles.
-5. Convertir el monitor en una nota técnica breve con discusión de literatura y estrategia empírica.
+1. Incorporar expectativas o sorpresas de TPM para acercar mejor la interpretación a shocks monetarios.
+2. Integrar condiciones de crédito de la Encuesta de Crédito Bancario en la especificación principal.
+3. Agregar flujos o cantidades de crédito, no solo tasas.
+4. Profundizar la comparación por plazo y por tipo de producto.
+5. Convertir el monitor en una nota técnica breve con discusión de literatura y estrategia empírica más formal.

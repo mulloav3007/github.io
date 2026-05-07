@@ -4,6 +4,7 @@
 
 mu_palette <- c(
   "TPM" = "#243B53",
+  "Tasa del producto" = "#B44434",
   "Consumo total" = "#B44434",
   "Comercial total" = "#2F7D7E",
   "Vivienda UF" = "#7A5195",
@@ -25,7 +26,10 @@ theme_bcch_like <- function() {
       legend.direction = "horizontal",
       panel.grid.minor = ggplot2::element_blank(),
       axis.title = ggplot2::element_text(size = 10),
-      strip.text = ggplot2::element_text(face = "bold")
+      strip.text = ggplot2::element_text(face = "bold"),
+      plot.background = ggplot2::element_rect(fill = "white", colour = NA),
+      panel.background = ggplot2::element_rect(fill = "white", colour = NA),
+      legend.background = ggplot2::element_rect(fill = "white", colour = NA)
     )
 }
 
@@ -34,42 +38,92 @@ label_product <- function(x) {
 }
 
 plot_rates_tpm <- function(monthly_panel) {
-  keep <- intersect(c("tpm", "consumo_total", "comercial_total", "vivienda_uf", "cap_90_1y", "bcp_2y", "bcp_5y"), names(monthly_panel))
+  key_map <- c(
+    cap_90_1y = "Captación 90d-1a",
+    comercial_total = "Comercial total",
+    consumo_total = "Consumo total",
+    vivienda_uf = "Vivienda UF >3 años"
+  )
+
+  key_series <- intersect(names(key_map), names(monthly_panel))
+  if (!"tpm" %in% names(monthly_panel) || length(key_series) == 0) {
+    stop("No hay series suficientes para plot_rates_tpm().", call. = FALSE)
+  }
 
   dat <- monthly_panel |>
     dplyr::filter(date >= as.Date("2015-01-01")) |>
-    dplyr::select(date, dplyr::all_of(keep)) |>
-    tidyr::pivot_longer(-date, names_to = "serie", values_to = "value") |>
+    dplyr::select(date, tpm, dplyr::all_of(key_series)) |>
+    tidyr::pivot_longer(cols = -date, names_to = "serie", values_to = "value") |>
     dplyr::filter(!is.na(value)) |>
     dplyr::mutate(
-      serie = dplyr::recode(
-        serie,
-        tpm = "TPM",
-        consumo_total = "Consumo total",
-        comercial_total = "Comercial total",
-        vivienda_uf = "Vivienda UF",
-        cap_90_1y = "Captación 90d-1a",
-        bcp_2y = "BCP 2 años",
-        bcp_5y = "BCP 5 años",
-        .default = serie
+      panel = dplyr::case_when(
+        serie == "tpm" ~ NA_character_,
+        TRUE ~ unname(key_map[serie])
       )
     )
 
-  ggplot2::ggplot(dat, ggplot2::aes(date, value, group = serie, color = serie)) +
+  tpm_dat <- dat |>
+    dplyr::filter(serie == "tpm") |>
+    dplyr::select(date, tpm = value)
+
+  plot_dat <- dat |>
+    dplyr::filter(serie != "tpm") |>
+    dplyr::left_join(tpm_dat, by = "date") |>
+    tidyr::pivot_longer(cols = c(value, tpm), names_to = "tipo", values_to = "rate") |>
+    dplyr::mutate(
+      tipo = dplyr::recode(tipo, value = "Tasa del producto", tpm = "TPM"),
+      panel = factor(panel, levels = unname(key_map))
+    )
+
+  ggplot2::ggplot(plot_dat, ggplot2::aes(date, rate, colour = tipo)) +
     ggplot2::geom_line(linewidth = 0.9) +
-    ggplot2::scale_color_manual(values = mu_palette[names(mu_palette) %in% unique(dat$serie)]) +
+    ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 2) +
+    ggplot2::scale_color_manual(values = mu_palette[c("TPM", "Tasa del producto")]) +
     ggplot2::labs(
-      title = "TPM y tasas bancarias seleccionadas",
-      subtitle = "Tasas anuales, porcentaje",
+      title = "TPM y tasas bancarias clave por segmento",
+      subtitle = "Cada panel usa su propia escala vertical para favorecer la lectura. La comparación entre paneles debe hacerse por dinámica, no por nivel.",
       x = NULL,
       y = "Porcentaje",
-      color = NULL
+      colour = NULL
+    ) +
+    theme_bcch_like()
+}
+
+plot_key_spreads <- function(monthly_panel) {
+  key_map <- c(
+    cap_90_1y = "Captación 90d-1a",
+    comercial_total = "Comercial total",
+    consumo_total = "Consumo total",
+    vivienda_uf = "Vivienda UF >3 años"
+  )
+
+  key_series <- intersect(names(key_map), names(monthly_panel))
+  dat <- monthly_panel |>
+    dplyr::filter(date >= as.Date("2015-01-01")) |>
+    dplyr::select(date, tpm, dplyr::all_of(key_series)) |>
+    tidyr::pivot_longer(cols = dplyr::all_of(key_series), names_to = "product", values_to = "rate") |>
+    dplyr::filter(!is.na(rate), !is.na(tpm)) |>
+    dplyr::mutate(
+      spread = rate - tpm,
+      panel = factor(unname(key_map[product]), levels = unname(key_map))
+    )
+
+  ggplot2::ggplot(dat, ggplot2::aes(date, spread)) +
+    ggplot2::geom_hline(yintercept = 0, linewidth = 0.35, colour = "grey55") +
+    ggplot2::geom_line(linewidth = 0.9, colour = "#2F7D7E") +
+    ggplot2::facet_wrap(~ panel, scales = "free_y", ncol = 2) +
+    ggplot2::labs(
+      title = "Spread respecto a la TPM",
+      subtitle = "Diferencia entre la tasa del producto y la TPM. Útil para seguir márgenes y el grado de transmisión en niveles.",
+      x = NULL,
+      y = "Puntos porcentuales"
     ) +
     theme_bcch_like()
 }
 
 plot_cumulative_pt <- function(pt_tbl) {
   pt_tbl |>
+    dplyr::filter(type == "total") |>
     dplyr::mutate(product_lab = label_product(product)) |>
     ggplot2::ggplot(ggplot2::aes(horizon, cumulative, group = product_lab, color = product_lab)) +
     ggplot2::geom_hline(yintercept = 1, linewidth = 0.4, color = "grey55") +
@@ -77,7 +131,7 @@ plot_cumulative_pt <- function(pt_tbl) {
     ggplot2::geom_line(linewidth = 0.85) +
     ggplot2::labs(
       title = "Pass-through acumulado de la TPM",
-      subtitle = "Coeficiente acumulado de rezagos distribuidos. Línea horizontal = traspaso uno a uno.",
+      subtitle = "Coeficiente acumulado de rezagos distribuidos. La línea horizontal en 1 corresponde a traspaso uno a uno.",
       x = "Meses desde el cambio de TPM",
       y = "Pass-through acumulado",
       color = NULL
@@ -98,8 +152,8 @@ plot_asymmetric_pt <- function(pt_asym_tbl) {
     ggplot2::facet_wrap(~ product_lab, scales = "free_y") +
     ggplot2::scale_color_manual(values = mu_palette[c("Alzas de TPM", "Bajas de TPM")]) +
     ggplot2::labs(
-      title = "Pass-through asimétrico: alzas vs bajas de TPM",
-      subtitle = "Magnitud de traspaso en la dirección esperada. Interpretar con cautela: los ciclos no son simétricos.",
+      title = "Pass-through asimétrico: alzas versus bajas de TPM",
+      subtitle = "Las bajas se reportan como magnitud de transmisión en la dirección esperada para facilitar la comparación visual.",
       x = "Meses desde el cambio de TPM",
       y = "Pass-through acumulado",
       color = NULL
@@ -117,7 +171,7 @@ plot_lp_irf <- function(lp_tbl) {
     ggplot2::facet_wrap(~ product_lab, scales = "free_y") +
     ggplot2::labs(
       title = "Respuesta dinámica de tasas bancarias a cambios de TPM",
-      subtitle = "Local projections con errores Newey-West",
+      subtitle = "Local projections con errores Newey-West.",
       x = "Horizonte mensual",
       y = "Respuesta acumulada"
     ) +
