@@ -309,45 +309,166 @@ La comparación de alzas y bajas se reporta como **magnitud de traspaso en la di
 
 ```{r plot-asym}
 if (has_outputs && !is.null(pt_asym)) {
+
   asym_plot <- pt_asym |>
     filter(horizon <= 6) |>
     mutate(
       product_label = label_product(product),
-      tipo = recode(type, alza_tpm = "Alzas de TPM", baja_tpm = "Bajas de TPM", .default = type),
-      tooltip = paste0(
-        "Producto: ", product_label,
-        "<br>Tipo: ", tipo,
-        "<br>Horizonte: ", horizon, " meses",
-        "<br>Pass-through: ", number(cumulative, accuracy = 0.01)
+      tipo = recode(
+        type,
+        alza_tpm = "Alzas de TPM",
+        baja_tpm = "Bajas de TPM",
+        .default = type
+      )
+    ) |>
+    arrange(product_label, tipo, horizon)
+
+  productos_asym <- unique(asym_plot$product_label)
+
+  p_asym <- plotly::plot_ly()
+
+  for (i in seq_along(productos_asym)) {
+
+    prod_i <- productos_asym[i]
+
+    dat_i <- asym_plot |>
+      filter(product_label == prod_i) |>
+      arrange(tipo, horizon)
+
+    visible_i <- i == 1
+
+    dat_alza <- dat_i |> filter(tipo == "Alzas de TPM")
+    dat_baja <- dat_i |> filter(tipo == "Bajas de TPM")
+
+    if (nrow(dat_alza) > 0) {
+      p_asym <- p_asym |>
+        plotly::add_trace(
+          data = dat_alza,
+          x = ~horizon,
+          y = ~cumulative,
+          type = "scatter",
+          mode = "lines+markers",
+          name = "Alzas de TPM",
+          visible = visible_i,
+          showlegend = TRUE,
+          line = list(color = "#8B1E1E", width = 3),
+          marker = list(color = "#8B1E1E", size = 7),
+          text = ~paste0(
+            "Producto: ", product_label,
+            "<br>Tipo: ", tipo,
+            "<br>Horizonte: ", horizon, " meses",
+            "<br>Pass-through: ", scales::number(cumulative, accuracy = 0.01)
+          ),
+          hovertemplate = "%{text}<extra></extra>"
+        )
+    }
+
+    if (nrow(dat_baja) > 0) {
+      p_asym <- p_asym |>
+        plotly::add_trace(
+          data = dat_baja,
+          x = ~horizon,
+          y = ~cumulative,
+          type = "scatter",
+          mode = "lines+markers",
+          name = "Bajas de TPM",
+          visible = visible_i,
+          showlegend = TRUE,
+          line = list(color = "#1F5A7A", width = 3, dash = "dash"),
+          marker = list(color = "#1F5A7A", size = 7),
+          text = ~paste0(
+            "Producto: ", product_label,
+            "<br>Tipo: ", tipo,
+            "<br>Horizonte: ", horizon, " meses",
+            "<br>Pass-through: ", scales::number(cumulative, accuracy = 0.01)
+          ),
+          hovertemplate = "%{text}<extra></extra>"
+        )
+    }
+  }
+
+  n_traces_por_producto <- 2
+
+  botones_asym <- lapply(seq_along(productos_asym), function(i) {
+
+    visible_vec <- rep(FALSE, length(productos_asym) * n_traces_por_producto)
+
+    idx_ini <- (i - 1) * n_traces_por_producto + 1
+    idx_fin <- idx_ini + n_traces_por_producto - 1
+
+    visible_vec[idx_ini:idx_fin] <- TRUE
+
+    list(
+      method = "update",
+      label = productos_asym[i],
+      args = list(
+        list(visible = visible_vec),
+        list(
+          title = paste0(
+            "Pass-through acumulado: alzas versus bajas de TPM — ",
+            productos_asym[i]
+          ),
+          yaxis = list(autorange = TRUE)
+        )
       )
     )
+  })
 
-  g_asym <- ggplot(asym_plot, aes(horizon, cumulative, group = tipo, color = tipo, text = tooltip)) +
-    geom_hline(yintercept = 0, linewidth = 0.3, color = "grey55") +
-    geom_hline(yintercept = 1, linewidth = 0.3, color = "grey55") +
-    geom_line(linewidth = 0.85) +
-    facet_wrap(~ product_label, scales = "free_y") +
-    scale_color_manual(values = mu_palette[c("Alzas de TPM", "Bajas de TPM")]) +
-    labs(
-      title = "Pass-through acumulado: alzas versus bajas de TPM",
-      subtitle = "Magnitud de traspaso en la dirección esperada. Ejercicio preliminar; los ciclos no son necesariamente comparables.",
-      x = "Horizonte mensual",
-      y = "Pass-through acumulado",
-      color = NULL
-    ) +
-    theme_minimal(base_size = 12) +
-    theme(
-      legend.position = "bottom",
-      panel.grid.minor = element_blank(),
-      strip.text = element_text(face = "bold"),
-      plot.title = element_text(face = "bold", margin = margin(b = 6)),
-      plot.subtitle = element_text(margin = margin(b = 10))
-    )
+  max_h <- max(asym_plot$horizon, na.rm = TRUE)
 
-  plotly::ggplotly(g_asym, tooltip = "text") |>
+  p_asym |>
     plotly::layout(
-      legend = list(orientation = "h", x = 0.5, xanchor = "center", y = -0.16),
-      margin = list(t = 80, b = 90),
+      title = paste0(
+        "Pass-through acumulado: alzas versus bajas de TPM — ",
+        productos_asym[1]
+      ),
+      xaxis = list(
+        title = "Horizonte mensual",
+        dtick = 1,
+        zeroline = FALSE
+      ),
+      yaxis = list(
+        title = "Pass-through acumulado",
+        autorange = TRUE,
+        zeroline = FALSE
+      ),
+      shapes = list(
+        list(
+          type = "line",
+          x0 = 0,
+          x1 = max_h,
+          y0 = 0,
+          y1 = 0,
+          line = list(color = "rgba(80,80,80,0.55)", width = 1)
+        ),
+        list(
+          type = "line",
+          x0 = 0,
+          x1 = max_h,
+          y0 = 1,
+          y1 = 1,
+          line = list(color = "rgba(80,80,80,0.45)", width = 1, dash = "dot")
+        )
+      ),
+      updatemenus = list(
+        list(
+          type = "dropdown",
+          active = 0,
+          x = 0,
+          y = 1.18,
+          xanchor = "left",
+          yanchor = "top",
+          buttons = botones_asym
+        )
+      ),
+      legend = list(
+        orientation = "h",
+        x = 0.5,
+        xanchor = "center",
+        y = -0.22
+      ),
+      margin = list(t = 115, b = 95, l = 75, r = 35),
+      hovermode = "x unified",
       dragmode = "zoom"
     ) |>
     plotly_common_config()
