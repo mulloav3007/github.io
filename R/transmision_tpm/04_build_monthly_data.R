@@ -78,7 +78,13 @@ make_model_data <- function(monthly_panel) {
     dplyr::arrange(date) |>
     dplyr::mutate(
       dtpm = tpm - dplyr::lag(tpm),
-      dtpm_pos = pmax(dtpm, 0),
+      # Cambios de TPM separados por signo.
+      # dtpm_up mide alzas en puntos porcentuales.
+      # dtpm_down mide bajas como magnitud positiva: una baja de -1 pp queda como 1.
+      # Se mantienen dtpm_pos/dtpm_neg por compatibilidad con salidas anteriores.
+      dtpm_up = pmax(dtpm, 0),
+      dtpm_down = pmax(-dtpm, 0),
+      dtpm_pos = dtpm_up,
       dtpm_neg = pmin(dtpm, 0)
     )
 

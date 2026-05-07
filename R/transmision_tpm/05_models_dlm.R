@@ -31,9 +31,15 @@ available_controls_formula <- function(dat) {
 estimate_dlm_product <- function(df, product_name, k = 6, asymmetric = FALSE) {
   dat <- df |>
     dplyr::filter(product == product_name) |>
-    dplyr::arrange(date) |>
+    dplyr::arrange(date)
+
+  # Compatibilidad: si el panel fue generado con una versión antigua, se crean las nuevas variables.
+  if (!"dtpm_up" %in% names(dat)) dat$dtpm_up <- pmax(dat$dtpm, 0)
+  if (!"dtpm_down" %in% names(dat)) dat$dtpm_down <- pmax(-dat$dtpm, 0)
+
+  dat <- dat |>
     add_lags(
-      vars = if (asymmetric) c("dtpm_pos", "dtpm_neg") else c("dtpm"),
+      vars = if (asymmetric) c("dtpm_up", "dtpm_down") else c("dtpm"),
       lags = 0:k
     ) |>
     dplyr::mutate(
@@ -45,8 +51,8 @@ estimate_dlm_product <- function(df, product_name, k = 6, asymmetric = FALSE) {
     rhs_tpm <- paste0("dtpm_l", 0:k, collapse = " + ")
   } else {
     rhs_tpm <- paste(
-      paste0("dtpm_pos_l", 0:k, collapse = " + "),
-      paste0("dtpm_neg_l", 0:k, collapse = " + "),
+      paste0("dtpm_up_l", 0:k, collapse = " + "),
+      paste0("dtpm_down_l", 0:k, collapse = " + "),
       sep = " + "
     )
   }
@@ -77,23 +83,31 @@ extract_cumulative_pt <- function(est_obj, k = 6, asymmetric = FALSE) {
     vals <- tibble::tibble(
       horizon = 0:k,
       beta = purrr::map_dbl(0:k, ~ get_coef(paste0("dtpm_l", .x))),
-      type = "total"
+      beta_signed = beta,
+      type = "total",
+      reported_scale = "signed"
     ) |>
       dplyr::mutate(cumulative = cumsum(beta))
   } else {
-    vals_pos <- tibble::tibble(
+    vals_up <- tibble::tibble(
       horizon = 0:k,
-      beta = purrr::map_dbl(0:k, ~ get_coef(paste0("dtpm_pos_l", .x))),
-      type = "alza_tpm"
+      beta_signed = purrr::map_dbl(0:k, ~ get_coef(paste0("dtpm_up_l", .x))),
+      beta = beta_signed,
+      type = "alza_tpm",
+      reported_scale = "signed"
     )
 
-    vals_neg <- tibble::tibble(
+    vals_down <- tibble::tibble(
       horizon = 0:k,
-      beta = purrr::map_dbl(0:k, ~ get_coef(paste0("dtpm_neg_l", .x))),
-      type = "baja_tpm"
+      # dtpm_down es la magnitud positiva de la baja. El coeficiente firmado esperado es negativo.
+      beta_signed = purrr::map_dbl(0:k, ~ get_coef(paste0("dtpm_down_l", .x))),
+      # Para comparar intensidad de transmisión, se reporta la magnitud en la dirección esperada.
+      beta = -beta_signed,
+      type = "baja_tpm",
+      reported_scale = "magnitude_expected_direction"
     )
 
-    vals <- dplyr::bind_rows(vals_pos, vals_neg) |>
+    vals <- dplyr::bind_rows(vals_up, vals_down) |>
       dplyr::group_by(type) |>
       dplyr::mutate(cumulative = cumsum(beta)) |>
       dplyr::ungroup()

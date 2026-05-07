@@ -46,7 +46,7 @@
     "href": "proyectos/transmision-tpm.html#pregunta-de-investigación",
     "title": "Transmisión de la TPM a tasas de mercado",
     "section": "Pregunta de investigación",
-    "text": "Pregunta de investigación\nLa pregunta central es simple:\n\nCuando cambia la Tasa de Política Monetaria, ¿qué tasas de mercado reaccionan más rápido, con qué intensidad y con qué grado de heterogeneidad entre productos?\n\nEl proyecto parte como una herramienta visual y econométrica de portafolio, pero está organizado para transformarse en una futura nota técnica o artículo aplicado. La primera versión trabaja con datos agregados públicos; una versión más académica debería incorporar sorpresas monetarias, expectativas de TPM o microdatos bancarios.\n\n\n\nÚltimo mes\n\n\n2026-05\n\n\n\n\nTPM último dato\n\n\n4.50%\n\n\n\n\nProductos estimados\n\n\n10\n\n\n\n\nSeries descargadas\n\n\n16"
+    "text": "Pregunta de investigación\nLa pregunta central es simple:\n\nCuando cambia la Tasa de Política Monetaria, ¿qué tasas de mercado reaccionan más rápido, con qué intensidad y con qué grado de heterogeneidad entre productos?\n\nEl proyecto parte como una herramienta visual y econométrica de portafolio, pero está organizado para transformarse en una futura nota técnica o artículo aplicado. La primera versión trabaja con datos agregados públicos; una versión más académica debería incorporar sorpresas monetarias, expectativas de TPM o microdatos bancarios.\n\n\n\nÚltimo mes\n\n\n2026-05\n\n\n\n\nTPM último dato\n\n\n4.50%\n\n\n\n\nProductos estimados\n\n\n10"
   },
   {
     "objectID": "proyectos/transmision-tpm.html#lectura-rápida",
@@ -60,28 +60,28 @@
     "href": "proyectos/transmision-tpm.html#tpm-y-tasas-seleccionadas",
     "title": "Transmisión de la TPM a tasas de mercado",
     "section": "TPM y tasas seleccionadas",
-    "text": "TPM y tasas seleccionadas"
+    "text": "TPM y tasas seleccionadas\nArrastra una zona del gráfico para hacer zoom. En esta figura, el eje vertical se reajusta automáticamente al rango temporal seleccionado."
   },
   {
     "objectID": "proyectos/transmision-tpm.html#pass-through-acumulado",
     "href": "proyectos/transmision-tpm.html#pass-through-acumulado",
     "title": "Transmisión de la TPM a tasas de mercado",
     "section": "Pass-through acumulado",
-    "text": "Pass-through acumulado\nEl primer ejercicio estima, para cada producto financiero, una especificación de rezagos distribuidos:\n[ r_{j,t} = j + {k=0}^{K}{j,k}TPM{t-k} + j X_t + {j,t} ]\nEl pass-through acumulado a horizonte (h) se define como:\n[ PT_{j,h}={k=0}^{h}{j,k} ]\nUn valor cercano a 1 indica que un aumento de 100 puntos base en la TPM se asocia con un aumento acumulado cercano a 100 puntos base en esa tasa al horizonte correspondiente.\n\nResumen por horizonte\n\n\n\nPass-through acumulado estimado por producto. Coeficientes en puntos porcentuales por punto porcentual de TPM.\n\n\nProducto\n1 mes\n3 meses\n6 meses\n\n\n\n\nConsumo total\n0.84\n1.16\n1.34\n\n\nComercial: sobregiro\n0.82\n0.73\n1.27\n\n\nComercial total\n0.92\n1.07\n1.27\n\n\nTarjeta: cuota\n0.14\n1.34\n1.13\n\n\nTarjeta: rotativo\n0.28\n1.17\n1.12\n\n\nComercial: cuotas\n0.72\n0.90\n0.87\n\n\nConsumo: cuotas\n1.02\n0.34\n0.58\n\n\nVivienda UF &gt;3 años\n0.16\n0.05\n0.08\n\n\nCaptación 30-89d\n0.07\n0.07\n0.07\n\n\nCaptación 90d-1a\n0.05\n0.05\n0.05\n\n\n\n\n\n\n\nHeatmap de pass-through"
+    "text": "Pass-through acumulado\nEl primer ejercicio estima, para cada producto financiero, una especificación de rezagos distribuidos:\n\\[\n\\Delta r_{j,t} = \\alpha_j + \\sum_{k=0}^{K}\\beta_{j,k}\\Delta TPM_{t-k} + \\Gamma_j X_t + \\varepsilon_{j,t}\n\\]\nEl pass-through acumulado a horizonte (h) se define como:\n\\[\nPT_{j,h}=\\sum_{k=0}^{h}\\beta_{j,k}\n\\]\nUn valor cercano a 1 indica que un aumento de 100 puntos base en la TPM se asocia con un aumento acumulado cercano a 100 puntos base en esa tasa al horizonte correspondiente.\n\nResumen por horizonte\n\n\n\nPass-through acumulado estimado por producto. Coeficientes en puntos porcentuales por punto porcentual de TPM.\n\n\nProducto\n1 mes\n3 meses\n6 meses\n\n\n\n\nConsumo total\n0.84\n1.16\n1.34\n\n\nComercial: sobregiro\n0.82\n0.73\n1.27\n\n\nComercial total\n0.92\n1.07\n1.27\n\n\nTarjeta: cuota\n0.14\n1.34\n1.13\n\n\nTarjeta: rotativo\n0.28\n1.17\n1.12\n\n\nComercial: cuotas\n0.72\n0.90\n0.87\n\n\nConsumo: cuotas\n1.02\n0.34\n0.58\n\n\nVivienda UF &gt;3 años\n0.16\n0.05\n0.08\n\n\nCaptación 30-89d\n0.07\n0.07\n0.07\n\n\nCaptación 90d-1a\n0.05\n0.05\n0.05\n\n\n\n\n\n\n\nHeatmap de pass-through"
   },
   {
     "objectID": "proyectos/transmision-tpm.html#asimetría-alzas-versus-bajas-de-tpm",
     "href": "proyectos/transmision-tpm.html#asimetría-alzas-versus-bajas-de-tpm",
     "title": "Transmisión de la TPM a tasas de mercado",
     "section": "Asimetría: alzas versus bajas de TPM",
-    "text": "Asimetría: alzas versus bajas de TPM"
+    "text": "Asimetría: alzas versus bajas de TPM\nLa comparación de alzas y bajas se reporta como magnitud de traspaso en la dirección esperada. Para las alzas se usa ((TPM_t,0)). Para las bajas se usa ((-TPM_t,0)) y el coeficiente se multiplica por (-1) al reportarlo. Así, un valor positivo en “Bajas de TPM” significa que la tasa de mercado cae en una magnitud comparable cuando la TPM baja. No debe leerse como valor absoluto mecánico, sino como una normalización de signo para comparar intensidad de traspaso."
   },
   {
     "objectID": "proyectos/transmision-tpm.html#local-projections",
     "href": "proyectos/transmision-tpm.html#local-projections",
     "title": "Transmisión de la TPM a tasas de mercado",
     "section": "Local projections",
-    "text": "Local projections\nComo contraste, se estiman local projections para cada horizonte (h):\n[ r_{j,t+h}-r_{j,t-1} = {j,h}+{j,h}TPM_t+{j,h}X_t+u{j,t+h} ]"
+    "text": "Local projections\nComo contraste, se estiman local projections para cada horizonte (h):\n\\[\nr_{j,t+h}-r_{j,t-1} = \\alpha_{j,h}+\\beta_{j,h}\\Delta TPM_t+\\Gamma_{j,h}X_t+u_{j,t+h}\n\\]"
   },
   {
     "objectID": "proyectos/transmision-tpm.html#robustez-por-muestra",
@@ -91,25 +91,11 @@
     "text": "Robustez por muestra\n\n\n\nPass-through acumulado a seis meses bajo distintas muestras.\n\n\nProducto\nExcluye 2020-2023\nMuestra completa\nDesde 2010\n\n\n\n\nCaptación 30-89d\n0.07\n0.07\n0.07\n\n\nCaptación 90d-1a\n0.05\n0.05\n0.05\n\n\nComercial total\n1.39\n1.27\n1.10\n\n\nComercial: cuotas\n0.93\n0.87\n0.87\n\n\nComercial: sobregiro\n1.57\n1.27\n1.27\n\n\nConsumo total\n1.36\n1.34\n0.90\n\n\nConsumo: cuotas\n0.27\n0.58\n0.58\n\n\nTarjeta: cuota\n0.82\n1.13\n1.13\n\n\nTarjeta: rotativo\n1.45\n1.12\n1.12\n\n\nVivienda UF &gt;3 años\n0.12\n0.08\n0.04"
   },
   {
-    "objectID": "proyectos/transmision-tpm.html#datos-y-pipeline",
-    "href": "proyectos/transmision-tpm.html#datos-y-pipeline",
-    "title": "Transmisión de la TPM a tasas de mercado",
-    "section": "Datos y pipeline",
-    "text": "Datos y pipeline\nLa fuente principal es la API BDE del Banco Central de Chile. El pipeline descarga tasas de política, tasas bancarias y algunas tasas de mercado, las transforma a frecuencia mensual y genera bases reproducibles.\n\n\n\nDiccionario de series utilizadas en el proyecto.\n\n\n\n\n\n\n\n\n\n\n\nname\nseries_id\nfrequency\nblock\nproduct_group\nrequired\ndescription\n\n\n\n\ntpm\nF022.TPM.TIN.D001.NO.Z.D\nDAILY\npolicy\npolicy\nTRUE\nTasa de Política Monetaria diaria\n\n\nconsumo_total\nF022.CON.TIP.Z.NO.Z.M\nMONTHLY\nlending\nconsumo\nTRUE\nTasa promedio colocación consumo total\n\n\nconsumo_cuotas\nF022.CONCUOT.TIP.Z.NO.Z.M\nMONTHLY\nlending\nconsumo\nFALSE\nTasa promedio créditos de consumo en cuotas\n\n\nconsumo_tarj_rot\nF022.CONTARJR.TIP.Z.NO.Z.M\nMONTHLY\nlending\nconsumo\nFALSE\nTasa tarjeta de crédito rotativo\n\n\nconsumo_tarj_cuota\nF022.CONTARJC.TIP.Z.NO.Z.M\nMONTHLY\nlending\nconsumo\nFALSE\nTasa tarjeta de crédito en cuotas\n\n\ncomercial_total\nF022.COM.TIP.Z.NO.Z.M\nMONTHLY\nlending\ncomercial\nTRUE\nTasa promedio créditos comerciales total\n\n\ncomercial_cuotas\nF022.COMCUOT.TIP.Z.NO.Z.M\nMONTHLY\nlending\ncomercial\nFALSE\nTasa créditos comerciales en cuotas\n\n\ncomercial_sobregiro\nF022.COMSOBR.TIP.Z.NO.Z.M\nMONTHLY\nlending\ncomercial\nFALSE\nTasa créditos comerciales sobregiros\n\n\nvivienda_uf\nF022.VIV.TIP.MA03.UF.Z.M\nMONTHLY\nlending\nvivienda\nTRUE\nTasa vivienda UF mayor a 3 años\n\n\ncap_30_89\nF022.CAP.TIP.D089.NO.Z.D\nDAILY\nfunding\ncaptacion\nFALSE\nTasa captación pesos 30-89 días\n\n\ncap_90_1y\nF022.CAP.TIP.AN01.NO.Z.D\nDAILY\nfunding\ncaptacion\nTRUE\nTasa captación pesos 90 días a 1 año\n\n\nbcp_2y\nF022.BCLP.TIS.AN02.NO.Z.D\nDAILY\nmarket\ncurva\nFALSE\nBCP 2 años\n\n\nbcp_5y\nF022.BCLP.TIS.AN05.NO.Z.D\nDAILY\nmarket\ncurva\nFALSE\nBCP 5 años\n\n\nbcp_10y\nF022.BCLP.TIS.AN10.NO.Z.D\nDAILY\nmarket\ncurva\nFALSE\nBCP 10 años\n\n\nbcu_5y\nF022.BUF.TIS.AN05.UF.Z.D\nDAILY\nmarket\ncurva_real\nFALSE\nBCU 5 años\n\n\nbcu_10y\nF022.BUF.TIS.AN10.UF.Z.D\nDAILY\nmarket\ncurva_real\nFALSE\nBCU 10 años"
-  },
-  {
     "objectID": "proyectos/transmision-tpm.html#limitaciones-metodológicas",
     "href": "proyectos/transmision-tpm.html#limitaciones-metodológicas",
     "title": "Transmisión de la TPM a tasas de mercado",
     "section": "Limitaciones metodológicas",
     "text": "Limitaciones metodológicas\n\nLa TPM no es un shock exógeno. Reacciona a inflación, actividad, expectativas y condiciones externas. Por eso, los resultados deben leerse como pass-through condicional y no como una identificación causal plena.\n\nPrincipales cautelas:\n\nLas tasas promedio bancarias agregadas mezclan precio puro con composición de operaciones.\nLas tasas de vivienda y tasas largas incorporan expectativas, inflación esperada, premios por plazo y condiciones de fondeo.\nLas asimetrías entre alzas y bajas pueden reflejar fricciones bancarias, pero también contextos macroeconómicos diferentes.\nEl ciclo 2021-2023 puede dominar parte de la estimación reciente.\nUna versión de paper debería incorporar sorpresas monetarias, expectativas de TPM o una estrategia externa de identificación."
-  },
-  {
-    "objectID": "proyectos/transmision-tpm.html#cómo-actualizar-el-proyecto",
-    "href": "proyectos/transmision-tpm.html#cómo-actualizar-el-proyecto",
-    "title": "Transmisión de la TPM a tasas de mercado",
-    "section": "Cómo actualizar el proyecto",
-    "text": "Cómo actualizar el proyecto\nDesde la raíz del repositorio Economics:\n& \"C:\\Program Files\\R\\R-4.3.2\\bin\\x64\\Rscript.exe\" \"scripts\\05_update_transmision_tpm.R\"\nquarto render --execute\ngit add .\ngit commit -m \"Actualiza proyecto transmision TPM\"\ngit push\nEl script espera credenciales BDE en un archivo local .Renviron:\nBCCH_USER=tu_usuario\nBCCH_PASS=tu_password\nEse archivo no debe subirse a GitHub."
   },
   {
     "objectID": "proyectos/transmision-tpm.html#próximos-pasos",
