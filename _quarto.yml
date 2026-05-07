@@ -5,7 +5,9 @@ project:
 website:
   title: "Mauricio Ulloa"
   site-url: "https://mulloav3007.github.io/Economics/"
+  description: "Portafolio técnico de economía aplicada, macroeconomía, política monetaria, proyecciones y visualización de datos."
   navbar:
+    pinned: true
     left:
       - href: index.qmd
         text: Inicio
@@ -17,20 +19,31 @@ website:
         text: Contacto
     right:
       - icon: github
-        href: https://github.com/mulloav3007
-        aria-label: GitHub
+        href: https://github.com/mulloav3007/Economics
+        aria-label: Repositorio en GitHub
   page-footer:
     left: "© 2026 Mauricio Ulloa"
-    right: "Sitio construido con Quarto y publicado en GitHub Pages"
+    right: "Economía aplicada · Macroeconomía · Datos"
 
 format:
   html:
-    theme: cosmo
     lang: es
-    toc: true
-    page-layout: full
+    theme: cosmo
     css: assets/css/styles.css
+    page-layout: full
+    toc: true
+    toc-title: "En esta página"
     code-fold: true
-    code-tools: true
+    code-summary: "Mostrar código"
+    code-tools: false
+    smooth-scroll: true
+    link-external-icon: true
+    link-external-newwindow: true
+    anchor-sections: true
+    fig-align: center
+    df-print: paged
+
 execute:
-  freeze: false
+  freeze: auto
+  warning: false
+  message: false

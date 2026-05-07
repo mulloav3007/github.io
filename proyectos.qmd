@@ -1,67 +1,118 @@
 ---
 title: "Proyectos"
 subtitle: "Macroeconomía aplicada, política monetaria, finanzas y visualización de datos"
+page-layout: full
 ---
 
-Esta sección reúne proyectos aplicados, notas técnicas y líneas de investigación en macroeconomía, política monetaria, econometría de series de tiempo y visualización de datos.
+Esta sección reúne proyectos aplicados, notas técnicas y líneas de investigación en macroeconomía, política monetaria, econometría de series de tiempo y visualización de datos. La prioridad es mantener una presentación sobria: pregunta económica clara, datos trazables, metodología explícita y resultados visuales legibles.
 
 ## Proyectos aplicados
 
-Estos proyectos corresponden a herramientas o análisis con estructura metodológica más desarrollada, orientados a seguimiento macroeconómico, proyecciones y simulación de escenarios.
+::: {.mu-section-intro}
+Herramientas y análisis con estructura metodológica más desarrollada, orientados a seguimiento macroeconómico, proyecciones y simulación de escenarios.
+:::
 
-::: {.mu-grid}
+::: {.mu-grid .mu-grid-projects}
 
 ::: {.mu-card}
-### [Nowcasting de actividad económica en Chile](proyectos/imacec.qmd)
+::: {.mu-card-kicker}
+Actividad
+:::
+### Nowcasting de actividad económica en Chile
 
 Modelo mensual en R para anticipar la evolución del IMACEC total y no minero usando indicadores sectoriales, variables calendario, rezagos macroeconómicos y evaluación de ajuste.
 
+::: {.mu-meta}
 **Estado:** proyecto aplicado en desarrollo continuo.  
 **Herramientas:** R, tidyverse, ggplot2, plotly, series de tiempo.
 :::
 
+[Abrir proyecto](proyectos/imacec.qmd){.mu-card-link}
+:::
+
 ::: {.mu-card}
-### [Escenarios macroeconómicos inspirados en IPoM](proyectos/ipom-iris.qmd)
+::: {.mu-card-kicker}
+Escenarios
+:::
+### Escenarios macroeconómicos inspirados en IPoM {#escenarios-ipom}
 
-Modelo semi-estructural en IRIS/Matlab para construir un baseline tipo IPoM, simular escenarios externos alternativos y comparar inflación, TPM y brecha de actividad.
+Construcción de escenarios base y alternativos usando supuestos externos, inflación, brecha de actividad, tipo de cambio real y tasa de política monetaria. El objetivo es comparar trayectorias y descomponer canales de transmisión bajo supuestos alternativos.
 
+::: {.mu-meta}
 **Estado:** proyecto aplicado avanzado.  
 **Herramientas:** Matlab, IRIS Toolbox, R, Quarto.
+:::
+
+[Abrir metodología](#escenarios-ipom){.mu-card-link}
+:::
+
+::: {.mu-card}
+::: {.mu-card-kicker}
+Política monetaria
+:::
+### Transmisión de la TPM a tasas de mercado
+
+Análisis visual y econométrico del traspaso de movimientos de la Tasa de Política Monetaria a distintas tasas de mercado en Chile, distinguiendo horizontes, episodios y tipos de tasa.
+
+::: {.mu-meta}
+**Estado:** research note en desarrollo.  
+**Salida esperada:** pass-through por horizonte, modelos de rezagos distribuidos y lectura macroeconómica prudente.
+:::
+
+[Abrir proyecto](proyectos/transmision-tpm.qmd){.mu-card-link}
+:::
+
+::: {.mu-card}
+::: {.mu-card-kicker}
+Mercado de tasas
+:::
+### Curva de rendimiento chilena interactiva
+
+Visualización interactiva de la curva nominal y real, pendiente de la curva y episodios macrofinancieros relevantes para interpretar expectativas, condiciones financieras y primas por plazo.
+
+::: {.mu-meta}
+**Estado:** prototipo visual-financiero en desarrollo.  
+**Salida esperada:** slider temporal, comparación por fechas, pendiente 10y-2y y señales de condiciones financieras.
+:::
+
+[Abrir proyecto](proyectos/curva-rendimiento.qmd){.mu-card-link}
+:::
+
+::: {.mu-card}
+::: {.mu-card-kicker}
+Macro internacional
+:::
+### Índice de estrés externo para Chile
+
+Indicador sintético para monitorear condiciones externas relevantes para una economía pequeña y abierta, combinando volatilidad financiera, commodities, tasas externas y dólar global.
+
+::: {.mu-meta}
+**Estado:** nota técnica preliminar.  
+**Salida esperada:** índice agregado, contribuciones por componente y comparación entre agregación simple y PCA.
+:::
+
+[Abrir proyecto](proyectos/estres-externo.qmd){.mu-card-link}
 :::
 
 :::
 
 ## Agenda de investigación
 
-Estas notas corresponden a líneas de trabajo en desarrollo, pensadas como base para futuros artículos, notas técnicas o documentos de investigación aplicada.
+::: {.mu-grid .mu-grid-areas}
 
-::: {.mu-grid}
-
-::: {.mu-card}
-### [Transmisión de la TPM a tasas de mercado](proyectos/transmision-tpm.qmd)
-
-Monitor reproducible del pass-through de movimientos de la TPM a tasas de consumo, comerciales, vivienda, captación y tasas de mercado en Chile.
-
-**Estado:** research note en desarrollo con primera versión empírica.  
-**Salida actual:** series comparadas, heatmap de pass-through, rezagos distribuidos, asimetría alzas/bajas y local projections.
+::: {.mu-area}
+### Política monetaria y heterogeneidad financiera
+Análisis de la transmisión de la TPM hacia distintos segmentos del mercado financiero, evaluando si el pass-through cambia entre ciclos de alza, baja y normalización monetaria.
 :::
 
-::: {.mu-card}
-### [Curva de rendimiento chilena interactiva](proyectos/curva-rendimiento.qmd)
-
-Visualización interactiva de la curva nominal y real, pendiente de la curva y episodios macrofinancieros.
-
-**Estado:** prototipo visual-financiero en desarrollo.  
-**Salida esperada:** slider temporal, comparación por fechas, pendiente 10y-2y y señales de condiciones financieras.
+::: {.mu-area}
+### Proyección macroeconómica y escenarios
+Construcción de escenarios alternativos con supuestos externos y juicio doméstico controlado, comparando impactos sobre inflación, TPM y brecha de actividad.
 :::
 
-::: {.mu-card}
-### [Índice de estrés externo para Chile](proyectos/estres-externo.qmd)
-
-Indicador sintético para monitorear condiciones externas relevantes para una economía pequeña y abierta.
-
-**Estado:** nota técnica preliminar.  
-**Salida esperada:** índice agregado, contribuciones por componente y comparación entre agregación simple y PCA.
+::: {.mu-area}
+### Visualización para política pública
+Diseño de gráficos reproducibles que comuniquen resultados macroeconómicos sin sobrecargar la lectura ni esconder supuestos relevantes.
 :::
 
 :::

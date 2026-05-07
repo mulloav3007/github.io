@@ -1,58 +1,165 @@
 ---
 title: "Mauricio Ulloa"
-subtitle: "Economista | Macroeconomía aplicada | Proyecciones | Econometría"
+subtitle: "Economía aplicada · Macroeconomía · Política monetaria · Datos"
+toc: false
+page-layout: full
 ---
+
+::: {.mu-home}
 
 ::: {.mu-hero}
 
+::: {.mu-hero-copy}
 ::: {.mu-eyebrow}
 Portafolio técnico
 :::
 
-# Macroeconomía aplicada, política monetaria y datos
+# Macroeconomía aplicada, política monetaria y análisis de datos
 
-Soy economista con formación de Magíster en Análisis Económico, interesado en macroeconomía aplicada, política monetaria, proyecciones, econometría de series de tiempo y análisis de datos.
+Soy economista formado en la Universidad de Chile, con interés en macroeconomía aplicada, proyecciones, política monetaria, econometría de series de tiempo y visualización de datos. Este sitio reúne proyectos reproducibles orientados a transformar datos económicos en diagnósticos, escenarios y herramientas de seguimiento.
 
-Trabajo principalmente con **R**, **Matlab/IRIS** y **Python**, desarrollando herramientas reproducibles para análisis macroeconómico, visualización de datos y simulación de escenarios.
+Trabajo principalmente con **R**, **Matlab/IRIS**, **Python**, **Stata**, **Quarto** y **GitHub**, combinando construcción de bases, estimación econométrica, simulación macroeconómica y comunicación visual de resultados.
 
+::: {.mu-actions}
+[Ver proyectos](proyectos.qmd){.mu-button .mu-button-primary}
+[Descargar CV](cv_mauricio_ulloa.pdf){.mu-button .mu-button-secondary}
+[Contacto](contacto.qmd){.mu-button .mu-button-ghost}
+:::
+:::
+
+::: {.mu-hero-panel}
+::: {.mu-panel-label}
+Foco del portafolio
+:::
+
+::: {.mu-panel-list}
+- Seguimiento macroeconómico y nowcasting.
+- Proyección de inflación, actividad y TPM.
+- Escenarios tipo IPoM con supuestos externos.
+- Visualización reproducible para análisis económico.
+:::
+
+::: {.mu-mini-stack}
+<span>R</span>
+<span>Matlab/IRIS</span>
+<span>Python</span>
+<span>Quarto</span>
+<span>GitHub Pages</span>
+:::
+:::
 :::
 
 ## Proyectos destacados
 
-::: {.mu-grid}
+::: {.mu-section-intro}
+Una selección de proyectos aplicados con estructura metodológica, código reproducible y salida visual pensada para seguimiento macroeconómico y discusión de política.
+:::
 
-::: {.mu-card}
+::: {.mu-grid .mu-grid-featured}
+
+::: {.mu-card .mu-card-featured}
+::: {.mu-card-kicker}
+Proyecto aplicado
+:::
+### Nowcasting de actividad económica en Chile
+
+Modelo mensual en R para anticipar la evolución del IMACEC total y no minero a partir de indicadores sectoriales, rezagos macroeconómicos, variables calendario y evaluación fuera de muestra.
+
+::: {.mu-tags}
+<span>R</span><span>Series de tiempo</span><span>IMACEC</span><span>Nowcasting</span>
+:::
+
+[Abrir proyecto](proyectos/imacec.qmd){.mu-card-link}
+:::
+
+::: {.mu-card .mu-card-featured}
+::: {.mu-card-kicker}
+Simulación macro
+:::
+### Escenarios macroeconómicos inspirados en IPoM
+
+Marco de escenarios con Matlab/IRIS y R para comparar trayectorias de inflación, TPM, brecha de actividad y supuestos externos bajo distintos shocks internacionales.
+
+::: {.mu-tags}
+<span>Matlab</span><span>IRIS</span><span>Inflación</span><span>Escenarios</span>
+:::
+
+[Abrir resumen](proyectos.qmd#escenarios-ipom){.mu-card-link}
+:::
+
+::: {.mu-card .mu-card-featured}
+::: {.mu-card-kicker}
+Research note
+:::
 ### Transmisión de la TPM a tasas de mercado
 
-Research note en desarrollo sobre el pass-through de movimientos de la TPM hacia tasas bancarias, de captación y de mercado en Chile.
+Análisis del traspaso de la Tasa de Política Monetaria hacia tasas bancarias y financieras en Chile, con visualizaciones por horizonte, fase del ciclo monetario y tipo de tasa.
 
-<span class="mu-tag">R</span> <span class="mu-tag">Pass-through</span> <span class="mu-tag">Política monetaria</span>
-
-[Ver proyecto](proyectos/transmision-tpm.qmd){.mu-button}
+::: {.mu-tags}
+<span>R</span><span>Política monetaria</span><span>Pass-through</span><span>Chile</span>
 :::
 
-::: {.mu-card}
-### Curva de rendimiento chilena interactiva
-
-Visualizador de la estructura temporal de tasas nominales y reales, pendiente de curva y señales macrofinancieras.
-
-<span class="mu-tag">R</span> <span class="mu-tag">Plotly</span> <span class="mu-tag">Tasas</span>
-
-[Ver proyecto](proyectos/curva-rendimiento.qmd){.mu-button}
-:::
-
-::: {.mu-card}
-### Índice de estrés externo para Chile
-
-Indicador compuesto de condiciones externas usando VIX, cobre, petróleo, tasas de Estados Unidos y dólar global.
-
-<span class="mu-tag">R</span> <span class="mu-tag">Macro internacional</span> <span class="mu-tag">Visualización</span>
-
-[Ver proyecto](proyectos/estres-externo.qmd){.mu-button}
+[Abrir proyecto](proyectos/transmision-tpm.qmd){.mu-card-link}
 :::
 
 :::
 
-## Enfoque
+## Líneas de trabajo
 
-La página está pensada como un portafolio sobrio y técnico: cada proyecto parte desde una pregunta económica clara, construye una base reproducible, presenta una metodología defendible y termina en visualizaciones comprensibles.
+::: {.mu-split}
+
+::: {.mu-text-block}
+### Qué se encuentra en este sitio
+
+El portafolio está organizado como una colección de herramientas y notas técnicas. Cada proyecto parte desde una pregunta económica específica, documenta la construcción de datos, explicita la estrategia metodológica y termina en gráficos o tablas que facilitan la interpretación.
+
+La prioridad no es solo mostrar resultados, sino dejar trazabilidad: fuentes, transformaciones, supuestos, estimación, visualización y límites de interpretación.
+:::
+
+::: {.mu-list-card}
+### Enfoque metodológico
+
+- Bases reproducibles y scripts ejecutables.
+- Separación entre datos brutos, datos procesados y salidas.
+- Visualizaciones sobrias, comparables y legibles.
+- Lectura económica prudente, sin sobrerreaccionar a correlaciones.
+- Documentación breve de supuestos, frecuencia y transformaciones.
+:::
+
+:::
+
+## Áreas de interés
+
+::: {.mu-grid .mu-grid-areas}
+
+::: {.mu-area}
+### Macroeconomía aplicada
+Seguimiento de actividad, inflación, brecha de producto, condiciones externas y escenarios de riesgo para economías pequeñas y abiertas.
+:::
+
+::: {.mu-area}
+### Política monetaria y finanzas
+Análisis de TPM, tasas de mercado, curva de rendimiento, expectativas, pass-through y condiciones financieras.
+:::
+
+::: {.mu-area}
+### Datos y comunicación económica
+Pipelines reproducibles, dashboards estáticos/interactivos, gráficos para informes y documentación técnica orientada a decisiones.
+:::
+
+:::
+
+## Herramientas
+
+::: {.mu-tool-strip}
+<span>R / tidyverse</span>
+<span>ggplot2 / plotly</span>
+<span>Quarto</span>
+<span>Matlab / IRIS</span>
+<span>Python</span>
+<span>Stata</span>
+<span>GitHub</span>
+<span>LaTeX</span>
+:::
+
+:::

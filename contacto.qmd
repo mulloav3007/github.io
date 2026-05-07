@@ -1,15 +1,17 @@
 ---
 title: "Contacto"
+subtitle: "Canales profesionales"
+page-layout: full
 ---
 
-Puedes contactarme en:
+::: {.mu-contact-card}
 
-- Email: `mulloav@fen.uchile.cl`
-- GitHub: <https://github.com/mulloav3007>
-- LinkedIn: www.linkedin.com/in/mauricio-andrés-ulloa-valdivia
+Para comentarios, oportunidades de investigación o colaboración en proyectos de economía aplicada, puedes contactarme por los siguientes canales.
 
+::: {.mu-contact-list}
+[Email](mailto:mulloav@fen.uchile.cl){.mu-card-link}
+[GitHub](https://github.com/mulloav3007){.mu-card-link}
+[LinkedIn](https://www.linkedin.com/in/mauricio-andr%C3%A9s-ulloa-valdivia){.mu-card-link}
+:::
 
-
-::: {.mu-note}
-Antes de publicar definitivamente, reemplaza el correo y el enlace de LinkedIn.
 :::

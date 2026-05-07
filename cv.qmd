@@ -1,7 +1,12 @@
 ---
 title: "CV"
+subtitle: "Formación, herramientas y áreas de interés"
+page-layout: full
 ---
 
+::: {.mu-split}
+
+::: {.mu-text-block}
 ## Formación
 
 **Magíster en Análisis Económico**  
@@ -10,24 +15,38 @@ Universidad de Chile
 **Ingeniería Comercial, mención Economía**  
 Universidad de Chile
 
+[Descargar CV](cv_mauricio_ulloa.pdf){.mu-button .mu-button-primary}
+:::
+
+::: {.mu-list-card}
 ## Herramientas
 
-- R: tidyverse, ggplot2, lubridate, modelsummary, Quarto/RMarkdown.
-- Matlab / IRIS Toolbox: simulación macroeconómica y modelos semiestructurales.
-- Python: automatización, manejo de datos y extracción de información.
-- Stata: econometría aplicada.
-- Excel, LaTeX y GitHub.
+- **R:** tidyverse, ggplot2, lubridate, modelsummary, Quarto/RMarkdown.
+- **Matlab / IRIS Toolbox:** simulación macroeconómica y modelos semiestructurales.
+- **Python:** automatización, manejo de datos y extracción de información.
+- **Stata:** econometría aplicada.
+- **Excel, LaTeX y GitHub:** documentación, reportes y control de versiones.
+:::
+
+:::
 
 ## Áreas de interés
 
-- Macroeconomía aplicada.
-- Política monetaria.
-- Proyecciones y nowcasting.
-- Econometría de series de tiempo.
-- Análisis de datos para política pública.
+::: {.mu-grid .mu-grid-areas}
 
-::: {.mu-note}
-Cuando tengas tu CV final en PDF, guárdalo en la carpeta principal con el nombre `cv_mauricio_ulloa.pdf` y agrega aquí el enlace de descarga.
+::: {.mu-area}
+### Macroeconomía aplicada
+Actividad, inflación, brecha de producto, condiciones externas y escenarios de política.
 :::
 
-[Descargar CV](cv_mauricio_ulloa.pdf){.mu-button}
+::: {.mu-area}
+### Política monetaria
+TPM, tasas de mercado, expectativas, pass-through y lectura macrofinanciera.
+:::
+
+::: {.mu-area}
+### Econometría y datos
+Series de tiempo, nowcasting, construcción de bases y visualización reproducible.
+:::
+
+:::

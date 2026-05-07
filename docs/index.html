@@ -23,46 +23,10 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -105,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Buscar"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="assets/css/styles.css">
@@ -146,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/mulloav3007"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/mulloav3007/Economics"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -161,28 +126,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">En esta página</h2>
-   
-  <ul>
-  <li><a href="#proyectos-destacados" id="toc-proyectos-destacados" class="nav-link active" data-scroll-target="#proyectos-destacados">Proyectos destacados</a></li>
-  <li><a href="#enfoque" id="toc-enfoque" class="nav-link" data-scroll-target="#enfoque">Enfoque</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Mauricio Ulloa</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Código</button></div></div>
-<p class="subtitle lead">Economista | Macroeconomía aplicada | Proyecciones | Econometría</p>
+<h1 class="title">Mauricio Ulloa</h1>
+<p class="subtitle lead">Economía aplicada · Macroeconomía · Política monetaria · Datos</p>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -194,47 +150,131 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="mu-home">
 <div class="mu-hero">
+<div class="mu-hero-copy">
 <div class="mu-eyebrow">
 <p>Portafolio técnico</p>
 </div>
-<section id="macroeconomía-aplicada-política-monetaria-y-datos" class="level1">
-<h1>Macroeconomía aplicada, política monetaria y datos</h1>
-<p>Soy economista con formación de Magíster en Análisis Económico, interesado en macroeconomía aplicada, política monetaria, proyecciones, econometría de series de tiempo y análisis de datos.</p>
-<p>Trabajo principalmente con <strong>R</strong>, <strong>Matlab/IRIS</strong> y <strong>Python</strong>, desarrollando herramientas reproducibles para análisis macroeconómico, visualización de datos y simulación de escenarios.</p>
+<section id="macroeconomía-aplicada-política-monetaria-y-análisis-de-datos" class="level1">
+<h1>Macroeconomía aplicada, política monetaria y análisis de datos</h1>
+<p>Soy economista formado en la Universidad de Chile, con interés en macroeconomía aplicada, proyecciones, política monetaria, econometría de series de tiempo y visualización de datos. Este sitio reúne proyectos reproducibles orientados a transformar datos económicos en diagnósticos, escenarios y herramientas de seguimiento.</p>
+<p>Trabajo principalmente con <strong>R</strong>, <strong>Matlab/IRIS</strong>, <strong>Python</strong>, <strong>Stata</strong>, <strong>Quarto</strong> y <strong>GitHub</strong>, combinando construcción de bases, estimación econométrica, simulación macroeconómica y comunicación visual de resultados.</p>
+<div class="mu-actions">
+<p><a href="./proyectos.html" class="mu-button mu-button-primary">Ver proyectos</a> <a href="cv_mauricio_ulloa.pdf" class="mu-button mu-button-secondary">Descargar CV</a> <a href="./contacto.html" class="mu-button mu-button-ghost">Contacto</a></p>
+</div>
 </section>
+</div>
+<div class="mu-hero-panel">
+<div class="mu-panel-label">
+<p>Foco del portafolio</p>
+</div>
+<div class="mu-panel-list">
+<ul>
+<li>Seguimiento macroeconómico y nowcasting.</li>
+<li>Proyección de inflación, actividad y TPM.</li>
+<li>Escenarios tipo IPoM con supuestos externos.</li>
+<li>Visualización reproducible para análisis económico.</li>
+</ul>
+</div>
+<div class="mu-mini-stack">
+<p><span>R</span> <span>Matlab/IRIS</span> <span>Python</span> <span>Quarto</span> <span>GitHub Pages</span></p>
+</div>
+</div>
 </div>
 <section id="proyectos-destacados" class="level2">
 <h2 class="anchored" data-anchor-id="proyectos-destacados">Proyectos destacados</h2>
-<div class="mu-grid">
-<section id="transmisión-de-la-tpm-a-tasas-de-mercado" class="level3 mu-card">
+<div class="mu-section-intro">
+<p>Una selección de proyectos aplicados con estructura metodológica, código reproducible y salida visual pensada para seguimiento macroeconómico y discusión de política.</p>
+</div>
+<div class="mu-grid mu-grid-featured">
+<div class="mu-card mu-card-featured">
+<div class="mu-card-kicker">
+<p>Proyecto aplicado</p>
+</div>
+<section id="nowcasting-de-actividad-económica-en-chile" class="level3">
+<h3 class="anchored" data-anchor-id="nowcasting-de-actividad-económica-en-chile">Nowcasting de actividad económica en Chile</h3>
+<p>Modelo mensual en R para anticipar la evolución del IMACEC total y no minero a partir de indicadores sectoriales, rezagos macroeconómicos, variables calendario y evaluación fuera de muestra.</p>
+<div class="mu-tags">
+<p><span>R</span><span>Series de tiempo</span><span>IMACEC</span><span>Nowcasting</span></p>
+</div>
+<p><a href="./proyectos/imacec.html" class="mu-card-link">Abrir proyecto</a></p>
+</section>
+</div>
+<div class="mu-card mu-card-featured">
+<div class="mu-card-kicker">
+<p>Simulación macro</p>
+</div>
+<section id="escenarios-macroeconómicos-inspirados-en-ipom" class="level3">
+<h3 class="anchored" data-anchor-id="escenarios-macroeconómicos-inspirados-en-ipom">Escenarios macroeconómicos inspirados en IPoM</h3>
+<p>Marco de escenarios con Matlab/IRIS y R para comparar trayectorias de inflación, TPM, brecha de actividad y supuestos externos bajo distintos shocks internacionales.</p>
+<div class="mu-tags">
+<p><span>Matlab</span><span>IRIS</span><span>Inflación</span><span>Escenarios</span></p>
+</div>
+<p><a href="./proyectos.html#escenarios-ipom" class="mu-card-link">Abrir resumen</a></p>
+</section>
+</div>
+<div class="mu-card mu-card-featured">
+<div class="mu-card-kicker">
+<p>Research note</p>
+</div>
+<section id="transmisión-de-la-tpm-a-tasas-de-mercado" class="level3">
 <h3 class="anchored" data-anchor-id="transmisión-de-la-tpm-a-tasas-de-mercado">Transmisión de la TPM a tasas de mercado</h3>
-<p>Research note en desarrollo sobre el pass-through de movimientos de la TPM hacia tasas bancarias, de captación y de mercado en Chile.</p>
-<p><span class="mu-tag">R</span> <span class="mu-tag">Pass-through</span> <span class="mu-tag">Política monetaria</span></p>
-<p><a href="./proyectos/transmision-tpm.html" class="mu-button">Ver proyecto</a></p>
+<p>Análisis del traspaso de la Tasa de Política Monetaria hacia tasas bancarias y financieras en Chile, con visualizaciones por horizonte, fase del ciclo monetario y tipo de tasa.</p>
+<div class="mu-tags">
+<p><span>R</span><span>Política monetaria</span><span>Pass-through</span><span>Chile</span></p>
+</div>
+<p><a href="./proyectos/transmision-tpm.html" class="mu-card-link">Abrir proyecto</a></p>
 </section>
-<section id="curva-de-rendimiento-chilena-interactiva" class="level3 mu-card">
-<h3 class="anchored" data-anchor-id="curva-de-rendimiento-chilena-interactiva">Curva de rendimiento chilena interactiva</h3>
-<p>Visualizador de la estructura temporal de tasas nominales y reales, pendiente de curva y señales macrofinancieras.</p>
-<p><span class="mu-tag">R</span> <span class="mu-tag">Plotly</span> <span class="mu-tag">Tasas</span></p>
-<p><a href="./proyectos/curva-rendimiento.html" class="mu-button">Ver proyecto</a></p>
+</div>
+</div>
 </section>
-<section id="índice-de-estrés-externo-para-chile" class="level3 mu-card">
-<h3 class="anchored" data-anchor-id="índice-de-estrés-externo-para-chile">Índice de estrés externo para Chile</h3>
-<p>Indicador compuesto de condiciones externas usando VIX, cobre, petróleo, tasas de Estados Unidos y dólar global.</p>
-<p><span class="mu-tag">R</span> <span class="mu-tag">Macro internacional</span> <span class="mu-tag">Visualización</span></p>
-<p><a href="./proyectos/estres-externo.html" class="mu-button">Ver proyecto</a></p>
+<section id="líneas-de-trabajo" class="level2">
+<h2 class="anchored" data-anchor-id="líneas-de-trabajo">Líneas de trabajo</h2>
+<div class="mu-split">
+<section id="qué-se-encuentra-en-este-sitio" class="level3 mu-text-block">
+<h3 class="anchored" data-anchor-id="qué-se-encuentra-en-este-sitio">Qué se encuentra en este sitio</h3>
+<p>El portafolio está organizado como una colección de herramientas y notas técnicas. Cada proyecto parte desde una pregunta económica específica, documenta la construcción de datos, explicita la estrategia metodológica y termina en gráficos o tablas que facilitan la interpretación.</p>
+<p>La prioridad no es solo mostrar resultados, sino dejar trazabilidad: fuentes, transformaciones, supuestos, estimación, visualización y límites de interpretación.</p>
+</section>
+<section id="enfoque-metodológico" class="level3 mu-list-card">
+<h3 class="anchored" data-anchor-id="enfoque-metodológico">Enfoque metodológico</h3>
+<ul>
+<li>Bases reproducibles y scripts ejecutables.</li>
+<li>Separación entre datos brutos, datos procesados y salidas.</li>
+<li>Visualizaciones sobrias, comparables y legibles.</li>
+<li>Lectura económica prudente, sin sobrerreaccionar a correlaciones.</li>
+<li>Documentación breve de supuestos, frecuencia y transformaciones.</li>
+</ul>
 </section>
 </div>
 </section>
-<section id="enfoque" class="level2">
-<h2 class="anchored" data-anchor-id="enfoque">Enfoque</h2>
-<p>La página está pensada como un portafolio sobrio y técnico: cada proyecto parte desde una pregunta económica clara, construye una base reproducible, presenta una metodología defendible y termina en visualizaciones comprensibles.</p>
-
-
-<!-- -->
-
+<section id="áreas-de-interés" class="level2">
+<h2 class="anchored" data-anchor-id="áreas-de-interés">Áreas de interés</h2>
+<div class="mu-grid mu-grid-areas">
+<section id="macroeconomía-aplicada" class="level3 mu-area">
+<h3 class="anchored" data-anchor-id="macroeconomía-aplicada">Macroeconomía aplicada</h3>
+<p>Seguimiento de actividad, inflación, brecha de producto, condiciones externas y escenarios de riesgo para economías pequeñas y abiertas.</p>
 </section>
+<section id="política-monetaria-y-finanzas" class="level3 mu-area">
+<h3 class="anchored" data-anchor-id="política-monetaria-y-finanzas">Política monetaria y finanzas</h3>
+<p>Análisis de TPM, tasas de mercado, curva de rendimiento, expectativas, pass-through y condiciones financieras.</p>
+</section>
+<section id="datos-y-comunicación-económica" class="level3 mu-area">
+<h3 class="anchored" data-anchor-id="datos-y-comunicación-económica">Datos y comunicación económica</h3>
+<p>Pipelines reproducibles, dashboards estáticos/interactivos, gráficos para informes y documentación técnica orientada a decisiones.</p>
+</section>
+</div>
+</section>
+<section id="herramientas" class="level2">
+<h2 class="anchored" data-anchor-id="herramientas">Herramientas</h2>
+<div class="mu-tool-strip">
+<p><span>R / tidyverse</span> <span>ggplot2 / plotly</span> <span>Quarto</span> <span>Matlab / IRIS</span> <span>Python</span> <span>Stata</span> <span>GitHub</span> <span>LaTeX</span></p>
+</div>
+</section>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -308,57 +348,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       });
       clipboardModal.on('success', onCopySuccess);
     }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
-    }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
         var filterRegex = new RegExp("https:\/\/mulloav3007\.github\.io\/Economics\/");
@@ -375,6 +364,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -687,66 +683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Mauricio Ulloa"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Economista | Macroeconomía aplicada | Proyecciones | Econometría"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>::: {.mu-hero}</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>::: {.mu-eyebrow}</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Portafolio técnico</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># Macroeconomía aplicada, política monetaria y datos</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Soy economista con formación de Magíster en Análisis Económico, interesado en macroeconomía aplicada, política monetaria, proyecciones, econometría de series de tiempo y análisis de datos.</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Trabajo principalmente con **R**, **Matlab/IRIS** y **Python**, desarrollando herramientas reproducibles para análisis macroeconómico, visualización de datos y simulación de escenarios.</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Proyectos destacados</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>::: {.mu-grid}</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>::: {.mu-card}</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Transmisión de la TPM a tasas de mercado</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Research note en desarrollo sobre el pass-through de movimientos de la TPM hacia tasas bancarias, de captación y de mercado en Chile.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>R<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>Pass-through<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>Política monetaria<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ver proyecto</span><span class="co">](proyectos/transmision-tpm.qmd)</span>{.mu-button}</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>::: {.mu-card}</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Curva de rendimiento chilena interactiva</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>Visualizador de la estructura temporal de tasas nominales y reales, pendiente de curva y señales macrofinancieras.</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>R<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>Plotly<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>Tasas<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ver proyecto</span><span class="co">](proyectos/curva-rendimiento.qmd)</span>{.mu-button}</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>::: {.mu-card}</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### Índice de estrés externo para Chile</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Indicador compuesto de condiciones externas usando VIX, cobre, petróleo, tasas de Estados Unidos y dólar global.</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>R<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>Macro internacional<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">"mu-tag"</span><span class="dt">&gt;</span>Visualización<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Ver proyecto</span><span class="co">](proyectos/estres-externo.qmd)</span>{.mu-button}</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Enfoque</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>La página está pensada como un portafolio sobrio y técnico: cada proyecto parte desde una pregunta económica clara, construye una base reproducible, presenta una metodología defendible y termina en visualizaciones comprensibles.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -757,7 +694,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Sitio construido con Quarto y publicado en GitHub Pages</p>
+<p>Economía aplicada · Macroeconomía · Datos</p>
 </div>
   </div>
 </footer>
@@ -765,4 +702,5 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>instrucciones – Mauricio Ulloa</title>
+<title>readme_cambios – Mauricio Ulloa</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -166,17 +166,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#instrucciones-para-usar-esta-carpeta" id="toc-instrucciones-para-usar-esta-carpeta" class="nav-link active" data-scroll-target="#instrucciones-para-usar-esta-carpeta">Instrucciones para usar esta carpeta</a>
+  <li><a href="#paquete-de-rediseño-para-la-página-github-pages" id="toc-paquete-de-rediseño-para-la-página-github-pages" class="nav-link active" data-scroll-target="#paquete-de-rediseño-para-la-página-github-pages">Paquete de rediseño para la página GitHub Pages</a>
   <ul class="collapse">
-  <li><a href="#cómo-copiarla-en-windows" id="toc-cómo-copiarla-en-windows" class="nav-link" data-scroll-target="#cómo-copiarla-en-windows">1. Cómo copiarla en Windows</a>
-  <ul class="collapse">
-  <li><a href="#opción-recomendada" id="toc-opción-recomendada" class="nav-link" data-scroll-target="#opción-recomendada">Opción recomendada</a></li>
-  <li><a href="#si-tu-carpeta-economics-está-vacía" id="toc-si-tu-carpeta-economics-está-vacía" class="nav-link" data-scroll-target="#si-tu-carpeta-economics-está-vacía">Si tu carpeta <code>Economics</code> está vacía</a></li>
-  </ul></li>
-  <li><a href="#renderizar-con-quarto" id="toc-renderizar-con-quarto" class="nav-link" data-scroll-target="#renderizar-con-quarto">2. Renderizar con Quarto</a></li>
-  <li><a href="#configurar-github-pages" id="toc-configurar-github-pages" class="nav-link" data-scroll-target="#configurar-github-pages">3. Configurar GitHub Pages</a></li>
-  <li><a href="#subir-cambios" id="toc-subir-cambios" class="nav-link" data-scroll-target="#subir-cambios">4. Subir cambios</a></li>
-  <li><a href="#importante" id="toc-importante" class="nav-link" data-scroll-target="#importante">5. Importante</a></li>
+  <li><a href="#archivos-incluidos" id="toc-archivos-incluidos" class="nav-link" data-scroll-target="#archivos-incluidos">Archivos incluidos</a></li>
+  <li><a href="#cómo-instalar" id="toc-cómo-instalar" class="nav-link" data-scroll-target="#cómo-instalar">Cómo instalar</a></li>
+  <li><a href="#detalles-del-rediseño" id="toc-detalles-del-rediseño" class="nav-link" data-scroll-target="#detalles-del-rediseño">Detalles del rediseño</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -187,62 +181,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="instrucciones-para-usar-esta-carpeta" class="level1">
-<h1>Instrucciones para usar esta carpeta</h1>
-<p>Esta carpeta está preparada como sitio Quarto para el repositorio:</p>
+<section id="paquete-de-rediseño-para-la-página-github-pages" class="level1">
+<h1>Paquete de rediseño para la página GitHub Pages</h1>
+<p>Este paquete reemplaza la portada y mejora la presentación visual del sitio Quarto.</p>
+<section id="archivos-incluidos" class="level2">
+<h2 class="anchored" data-anchor-id="archivos-incluidos">Archivos incluidos</h2>
 <ul>
-<li>Repositorio: <code>https://github.com/mulloav3007/Economics</code></li>
-<li>Página: <code>https://mulloav3007.github.io/Economics/</code></li>
-<li>Carpeta local esperada: <code>D:\Users\mullo\Documents\GitHub\Economics</code></li>
+<li><code>_quarto.yml</code>: configuración del sitio, navegación, footer, CSS y opciones de render.</li>
+<li><code>index.qmd</code>: nueva página principal profesional.</li>
+<li><code>proyectos.qmd</code>: nueva página de proyectos con tarjetas sin títulos azules.</li>
+<li><code>cv.qmd</code>: página CV más limpia.</li>
+<li><code>contacto.qmd</code>: página de contacto más limpia.</li>
+<li><code>assets/css/styles.css</code>: tema visual completo del sitio.</li>
 </ul>
-<section id="cómo-copiarla-en-windows" class="level2">
-<h2 class="anchored" data-anchor-id="cómo-copiarla-en-windows">1. Cómo copiarla en Windows</h2>
-<p>Tienes dos opciones:</p>
-<section id="opción-recomendada" class="level3">
-<h3 class="anchored" data-anchor-id="opción-recomendada">Opción recomendada</h3>
+</section>
+<section id="cómo-instalar" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-instalar">Cómo instalar</h2>
 <ol type="1">
-<li>Descomprime el ZIP.</li>
-<li>Abre la carpeta <code>Economics</code> del ZIP.</li>
-<li>Copia <strong>todo su contenido</strong> dentro de:</li>
+<li>Descomprime este paquete.</li>
+<li>Copia los archivos en la raíz del repositorio <code>Economics</code>, respetando carpetas.</li>
+<li>Acepta reemplazar los archivos existentes.</li>
+<li>En la terminal del proyecto ejecuta:</li>
 </ol>
-<pre class="text"><code>D:\Users\mullo\Documents\GitHub\Economics</code></pre>
-<p>No copies la carpeta completa dentro de otra carpeta <code>Economics</code>, porque podrías quedar con:</p>
-<pre class="text"><code>D:\Users\mullo\Documents\GitHub\Economics\Economics</code></pre>
-<p>Eso no conviene.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="5" type="1">
+<li>Revisa localmente el sitio generado en <code>docs/index.html</code>.</li>
+<li>Si todo se ve bien:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add _quarto.yml index.qmd proyectos.qmd cv.qmd contacto.qmd assets/css/styles.css docs/</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Rediseña portada y presentación del portafolio"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>GitHub Pages publicará el contenido desde <code>docs/</code>.</p>
 </section>
-<section id="si-tu-carpeta-economics-está-vacía" class="level3">
-<h3 class="anchored" data-anchor-id="si-tu-carpeta-economics-está-vacía">Si tu carpeta <code>Economics</code> está vacía</h3>
-<p>Puedes reemplazarla completa por la carpeta descomprimida.</p>
-</section>
-</section>
-<section id="renderizar-con-quarto" class="level2">
-<h2 class="anchored" data-anchor-id="renderizar-con-quarto">2. Renderizar con Quarto</h2>
-<p>Abre PowerShell y ejecuta:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> <span class="st">"D:\Users\mullo\Documents\GitHub\Economics"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>quarto render</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Eso genera o actualiza la carpeta <code>docs/</code>.</p>
-</section>
-<section id="configurar-github-pages" class="level2">
-<h2 class="anchored" data-anchor-id="configurar-github-pages">3. Configurar GitHub Pages</h2>
-<p>En GitHub:</p>
-<pre class="text"><code>Settings → Pages → Build and deployment</code></pre>
-<p>Usa:</p>
-<pre class="text"><code>Source: Deploy from a branch
-Branch: main
-Folder: /docs</code></pre>
-</section>
-<section id="subir-cambios" class="level2">
-<h2 class="anchored" data-anchor-id="subir-cambios">4. Subir cambios</h2>
-<p>Con PowerShell:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>git add <span class="op">.</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>git commit <span class="op">-</span>m <span class="st">"Configura sitio Quarto Economics"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>git push</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>O con GitHub Desktop:</p>
-<pre class="text"><code>Commit to main → Push origin</code></pre>
-</section>
-<section id="importante" class="level2">
-<h2 class="anchored" data-anchor-id="importante">5. Importante</h2>
-<p>Las páginas de proyectos traen gráficos demo con datos simulados. Sirven para comprobar que la arquitectura funciona. Antes de usar la página como portafolio definitivo, reemplaza esos bloques por datos reales.</p>
+<section id="detalles-del-rediseño" class="level2">
+<h2 class="anchored" data-anchor-id="detalles-del-rediseño">Detalles del rediseño</h2>
+<ul>
+<li>Corrige el problema de archivos <code>.qmd</code> comprimidos en una sola línea.</li>
+<li>Elimina el botón global de código de Quarto en la portada.</li>
+<li>Sustituye títulos azules subrayados por tarjetas con llamadas a acción sobrias.</li>
+<li>Usa enlaces tipo chip con icono <code>↗</code>.</li>
+<li>Mejora jerarquía visual, espaciado, paleta, navbar, footer y responsividad móvil.</li>
+<li>Mantiene compatibilidad con tus páginas de proyectos existentes.</li>
+</ul>
 
 
 </section>

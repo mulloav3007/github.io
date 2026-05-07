@@ -23,46 +23,10 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -105,6 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Buscar"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="assets/css/styles.css">
@@ -146,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/mulloav3007"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/mulloav3007/Economics"> <i class="bi bi-github" role="img" aria-label="Repositorio en GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -166,9 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#formación" id="toc-formación" class="nav-link active" data-scroll-target="#formación">Formación</a></li>
-  <li><a href="#herramientas" id="toc-herramientas" class="nav-link" data-scroll-target="#herramientas">Herramientas</a></li>
-  <li><a href="#áreas-de-interés" id="toc-áreas-de-interés" class="nav-link" data-scroll-target="#áreas-de-interés">Áreas de interés</a></li>
+  <li><a href="#áreas-de-interés" id="toc-áreas-de-interés" class="nav-link active" data-scroll-target="#áreas-de-interés">Áreas de interés</a></li>
   </ul>
 </nav>
     </div>
@@ -177,7 +140,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">CV</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Código</button></div></div>
+<h1 class="title">CV</h1>
+<p class="subtitle lead">Formación, herramientas y áreas de interés</p>
 </div>
 
 
@@ -194,39 +158,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="formación" class="level2">
+<div class="mu-split">
+<section id="formación" class="level2 mu-text-block">
 <h2 class="anchored" data-anchor-id="formación">Formación</h2>
 <p><strong>Magíster en Análisis Económico</strong><br>
 Universidad de Chile</p>
 <p><strong>Ingeniería Comercial, mención Economía</strong><br>
 Universidad de Chile</p>
+<p><a href="cv_mauricio_ulloa.pdf" class="mu-button mu-button-primary">Descargar CV</a></p>
 </section>
-<section id="herramientas" class="level2">
+<section id="herramientas" class="level2 mu-list-card">
 <h2 class="anchored" data-anchor-id="herramientas">Herramientas</h2>
 <ul>
-<li>R: tidyverse, ggplot2, lubridate, modelsummary, Quarto/RMarkdown.</li>
-<li>Matlab / IRIS Toolbox: simulación macroeconómica y modelos semiestructurales.</li>
-<li>Python: automatización, manejo de datos y extracción de información.</li>
-<li>Stata: econometría aplicada.</li>
-<li>Excel, LaTeX y GitHub.</li>
+<li><strong>R:</strong> tidyverse, ggplot2, lubridate, modelsummary, Quarto/RMarkdown.</li>
+<li><strong>Matlab / IRIS Toolbox:</strong> simulación macroeconómica y modelos semiestructurales.</li>
+<li><strong>Python:</strong> automatización, manejo de datos y extracción de información.</li>
+<li><strong>Stata:</strong> econometría aplicada.</li>
+<li><strong>Excel, LaTeX y GitHub:</strong> documentación, reportes y control de versiones.</li>
 </ul>
 </section>
+</div>
 <section id="áreas-de-interés" class="level2">
 <h2 class="anchored" data-anchor-id="áreas-de-interés">Áreas de interés</h2>
-<ul>
-<li>Macroeconomía aplicada.</li>
-<li>Política monetaria.</li>
-<li>Proyecciones y nowcasting.</li>
-<li>Econometría de series de tiempo.</li>
-<li>Análisis de datos para política pública.</li>
-</ul>
-<div class="mu-note">
-<p>Cuando tengas tu CV final en PDF, guárdalo en la carpeta principal con el nombre <code>cv_mauricio_ulloa.pdf</code> y agrega aquí el enlace de descarga.</p>
+<div class="mu-grid mu-grid-areas">
+<section id="macroeconomía-aplicada" class="level3 mu-area">
+<h3 class="anchored" data-anchor-id="macroeconomía-aplicada">Macroeconomía aplicada</h3>
+<p>Actividad, inflación, brecha de producto, condiciones externas y escenarios de política.</p>
+</section>
+<section id="política-monetaria" class="level3 mu-area">
+<h3 class="anchored" data-anchor-id="política-monetaria">Política monetaria</h3>
+<p>TPM, tasas de mercado, expectativas, pass-through y lectura macrofinanciera.</p>
+</section>
+<section id="econometría-y-datos" class="level3 mu-area">
+<h3 class="anchored" data-anchor-id="econometría-y-datos">Econometría y datos</h3>
+<p>Series de tiempo, nowcasting, construcción de bases y visualización reproducible.</p>
+</section>
 </div>
-<p><a href="cv_mauricio_ulloa.pdf" class="mu-button">Descargar CV</a></p>
 
-
-<!-- -->
 
 </section>
 
@@ -302,57 +270,6 @@ Universidad de Chile</p>
       });
       clipboardModal.on('success', onCopySuccess);
     }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
-    }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
         var filterRegex = new RegExp("https:\/\/mulloav3007\.github\.io\/Economics\/");
@@ -369,6 +286,13 @@ Universidad de Chile</p>
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -681,41 +605,7 @@ Universidad de Chile</p>
       }
     }
   });
-  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "CV"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Formación</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>**Magíster en Análisis Económico**  </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Universidad de Chile</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>**Ingeniería Comercial, mención Economía**  </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Universidad de Chile</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Herramientas</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>R: tidyverse, ggplot2, lubridate, modelsummary, Quarto/RMarkdown.</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Matlab / IRIS Toolbox: simulación macroeconómica y modelos semiestructurales.</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Python: automatización, manejo de datos y extracción de información.</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Stata: econometría aplicada.</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Excel, LaTeX y GitHub.</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Áreas de interés</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Macroeconomía aplicada.</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Política monetaria.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Proyecciones y nowcasting.</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Econometría de series de tiempo.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Análisis de datos para política pública.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>::: {.mu-note}</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Cuando tengas tu CV final en PDF, guárdalo en la carpeta principal con el nombre <span class="in">`cv_mauricio_ulloa.pdf`</span> y agrega aquí el enlace de descarga.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Descargar CV</span><span class="co">](cv_mauricio_ulloa.pdf)</span>{.mu-button}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
-</div></div></div></div></div>
+  </script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -726,7 +616,7 @@ Universidad de Chile</p>
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Sitio construido con Quarto y publicado en GitHub Pages</p>
+<p>Economía aplicada · Macroeconomía · Datos</p>
 </div>
   </div>
 </footer>
@@ -734,4 +624,5 @@ Universidad de Chile</p>
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
