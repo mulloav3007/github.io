@@ -66,14 +66,13 @@ RSeries de tiempoIMACECNowcasting
 
 ::::: {.mu-card .mu-card-featured}
 ::: mu-card-kicker
-<div class="mu-project-kicker">Modelo macro · IRIS/Matlab</div>
 
 ### Escenarios macroeconómicos inspirados en IPoM
 
 Modelo semi-estructural para construir un baseline tipo IPoM, simular escenarios alternativos con supuestos externos y comparar inflación, TPM y brecha de actividad.
 
 [Ver proyecto ↗](proyectos/ipom-iris.qmd){.mu-card-link}
-:::
+
 ::: mu-tags
 MatlabIRISInflaciónEscenarios
 :::
