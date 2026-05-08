@@ -31,6 +31,7 @@ estres_plot_index <- function(index_data) {
       x = NULL,
       y = "Z-score agregado"
     ) +
+    ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
     estres_theme()
 }
 
@@ -64,6 +65,7 @@ estres_plot_components <- function(index_data) {
       x = NULL,
       y = "Z-score, media móvil 30 días"
     ) +
+    ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
     estres_theme()
 }
 
@@ -96,6 +98,7 @@ estres_plot_fx_fit <- function(index_data) {
       x = NULL,
       y = "Pesos por dólar"
     ) +
+    ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
     estres_theme()
 }
 
@@ -128,10 +131,11 @@ estres_plot_y10_fit <- function(index_data) {
       x = NULL,
       y = "Porcentaje"
     ) +
+    ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
     estres_theme()
 }
 
-estres_save_figures <- function(index_data, root = estres_project_root(), width = 10.8, height = 5.6, dpi = 180) {
+estres_save_figures <- function(index_data, root = estres_project_root(), width = 12.0, height = 6.4, dpi = 180) {
   estres_make_dirs(root)
   img_dir <- file.path(root, "assets/img/estres_financiero")
 

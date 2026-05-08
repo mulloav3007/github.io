@@ -1,0 +1,3 @@
+timestamp: 2026-05-07 23:29:37 -04
+error: Error leyendo BCCh con rjson para F022.BCLP.TIS.AN10.NO.Z.D: input string 1 is invalid UTF-8
+URL diagnóstica sin contraseña: https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx?user=mulloav@fen.uchile.cl&pass=***&timeseries=F022.BCLP.TIS.AN10.NO.Z.D&firstdate=2010-01-01&lastdate=2026-05-07&function=GetSeries

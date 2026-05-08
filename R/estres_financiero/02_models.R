@@ -7,64 +7,103 @@ estres_check_min_obs <- function(model_data, model_name, min_obs = 250) {
   if (nrow(model_data) < min_obs) {
     stop(
       "Muy pocas observaciones para estimar ", model_name, ": ", nrow(model_data),
-      ". Revisa datos faltantes o fecha de inicio.",
+      ". Revisa datos faltantes, APIs o fecha de inicio.",
       call. = FALSE
     )
   }
   invisible(model_data)
 }
 
-estres_estimate_fx_model <- function(market_data) {
-  model_data <- market_data |>
-    dplyr::select(
-      date, clp, l_clp, trend,
-      l_pcu, l_wti, l_vix, l_dtw, l_cny, l_eq_nsq, l_eq_cny
-    ) |>
+estres_available_predictors <- function(data, candidates, min_non_na = 250) {
+  keep <- vapply(candidates, function(var) {
+    if (!var %in% names(data)) return(FALSE)
+    x <- data[[var]]
+    sum(!is.na(x)) >= min_non_na && isTRUE(stats::sd(x, na.rm = TRUE) > 0)
+  }, logical(1))
+
+  candidates[keep]
+}
+
+estres_fit_lm_dynamic <- function(data, dependent, predictors, model_name, min_obs = 250) {
+  predictors <- estres_available_predictors(data, predictors, min_non_na = min_obs)
+
+  if (length(predictors) == 0) {
+    stop("No hay predictores disponibles para ", model_name, call. = FALSE)
+  }
+
+  model_data <- data |>
+    dplyr::select(dplyr::all_of(c("date", dependent, predictors))) |>
     tidyr::drop_na()
 
-  estres_check_min_obs(model_data, "modelo de tipo de cambio")
+  # Si la muestra queda demasiado chica por un predictor opcional, se remueven
+  # predictores desde el final hasta recuperar una muestra suficiente.
+  while (nrow(model_data) < min_obs && length(predictors) > 1) {
+    predictors <- predictors[-length(predictors)]
+    model_data <- data |>
+      dplyr::select(dplyr::all_of(c("date", dependent, predictors))) |>
+      tidyr::drop_na()
+  }
 
-  model <- stats::lm(
-    l_clp ~ trend + l_pcu + l_wti + l_vix + l_dtw + l_cny + l_eq_nsq + l_eq_cny,
-    data = model_data
+  estres_check_min_obs(model_data, model_name, min_obs = min_obs)
+
+  formula <- stats::as.formula(paste(dependent, "~", paste(predictors, collapse = " + ")))
+  model <- stats::lm(formula, data = model_data)
+
+  list(model = model, model_data = model_data, predictors = predictors)
+}
+
+estres_estimate_fx_model <- function(market_data) {
+  # Especificación central, fiel a la lógica original de ExchangeReg:
+  # log(USDCLP) ~ tendencia + CPI relativo + cobre + WTI + VIX + dólar global + CNY + bolsas.
+  # Si CPI relativo no existe porque se usa base local antigua, se omite automáticamente.
+  candidates <- c(
+    "trend", "l_cpi_rel_chl_us", "l_pcu", "l_wti", "l_vix",
+    "l_dtw", "l_cny", "l_eq_nsq", "l_eq_cny"
   )
 
-  fitted_data <- model_data |>
+  fit <- estres_fit_lm_dynamic(
+    data = market_data,
+    dependent = "l_clp",
+    predictors = candidates,
+    model_name = "modelo de tipo de cambio"
+  )
+
+  fitted_data <- fit$model_data |>
     dplyr::mutate(
-      fitted_l_clp = stats::fitted(model),
+      fitted_l_clp = stats::fitted(fit$model),
       fitted_clp = exp(.data$fitted_l_clp),
-      res_fx = stats::resid(model),
+      res_fx = stats::resid(fit$model),
       z_fx = estres_zscore(.data$res_fx)
+    ) |>
+    dplyr::select(date, fitted_clp, res_fx, z_fx) |>
+    dplyr::left_join(
+      market_data |> dplyr::select(date, clp),
+      by = "date"
     ) |>
     dplyr::select(date, clp, fitted_clp, res_fx, z_fx)
 
-  list(model = model, fitted = fitted_data)
+  list(model = fit$model, fitted = fitted_data, predictors = fit$predictors)
 }
 
 estres_estimate_y10_model <- function(market_data) {
-  model_data <- market_data |>
-    dplyr::select(
-      date, y10_clp, y10_tsy, trend,
-      l_vix, l_dtw, l_cny, l_eq_nsq
-    ) |>
-    tidyr::drop_na()
+  candidates <- c("trend", "y10_tsy", "l_vix", "l_dtw", "l_cny", "l_eq_nsq")
 
-  estres_check_min_obs(model_data, "modelo de tasa soberana 10Y")
-
-  model <- stats::lm(
-    y10_clp ~ trend + y10_tsy + l_vix + l_dtw + l_cny + l_eq_nsq,
-    data = model_data
+  fit <- estres_fit_lm_dynamic(
+    data = market_data,
+    dependent = "y10_clp",
+    predictors = candidates,
+    model_name = "modelo de tasa soberana 10Y"
   )
 
-  fitted_data <- model_data |>
+  fitted_data <- fit$model_data |>
     dplyr::mutate(
-      fitted_y10_clp = stats::fitted(model),
-      res_y10 = stats::resid(model),
+      fitted_y10_clp = stats::fitted(fit$model),
+      res_y10 = stats::resid(fit$model),
       z_y10 = estres_zscore(.data$res_y10)
     ) |>
     dplyr::select(date, y10_clp, fitted_y10_clp, res_y10, z_y10)
 
-  list(model = model, fitted = fitted_data)
+  list(model = fit$model, fitted = fitted_data, predictors = fit$predictors)
 }
 
 estres_classify_regime <- function(x) {
@@ -93,9 +132,19 @@ estres_construct_index <- function(fx_fit, y10_fit) {
 estres_model_coefficients <- function(fx_fit, y10_fit) {
   dplyr::bind_rows(
     broom::tidy(fx_fit$model, conf.int = TRUE) |>
-      dplyr::mutate(model = "Tipo de cambio USD/CLP", dependent_variable = "log(USDCLP)", .before = 1),
+      dplyr::mutate(
+        model = "Tipo de cambio USD/CLP",
+        dependent_variable = "log(USDCLP)",
+        predictors_used = paste(fx_fit$predictors, collapse = ", "),
+        .before = 1
+      ),
     broom::tidy(y10_fit$model, conf.int = TRUE) |>
-      dplyr::mutate(model = "Tasa soberana 10Y CLP", dependent_variable = "10YCLP", .before = 1)
+      dplyr::mutate(
+        model = "Tasa soberana 10Y CLP",
+        dependent_variable = "10YCLP",
+        predictors_used = paste(y10_fit$predictors, collapse = ", "),
+        .before = 1
+      )
   )
 }
 
@@ -106,6 +155,7 @@ estres_model_diagnostics <- function(fx_fit, y10_fit) {
   tibble::tibble(
     model = c("Tipo de cambio USD/CLP", "Tasa soberana 10Y CLP"),
     dependent_variable = c("log(USDCLP)", "10YCLP"),
+    predictors_used = c(paste(fx_fit$predictors, collapse = ", "), paste(y10_fit$predictors, collapse = ", ")),
     n_obs = c(stats::nobs(fx_fit$model), stats::nobs(y10_fit$model)),
     r_squared = c(fx_glance$r.squared, y10_glance$r.squared),
     adj_r_squared = c(fx_glance$adj.r.squared, y10_glance$adj.r.squared),

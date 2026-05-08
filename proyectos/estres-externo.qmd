@@ -49,6 +49,7 @@ diag_file  <- estres_path("data", "processed", "estres_financiero", "model_diagn
 latest_file <- estres_path("data", "processed", "estres_financiero", "latest_snapshot.csv", root = repo_root)
 episodes_file <- estres_path("outputs", "tables", "estres_financiero", "episodios_estres.csv", root = repo_root)
 coefs_file <- estres_path("data", "processed", "estres_financiero", "model_coefficients.csv", root = repo_root)
+update_log_file <- estres_path("data", "processed", "estres_financiero", "data_update_log.csv", root = repo_root)
 
 if (!file.exists(index_file) || !file.exists(diag_file) || !file.exists(latest_file)) {
   stop(
@@ -79,6 +80,19 @@ coefs <- if (file.exists(coefs_file)) {
   tibble::tibble()
 }
 
+update_log <- if (file.exists(update_log_file)) {
+  readr::read_csv(update_log_file, show_col_types = FALSE) |>
+    dplyr::slice_tail(n = 1)
+} else {
+  tibble::tibble(
+    source = "sin registro",
+    first_date = min(stress$date, na.rm = TRUE),
+    last_date = max(stress$date, na.rm = TRUE),
+    n_obs = nrow(stress),
+    updated_at = NA_character_
+  )
+}
+
 fmt_num <- function(x, digits = 2) {
   scales::number(x, accuracy = 10^(-digits), big.mark = ".", decimal.mark = ",")
 }
@@ -90,6 +104,25 @@ fmt_pct <- function(x, digits = 2) {
 fmt_date <- function(x) format(as.Date(x), "%d-%m-%Y")
 
 plot_theme <- estres_theme()
+
+estres_plotly_widget <- function(p, tooltip = c("x", "y", "colour")) {
+  plotly::ggplotly(p, tooltip = tooltip, dynamicTicks = FALSE) |>
+    plotly::layout(
+      autosize = TRUE,
+      margin = list(t = 95, r = 30, b = 95, l = 80, pad = 4),
+      legend = list(
+        orientation = "h",
+        x = 0,
+        xanchor = "left",
+        y = -0.18,
+        yanchor = "top",
+        title = list(text = "")
+      ),
+      xaxis = list(automargin = TRUE),
+      yaxis = list(automargin = TRUE)
+    ) |>
+    plotly::config(displayModeBar = FALSE, responsive = TRUE)
+}
 ```
 
 ## Motivación
@@ -132,11 +165,18 @@ Valores positivos indican mayor presión de mercado que la explicada por fundame
 La clasificación se basa en umbrales descriptivos sobre la media móvil de 30 días del índice agregado.
 :::
 
+::: {.mu-area}
+### Fuente efectiva
+`r update_log$source[[1]]`
+
+El pipeline intenta usar datos en vivo; si una API no responde, puede usar la base local de respaldo.
+:::
+
 :::
 
 ## Datos
 
-La base usada en esta versión proviene del proyecto original `ExchangeReg`, depurada para Chile y almacenada como archivo local reproducible. La cobertura efectiva del modelo comienza en octubre de 2012, porque desde esa fecha se dispone simultáneamente de cobre, USD/CLP, tasa 10Y chilena y variables financieras externas.
+La base se actualiza mediante un pipeline reproducible que descarga series desde **BCCh**, **FRED** y **BIS**. Si alguna API falla y está habilitado el respaldo, el script usa la base local depurada del proyecto original `ExchangeReg`. La cobertura efectiva del modelo comienza en octubre de 2012, porque desde esa fecha se dispone simultáneamente de cobre, USD/CLP, tasa 10Y chilena y variables financieras externas.
 
 ::: {.mu-split}
 
@@ -166,11 +206,13 @@ La base usada en esta versión proviene del proyecto original `ExchangeReg`, dep
 - `outputs/tables/estres_financiero/episodios_estres.csv`.
 - `assets/img/estres_financiero/*.png`.
 
-Para regenerar todo:
+Para regenerar todo y descargar datos reales:
 
 ```r
 source("scripts/06_update_estres_financiero.R")
 ```
+
+Credenciales esperadas en `.Renviron`: `BCCH_USER`, `BCCH_PASS` y `FRED_API_KEY`.
 :::
 
 :::
@@ -215,7 +257,7 @@ Para la lectura visual se usa también una media móvil de 30 días. Los umbrale
 #| label: fig-stress-index
 #| echo: false
 #| fig-width: 11
-#| fig-height: 5.7
+#| fig-height: 6.4
 
 p_index <- ggplot2::ggplot(stress, ggplot2::aes(x = date)) +
   ggplot2::geom_line(
@@ -244,10 +286,10 @@ p_index <- ggplot2::ggplot(stress, ggplot2::aes(x = date)) +
     x = NULL,
     y = "Z-score agregado"
   ) +
+  ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
   plot_theme
 
-plotly::ggplotly(p_index, tooltip = c("x", "y", "colour")) |>
-  plotly::layout(legend = list(orientation = "h", x = 0, y = 1.08))
+estres_plotly_widget(p_index)
 ```
 
 ## Componentes
@@ -256,7 +298,7 @@ plotly::ggplotly(p_index, tooltip = c("x", "y", "colour")) |>
 #| label: fig-components
 #| echo: false
 #| fig-width: 11
-#| fig-height: 5.7
+#| fig-height: 6.4
 
 components <- stress |>
   dplyr::select(date, stress_fx_30d, stress_y10_30d) |>
@@ -288,10 +330,10 @@ p_components <- ggplot2::ggplot(components, ggplot2::aes(x = date, y = z_score, 
     x = NULL,
     y = "Z-score, media móvil 30 días"
   ) +
+  ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
   plot_theme
 
-plotly::ggplotly(p_components, tooltip = c("x", "y", "colour")) |>
-  plotly::layout(legend = list(orientation = "h", x = 0, y = 1.08))
+estres_plotly_widget(p_components)
 ```
 
 ## Tipo de cambio: observado versus ajustado
@@ -300,7 +342,7 @@ plotly::ggplotly(p_components, tooltip = c("x", "y", "colour")) |>
 #| label: fig-fx-fit
 #| echo: false
 #| fig-width: 11
-#| fig-height: 5.7
+#| fig-height: 6.4
 
 fx_plot_data <- stress |>
   dplyr::select(date, clp, fitted_clp) |>
@@ -331,10 +373,10 @@ p_fx <- ggplot2::ggplot(fx_plot_data, ggplot2::aes(x = date, y = value, colour =
     x = NULL,
     y = "Pesos por dólar"
   ) +
+  ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
   plot_theme
 
-plotly::ggplotly(p_fx, tooltip = c("x", "y", "colour")) |>
-  plotly::layout(legend = list(orientation = "h", x = 0, y = 1.08))
+estres_plotly_widget(p_fx)
 ```
 
 ## Tasa 10Y: observada versus ajustada
@@ -343,7 +385,7 @@ plotly::ggplotly(p_fx, tooltip = c("x", "y", "colour")) |>
 #| label: fig-y10-fit
 #| echo: false
 #| fig-width: 11
-#| fig-height: 5.7
+#| fig-height: 6.4
 
 y10_plot_data <- stress |>
   dplyr::select(date, y10_clp, fitted_y10_clp) |>
@@ -374,10 +416,10 @@ p_y10 <- ggplot2::ggplot(y10_plot_data, ggplot2::aes(x = date, y = value, colour
     x = NULL,
     y = "Porcentaje"
   ) +
+  ggplot2::guides(colour = ggplot2::guide_legend(nrow = 1, byrow = TRUE)) +
   plot_theme
 
-plotly::ggplotly(p_y10, tooltip = c("x", "y", "colour")) |>
-  plotly::layout(legend = list(orientation = "h", x = 0, y = 1.08))
+estres_plotly_widget(p_y10)
 ```
 
 ## Episodios de mayor estrés
@@ -424,6 +466,7 @@ diagnostics |>
   dplyr::rename(
     Modelo = model,
     `Variable dependiente` = dependent_variable,
+    Predictores = predictors_used,
     Observaciones = n_obs,
     `R²` = r_squared,
     `R² ajustado` = adj_r_squared,
@@ -431,7 +474,7 @@ diagnostics |>
     `Fin muestra` = sample_end,
     `Desv. est. residuo` = residual_sd
   ) |>
-  knitr::kable(align = "llrrrrrr")
+  knitr::kable(align = "lllrrrrrr")
 ```
 
 ## Interpretación económica

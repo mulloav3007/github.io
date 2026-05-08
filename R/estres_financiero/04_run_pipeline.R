@@ -3,12 +3,20 @@
 # Pipeline completo del monitor de estrés financiero para Chile.
 # ============================================================
 
-run_estres_financiero_pipeline <- function(root = estres_project_root()) {
+run_estres_financiero_pipeline <- function(root = estres_project_root(),
+                                           use_live = estres_api_config()$use_live,
+                                           fallback_to_local = estres_api_config()$fallback_to_local,
+                                           start_date = Sys.getenv("ESTRES_START_DATE", unset = "2010-01-01"),
+                                           end_date = format(Sys.Date(), "%Y-%m-%d")) {
   estres_load_packages()
   estres_make_dirs(root)
 
-  raw <- estres_read_raw_market_data(
-    raw_file = file.path(root, "data/raw/estres_financiero/merged_full_dataset.csv")
+  raw <- estres_get_raw_market_data(
+    root = root,
+    use_live = use_live,
+    fallback_to_local = fallback_to_local,
+    start_date = start_date,
+    end_date = end_date
   )
 
   market_data <- estres_prepare_market_data(raw)
@@ -30,11 +38,24 @@ run_estres_financiero_pipeline <- function(root = estres_project_root()) {
     ) |>
     dplyr::slice_tail(n = 1)
 
+  source_log_file <- file.path(root, "data/processed/estres_financiero/data_update_log.csv")
+  source_label <- if (file.exists(source_log_file)) {
+    readr::read_csv(source_log_file, show_col_types = FALSE) |>
+      dplyr::slice_tail(n = 1) |>
+      dplyr::pull(.data$source)
+  } else {
+    "sin registro"
+  }
+
   message("Pipeline terminado.")
+  message("Fuente efectiva: ", source_label)
   message("Última observación completa: ", as.character(latest$date[[1]]))
   message("Índice 30d: ", round(latest$stress_market_30d[[1]], 3), " | Régimen: ", latest$regime[[1]])
+  message("Predictores FX usados: ", paste(fx_fit$predictors, collapse = ", "))
+  message("Predictores 10Y usados: ", paste(y10_fit$predictors, collapse = ", "))
 
   invisible(list(
+    raw = raw,
     market_data = market_data,
     fx_fit = fx_fit,
     y10_fit = y10_fit,
