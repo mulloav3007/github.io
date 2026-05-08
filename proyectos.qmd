@@ -32,18 +32,14 @@ Modelo mensual en R para anticipar la evolución del IMACEC total y no minero us
 
 ::: {.mu-card}
 ::: {.mu-card-kicker}
-Escenarios
-:::
-### Escenarios macroeconómicos inspirados en IPoM {#escenarios-ipom}
+### [Escenarios macroeconómicos inspirados en IPoM](proyectos/ipom-iris.qmd)
 
-Construcción de escenarios base y alternativos usando supuestos externos, inflación, brecha de actividad, tipo de cambio real y tasa de política monetaria. El objetivo es comparar trayectorias y descomponer canales de transmisión bajo supuestos alternativos.
+Construcción de escenarios base y alternativos usando supuestos externos, inflación, brecha de actividad, tipo de cambio real y tasa de política monetaria.
 
-::: {.mu-meta}
 **Estado:** proyecto aplicado avanzado.  
-**Herramientas:** Matlab, IRIS Toolbox, R, Quarto.
-:::
+**Herramientas:** Matlab, IRIS Toolbox, R.
 
-[Abrir metodología](#escenarios-ipom){.mu-card-link}
+[Ver proyecto ↗](proyectos/ipom-iris.qmd){.mu-card-link}
 :::
 
 ::: {.mu-card}

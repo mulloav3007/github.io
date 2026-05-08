@@ -5,12 +5,10 @@ toc: false
 page-layout: full
 ---
 
-::: {.mu-home}
-
-::: {.mu-hero}
-
-::: {.mu-hero-copy}
-::: {.mu-eyebrow}
+:::::::::::::::::::::::::::::: mu-home
+:::::::::: mu-hero
+::::: mu-hero-copy
+::: mu-eyebrow
 Portafolio técnico
 :::
 
@@ -20,95 +18,90 @@ Soy economista formado en la Universidad de Chile, con interés en macroeconomí
 
 Trabajo principalmente con **R**, **Matlab/IRIS**, **Python**, **Stata**, **Quarto** y **GitHub**, combinando construcción de bases, estimación econométrica, simulación macroeconómica y comunicación visual de resultados.
 
-::: {.mu-actions}
-[Ver proyectos](proyectos.qmd){.mu-button .mu-button-primary}
-[Descargar CV](cv_mauricio_ulloa.pdf){.mu-button .mu-button-secondary}
-[Contacto](contacto.qmd){.mu-button .mu-button-ghost}
+::: mu-actions
+[Ver proyectos](proyectos.qmd){.mu-button .mu-button-primary} [Descargar CV](cv_mauricio_ulloa.pdf){.mu-button .mu-button-secondary} [Contacto](contacto.qmd){.mu-button .mu-button-ghost}
 :::
-:::
+:::::
 
-::: {.mu-hero-panel}
-::: {.mu-panel-label}
+:::::: mu-hero-panel
+::: mu-panel-label
 Foco del portafolio
 :::
 
-::: {.mu-panel-list}
+::: mu-panel-list
 - Seguimiento macroeconómico y nowcasting.
 - Proyección de inflación, actividad y TPM.
 - Escenarios tipo IPoM con supuestos externos.
 - Visualización reproducible para análisis económico.
 :::
 
-::: {.mu-mini-stack}
-<span>R</span>
-<span>Matlab/IRIS</span>
-<span>Python</span>
-<span>Quarto</span>
-<span>GitHub Pages</span>
+::: mu-mini-stack
+R Matlab/IRIS Python Quarto GitHub Pages
 :::
-:::
-:::
+::::::
+::::::::::
 
 ## Proyectos destacados
 
-::: {.mu-section-intro}
+::: mu-section-intro
 Una selección de proyectos aplicados con estructura metodológica, código reproducible y salida visual pensada para seguimiento macroeconómico y discusión de política.
 :::
 
-::: {.mu-grid .mu-grid-featured}
-
-::: {.mu-card .mu-card-featured}
-::: {.mu-card-kicker}
+:::::::::::: {.mu-grid .mu-grid-featured}
+::::: {.mu-card .mu-card-featured}
+::: mu-card-kicker
 Proyecto aplicado
 :::
+
 ### Nowcasting de actividad económica en Chile
 
 Modelo mensual en R para anticipar la evolución del IMACEC total y no minero a partir de indicadores sectoriales, rezagos macroeconómicos, variables calendario y evaluación fuera de muestra.
 
-::: {.mu-tags}
-<span>R</span><span>Series de tiempo</span><span>IMACEC</span><span>Nowcasting</span>
+::: mu-tags
+RSeries de tiempoIMACECNowcasting
 :::
 
 [Abrir proyecto](proyectos/imacec.qmd){.mu-card-link}
-:::
+:::::
 
-::: {.mu-card .mu-card-featured}
-::: {.mu-card-kicker}
-Simulación macro
-:::
+::::: {.mu-card .mu-card-featured}
+::: mu-card-kicker
+<div class="mu-project-kicker">Modelo macro · IRIS/Matlab</div>
+
 ### Escenarios macroeconómicos inspirados en IPoM
 
-Marco de escenarios con Matlab/IRIS y R para comparar trayectorias de inflación, TPM, brecha de actividad y supuestos externos bajo distintos shocks internacionales.
+Modelo semi-estructural para construir un baseline tipo IPoM, simular escenarios alternativos con supuestos externos y comparar inflación, TPM y brecha de actividad.
 
-::: {.mu-tags}
-<span>Matlab</span><span>IRIS</span><span>Inflación</span><span>Escenarios</span>
+[Ver proyecto ↗](proyectos/ipom-iris.qmd){.mu-card-link}
+:::
+::: mu-tags
+MatlabIRISInflaciónEscenarios
 :::
 
 [Abrir resumen](proyectos.qmd#escenarios-ipom){.mu-card-link}
-:::
+:::::
 
-::: {.mu-card .mu-card-featured}
-::: {.mu-card-kicker}
+::::: {.mu-card .mu-card-featured}
+::: mu-card-kicker
 Research note
 :::
+
 ### Transmisión de la TPM a tasas de mercado
 
 Análisis del traspaso de la Tasa de Política Monetaria hacia tasas bancarias y financieras en Chile, con visualizaciones por horizonte, fase del ciclo monetario y tipo de tasa.
 
-::: {.mu-tags}
-<span>R</span><span>Política monetaria</span><span>Pass-through</span><span>Chile</span>
+::: mu-tags
+RPolítica monetariaPass-throughChile
 :::
 
 [Abrir proyecto](proyectos/transmision-tpm.qmd){.mu-card-link}
-:::
-
-:::
+:::::
+::::::::::::
 
 ## Líneas de trabajo
 
-::: {.mu-split}
-
-::: {.mu-text-block}
+::::: mu-split
+::: mu-text-block
 ### Qué se encuentra en este sitio
 
 El portafolio está organizado como una colección de herramientas y notas técnicas. Cada proyecto parte desde una pregunta económica específica, documenta la construcción de datos, explicita la estrategia metodológica y termina en gráficos o tablas que facilitan la interpretación.
@@ -116,7 +109,7 @@ El portafolio está organizado como una colección de herramientas y notas técn
 La prioridad no es solo mostrar resultados, sino dejar trazabilidad: fuentes, transformaciones, supuestos, estimación, visualización y límites de interpretación.
 :::
 
-::: {.mu-list-card}
+::: mu-list-card
 ### Enfoque metodológico
 
 - Bases reproducibles y scripts ejecutables.
@@ -125,41 +118,33 @@ La prioridad no es solo mostrar resultados, sino dejar trazabilidad: fuentes, tr
 - Lectura económica prudente, sin sobrerreaccionar a correlaciones.
 - Documentación breve de supuestos, frecuencia y transformaciones.
 :::
-
-:::
+:::::
 
 ## Áreas de interés
 
-::: {.mu-grid .mu-grid-areas}
-
-::: {.mu-area}
+:::::: {.mu-grid .mu-grid-areas}
+::: mu-area
 ### Macroeconomía aplicada
+
 Seguimiento de actividad, inflación, brecha de producto, condiciones externas y escenarios de riesgo para economías pequeñas y abiertas.
 :::
 
-::: {.mu-area}
+::: mu-area
 ### Política monetaria y finanzas
+
 Análisis de TPM, tasas de mercado, curva de rendimiento, expectativas, pass-through y condiciones financieras.
 :::
 
-::: {.mu-area}
+::: mu-area
 ### Datos y comunicación económica
+
 Pipelines reproducibles, dashboards estáticos/interactivos, gráficos para informes y documentación técnica orientada a decisiones.
 :::
-
-:::
+::::::
 
 ## Herramientas
 
-::: {.mu-tool-strip}
-<span>R / tidyverse</span>
-<span>ggplot2 / plotly</span>
-<span>Quarto</span>
-<span>Matlab / IRIS</span>
-<span>Python</span>
-<span>Stata</span>
-<span>GitHub</span>
-<span>LaTeX</span>
+::: mu-tool-strip
+R / tidyverse ggplot2 / plotly Quarto Matlab / IRIS Python Stata GitHub LaTeX
 :::
-
-:::
+::::::::::::::::::::::::::::::
